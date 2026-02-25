@@ -1084,7 +1084,7 @@
           },
           hp: 38,
           ac: 12,
-          speed: "30 ft",
+          speed: 30,
           proficiencyBonus: 3,
           initiative: 2,
           savingThrows: {
@@ -1371,7 +1371,7 @@
           },
           hp: 52,
           ac: 18,
-          speed: "25 ft",
+          speed: 25,
           proficiencyBonus: 3,
           initiative: 0,
           savingThrows: {
@@ -1605,7 +1605,7 @@
           },
           hp: 58,
           ac: 18,
-          speed: "30 ft",
+          speed: 30,
           proficiencyBonus: 3,
           initiative: 0,
           savingThrows: {
@@ -1768,7 +1768,7 @@
           },
           hp: 40,
           ac: 16,
-          speed: "30 ft",
+          speed: 30,
           proficiencyBonus: 3,
           initiative: 4,
           savingThrows: {
@@ -1956,7 +1956,7 @@
           },
           hp: 50,
           ac: 16,
-          speed: "35 ft",
+          speed: 35,
           proficiencyBonus: 3,
           initiative: 4,
           savingThrows: {
@@ -2126,7 +2126,7 @@
           },
           hp: 58,
           ac: 20,
-          speed: "30 ft",
+          speed: 30,
           proficiencyBonus: 3,
           initiative: 2,
           savingThrows: {
@@ -2440,17 +2440,13 @@
                             </div>
                             <div class="combat-stat-tile">
                                 <div class="combat-stat-label">Speed</div>
-                                <div class="combat-stat-value">${char.speed.replace(" ft", "")}</div>
-                                <div class="combat-stat-subtext">ft</div>
+                                <div class="combat-stat-value">${char.speed}</div>
                             </div>
                             <div class="combat-stat-tile">
                                 <div class="combat-stat-label">Init</div>
                                 <div class="combat-stat-value">${formatModifier(char.initiative)}</div>
                             </div>
-                            <div class="combat-stat-tile">
-                                <div class="combat-stat-label">Prof</div>
-                                <div class="combat-stat-value">+${char.proficiencyBonus}</div>
-                            </div>
+                          
                         </div>
                     </div>
                     
