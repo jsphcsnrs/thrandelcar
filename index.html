@@ -275,15 +275,10 @@
 
       .mobile-nav-tabs {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 0.5rem;
         padding: 0 1rem;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-
-      .mobile-nav-tabs::-webkit-scrollbar {
-        display: none;
       }
 
       .mobile-nav-tab {
@@ -299,18 +294,26 @@
         font-weight: 500;
         white-space: nowrap;
         cursor: pointer;
-        transition: all 0.2s;
+        transition: all 0.15s;
       }
 
       .mobile-nav-tab:hover {
         background: var(--bg-tertiary);
         border-color: var(--border-medium);
+        color: var(--text-primary);
+      }
+
+      .mobile-nav-tab:active {
+        background: rgba(var(--accent-color-rgb), 0.25);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+        transform: scale(0.96);
       }
 
       .mobile-nav-tab.active {
-        background: var(--accent-color);
+        background: rgba(var(--accent-color-rgb), 0.15);
         border-color: var(--accent-color);
-        color: var(--text-primary);
+        color: var(--accent-color);
       }
 
       .mobile-nav-icon {
@@ -2244,6 +2247,8 @@
         }
 
         window.scrollTo(0, 0)
+        // Initialise scroll-spy state after render
+        requestAnimationFrame(updateActiveNavTab)
       }
 
       function backToSelection() {
@@ -2254,21 +2259,11 @@
         window.scrollTo(0, 0)
       }
 
-      function scrollToSection(sectionId, tabElement) {
-        // Remove active class from all tabs
-        document.querySelectorAll(".mobile-nav-tab").forEach((tab) => {
-          tab.classList.remove("active")
-        })
-
-        // Add active class to clicked tab
-        if (tabElement) {
-          tabElement.classList.add("active")
-        }
-
-        // Scroll to section with smooth behavior and offset for sticky nav
+      function scrollToSection(sectionId) {
         const section = document.getElementById(sectionId)
         if (section) {
-          const navHeight = document.querySelector(".mobile-nav")?.offsetHeight || 0
+          const navHeight =
+            document.querySelector(".character-sheet.active .mobile-nav")?.offsetHeight || 0
           const targetPosition = section.offsetTop - navHeight - 20
           window.scrollTo({
             top: targetPosition,
@@ -2277,20 +2272,90 @@
         }
       }
 
-      // Add scroll detection for mobile nav gradient effect
+      function updateActiveNavTab() {
+        const mobileNav = document.querySelector(".character-sheet.active .mobile-nav")
+        if (!mobileNav || window.getComputedStyle(mobileNav).display === "none") return
+
+        const tabs = mobileNav.querySelectorAll(".mobile-nav-tab[data-section]")
+        if (!tabs.length) return
+
+        const navHeight = mobileNav.offsetHeight
+        const scrollY = window.scrollY
+
+        // "Top" tab active when near the top of the page
+        if (scrollY < 80) {
+          tabs.forEach((t) => t.classList.remove("active"))
+          const topTab = mobileNav.querySelector('[data-section="top"]')
+          if (topTab) topTab.classList.add("active")
+          return
+        }
+
+        // At the bottom of the page: pick the last section that's at least partially visible
+        const atBottom = scrollY + window.innerHeight >= document.documentElement.scrollHeight - 5
+        if (atBottom) {
+          let lastVisible = null
+          tabs.forEach((tab) => {
+            if (tab.dataset.section === "top") return
+            const el = document.getElementById(tab.dataset.section)
+            if (el && el.getBoundingClientRect().bottom > navHeight) {
+              lastVisible = tab.dataset.section
+            }
+          })
+          if (lastVisible) {
+            tabs.forEach((tab) =>
+              tab.classList.toggle("active", tab.dataset.section === lastVisible),
+            )
+            return
+          }
+        }
+
+        // Find which section's top edge is closest to (and at or above) the nav bottom
+        const threshold = navHeight + 40
+        let activeSection = null
+        let closestDistance = Infinity
+
+        tabs.forEach((tab) => {
+          const sectionId = tab.dataset.section
+          if (sectionId === "top") return
+          const el = document.getElementById(sectionId)
+          if (!el) return
+          const top = el.getBoundingClientRect().top
+          const dist = Math.abs(top - threshold)
+          if (top <= threshold && dist < closestDistance) {
+            closestDistance = dist
+            activeSection = sectionId
+          }
+        })
+
+        // Fall back to first real section if nothing is past threshold yet
+        if (!activeSection) {
+          for (const tab of tabs) {
+            if (tab.dataset.section !== "top") {
+              activeSection = tab.dataset.section
+              break
+            }
+          }
+        }
+
+        tabs.forEach((tab) => {
+          tab.classList.toggle("active", tab.dataset.section === activeSection)
+        })
+      }
+
+      // Scroll handler: sticky nav shadow + active tab scroll-spy
       let ticking = false
       window.addEventListener("scroll", () => {
         if (!ticking) {
           window.requestAnimationFrame(() => {
-            const mobileNav = document.querySelector(".mobile-nav")
+            const mobileNav = document.querySelector(".character-sheet.active .mobile-nav")
             if (mobileNav && window.getComputedStyle(mobileNav).display !== "none") {
-              // Add scrolled class if we've scrolled past the header
               if (window.scrollY > 100) {
                 mobileNav.classList.add("scrolled")
               } else {
                 mobileNav.classList.remove("scrolled")
               }
             }
+            updateActiveNavTab()
             ticking = false
           })
           ticking = true
@@ -2394,37 +2459,37 @@
                 
                 <nav class="mobile-nav">
                     <div class="mobile-nav-tabs">
-                        <button class="mobile-nav-tab" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+                        <button class="mobile-nav-tab" data-section="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
                             <i class="fa-solid fa-arrow-up mobile-nav-icon"></i>
                             <span>Top</span>
                         </button>
-                        <button class="mobile-nav-tab active" onclick="scrollToSection('${charId}-combat-section', this)">
+                        <button class="mobile-nav-tab" data-section="${charId}-combat-section" onclick="scrollToSection('${charId}-combat-section')">
                             <i class="fa-solid fa-shield-halved mobile-nav-icon"></i>
                             <span>Combat</span>
                         </button>
-                        <button class="mobile-nav-tab" onclick="scrollToSection('${charId}-skills-section', this)">
+                        <button class="mobile-nav-tab" data-section="${charId}-skills-section" onclick="scrollToSection('${charId}-skills-section')">
                             <i class="fa-solid fa-bullseye mobile-nav-icon"></i>
                             <span>Skills</span>
                         </button>
-                        <button class="mobile-nav-tab" onclick="scrollToSection('${charId}-attacks-section', this)">
+                        <button class="mobile-nav-tab" data-section="${charId}-attacks-section" onclick="scrollToSection('${charId}-attacks-section')">
                             <i class="fa-solid fa-hand-fist mobile-nav-icon"></i>
                             <span>Attacks</span>
                         </button>
                         ${
                           char.spells
                             ? `
-                            <button class="mobile-nav-tab" onclick="scrollToSection('${charId}-spells-section', this)">
+                            <button class="mobile-nav-tab" data-section="${charId}-spells-section" onclick="scrollToSection('${charId}-spells-section')">
                                 <i class="fa-solid fa-wand-sparkles mobile-nav-icon"></i>
                                 <span>Spells</span>
                             </button>
                         `
                             : ""
                         }
-                        <button class="mobile-nav-tab" onclick="scrollToSection('${charId}-features-section', this)">
+                        <button class="mobile-nav-tab" data-section="${charId}-features-section" onclick="scrollToSection('${charId}-features-section')">
                             <i class="fa-solid fa-star mobile-nav-icon"></i>
                             <span>Features</span>
                         </button>
-                        <button class="mobile-nav-tab" onclick="scrollToSection('${charId}-equipment-section', this)">
+                        <button class="mobile-nav-tab" data-section="${charId}-equipment-section" onclick="scrollToSection('${charId}-equipment-section')">
                             <i class="fa-solid fa-bag-shopping mobile-nav-icon"></i>
                             <span>Equipment</span>
                         </button>
