@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>D&D Character Sheets</title>
+    <!doctype html>
+    <title>Wardens of Thrándelcar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -692,10 +693,16 @@
 
       .spell-slot {
         background: var(--bg-primary);
-        padding: 0.875rem 1.25rem;
+        padding: 0.75rem 1rem;
         border-radius: 0.75rem;
         border: 1px solid var(--border-subtle);
-        min-width: 100px;
+        min-width: 80px;
+        transition: all 0.2s;
+      }
+
+      .spell-slot:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--accent-color);
       }
 
       .spell-slot-label {
@@ -705,83 +712,55 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
         margin-bottom: 0.5rem;
-      }
-
-      .spell-slot-tracker {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .spell-slot-value {
-        font-size: 1.5rem;
-        color: var(--accent-color);
-        font-weight: 700;
-        line-height: 1;
-        min-width: 3ch;
         text-align: center;
+        pointer-events: none;
       }
 
-      .spell-slot-controls {
+      .spell-slot-boxes {
         display: flex;
-        gap: 0.25rem;
-      }
-
-      .spell-slot-btn {
-        width: 28px;
-        height: 28px;
-        border-radius: 4px;
-        border: 1px solid var(--border-subtle);
-        background: var(--bg-secondary);
-        color: var(--text-secondary);
-        font-size: 0.875rem;
-        cursor: pointer;
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
+        gap: 0.375rem;
+        flex-wrap: wrap;
         justify-content: center;
-        font-weight: 600;
+        pointer-events: none;
       }
 
-      .spell-slot-btn:hover {
-        background: var(--bg-tertiary);
-        border-color: var(--accent-color);
-        color: var(--accent-color);
-      }
-
-      .spell-slot-btn:active {
-        transform: scale(0.95);
-      }
-
-      .spell-slot-btn:disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
-      }
-
-      .spell-slot-btn:disabled:hover {
-        background: var(--bg-secondary);
-        border-color: var(--border-subtle);
-        color: var(--text-secondary);
-        transform: none;
-      }
-
-      .spell-slot-reset {
-        margin-top: 0.5rem;
-        padding: 0.375rem 0.75rem;
+      .spell-slot-box {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--border-subtle);
         border-radius: 4px;
+        transition: all 0.2s;
+        background: var(--bg-secondary);
+      }
+
+      .spell-slot-box.used {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+      }
+
+      .spell-slots-header {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .spell-slots-reset-all {
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
         border: 1px solid var(--border-subtle);
         background: var(--bg-secondary);
         color: var(--text-secondary);
-        font-size: 0.6875rem;
+        font-size: 0.8125rem;
         cursor: pointer;
         transition: all 0.2s;
-        width: 100%;
         font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
       }
 
-      .spell-slot-reset:hover {
+      .spell-slots-reset-all:hover {
         background: var(--bg-tertiary);
         border-color: var(--accent-color);
         color: var(--accent-color);
@@ -2329,51 +2308,60 @@
 
       function getUsedSlots(charId, level) {
         const key = getSpellSlotKey(charId, level)
-        return parseInt(localStorage.getItem(key) || "0")
+        const stored = localStorage.getItem(key)
+        try {
+          return stored ? JSON.parse(stored) : []
+        } catch (e) {
+          // Handle old format or corrupted data
+          return []
+        }
       }
 
-      function setUsedSlots(charId, level, used) {
+      function setUsedSlots(charId, level, usedArray) {
         const key = getSpellSlotKey(charId, level)
-        localStorage.setItem(key, used.toString())
+        localStorage.setItem(key, JSON.stringify(usedArray))
         updateSpellSlotDisplay(charId, level)
       }
 
-      function adjustSpellSlot(charId, level, delta) {
+      function useSpellSlot(charId, level) {
         const char = characters[charId]
         const totalSlots = char.spellSlots[`level${level}`].total
-        const currentUsed = getUsedSlots(charId, level)
-        const newUsed = Math.max(0, Math.min(totalSlots, currentUsed + delta))
+        const usedSlots = getUsedSlots(charId, level)
 
-        setUsedSlots(charId, level, newUsed)
+        // Find the first available slot and mark it as used
+        for (let i = 0; i < totalSlots; i++) {
+          if (!usedSlots.includes(i)) {
+            usedSlots.push(i)
+            setUsedSlots(charId, level, usedSlots)
+            return
+          }
+        }
       }
 
-      function resetSpellSlot(charId, level) {
-        setUsedSlots(charId, level, 0)
+      function resetAllSpellSlots(charId) {
+        const char = characters[charId]
+        if (!char.spellSlots) return
+
+        for (const level in char.spellSlots) {
+          const levelNum = level.replace("level", "")
+          setUsedSlots(charId, levelNum, [])
+        }
       }
 
       function updateSpellSlotDisplay(charId, level) {
         const slotElement = document.querySelector(`[data-char="${charId}"][data-level="${level}"]`)
         if (!slotElement) return
 
-        const char = characters[charId]
-        const totalSlots = char.spellSlots[`level${level}`].total
         const usedSlots = getUsedSlots(charId, level)
+        const boxes = slotElement.querySelectorAll(".spell-slot-box")
 
-        const usedDisplay = slotElement.querySelector(".used-slots")
-        if (usedDisplay) {
-          usedDisplay.textContent = usedSlots
-        }
-
-        // Disable/enable buttons based on current state
-        const plusBtn = slotElement.querySelector('button[title="Use slot"]')
-        const minusBtn = slotElement.querySelector('button[title="Restore slot"]')
-
-        if (plusBtn) {
-          plusBtn.disabled = usedSlots >= totalSlots
-        }
-        if (minusBtn) {
-          minusBtn.disabled = usedSlots <= 0
-        }
+        boxes.forEach((box, index) => {
+          if (usedSlots.includes(index)) {
+            box.classList.add("used")
+          } else {
+            box.classList.remove("used")
+          }
+        })
       }
 
       function initializeSpellSlots(charId) {
@@ -2602,24 +2590,31 @@
           }
 
           if (char.spellSlots) {
-            html += `<div class="spell-slots">`
+            html += `
+                        <div class="spell-slots-header">
+                            <div></div>
+                            <button class="spell-slots-reset-all" onclick="resetAllSpellSlots('${charId}')">
+                                <i class="fa-solid fa-rotate-right"></i> Reset
+                            </button>
+                        </div>
+                        <div class="spell-slots">`
             for (const [level, slots] of Object.entries(char.spellSlots)) {
               const levelNum = level.replace("level", "")
               html += `
-                            <div class="spell-slot" data-char="${charId}" data-level="${levelNum}">
+                            <div class="spell-slot" 
+                                 data-char="${charId}" 
+                                 data-level="${levelNum}"
+                                 onclick="useSpellSlot('${charId}', ${levelNum})"
+                                 style="cursor: pointer;">
                                 <div class="spell-slot-label">Level ${levelNum}</div>
-                                <div class="spell-slot-tracker">
-                                    <div class="spell-slot-value">
-                                        <span class="used-slots">0</span>/<span class="total-slots">${slots.total}</span>
-                                    </div>
-                                    <div class="spell-slot-controls">
-                                        <button class="spell-slot-btn" onclick="adjustSpellSlot('${charId}', ${levelNum}, 1)" title="Use slot">+</button>
-                                        <button class="spell-slot-btn" onclick="adjustSpellSlot('${charId}', ${levelNum}, -1)" title="Restore slot">−</button>
-                                    </div>
+                                <div class="spell-slot-boxes">
+                                    ${Array.from(
+                                      { length: slots.total },
+                                      (_, i) => `
+                                        <div class="spell-slot-box" data-slot-index="${i}"></div>
+                                    `,
+                                    ).join("")}
                                 </div>
-                                <button class="spell-slot-reset" onclick="resetSpellSlot('${charId}', ${levelNum})">
-                                    <i class="fa-solid fa-rotate-right"></i> Reset
-                                </button>
                             </div>
                         `
             }
