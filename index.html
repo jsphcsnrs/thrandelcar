@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Cinzel:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;600&family=Permanent+Marker&family=Playfair+Display:wght@600;700&family=Uncial+Antiqua&display=swap"
       rel="stylesheet"
     />
     <link
@@ -964,6 +964,55 @@
           min-width: auto;
         }
       }
+
+      /* ── Character Name Typography ──────────────────────────────────── */
+
+      /* Amox Velthune — Wizard: arcane Roman inscriptions, scholarly */
+      .character-card.theme-wizard h2,
+      .character-sheet.theme-wizard .character-header h1 {
+        font-family: "Cinzel", serif;
+        letter-spacing: 0.04em;
+      }
+
+      /* Barak — Dwarf Cleric: ancient holy manuscript */
+      .character-card.theme-cleric h2,
+      .character-sheet.theme-cleric .character-header h1 {
+        font-family: "Uncial Antiqua", cursive;
+        letter-spacing: 0.02em;
+      }
+
+      /* Tenoch — Goliath Paladin: stone-carved and monumental */
+      .character-card.theme-paladin h2,
+      .character-sheet.theme-paladin .character-header h1 {
+        font-family: "Oswald", sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      /* Glorg — Goblin Rogue: chaotic hand-scrawled energy */
+      .character-card.theme-rogue h2,
+      .character-sheet.theme-rogue .character-header h1 {
+        font-family: "Permanent Marker", cursive;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+      }
+
+      /* Barenhal Everwatch — Elf Ranger: elegant and nature-rooted */
+      .character-card.theme-ranger h2,
+      .character-sheet.theme-ranger .character-header h1 {
+        font-family: "Almendra", serif;
+        font-style: italic;
+        letter-spacing: 0.02em;
+      }
+
+      /* Karyl — Human Fighter: bold all-caps martial */
+      .character-card.theme-fighter h2,
+      .character-sheet.theme-fighter .character-header h1 {
+        font-family: "Bebas Neue", sans-serif;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+      }
     </style>
   </head>
   <body>
@@ -978,7 +1027,7 @@
           style="--accent-color: #8b7dd8; --accent-color-rgb: 139, 125, 216"
           onclick="showCharacter('amox')"
         >
-          <h2>Amox Velthune</h2>
+          <h2>Amox</h2>
           <p class="subtitle">The Lore Keeper</p>
           <div class="class-info">
             <span class="info-chip">Half-Elf</span>
@@ -1034,7 +1083,7 @@
           style="--accent-color: #34d399; --accent-color-rgb: 52, 211, 153"
           onclick="showCharacter('barenhal')"
         >
-          <h2>Barenhal Everwatch</h2>
+          <h2>Barenhal</h2>
           <p class="subtitle">The Watcher</p>
           <div class="class-info">
             <span class="info-chip">Wood Elf</span>
