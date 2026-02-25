@@ -704,7 +704,15 @@
         font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .spell-slot-tracker {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
       }
 
       .spell-slot-value {
@@ -712,6 +720,71 @@
         color: var(--accent-color);
         font-weight: 700;
         line-height: 1;
+        min-width: 3ch;
+        text-align: center;
+      }
+
+      .spell-slot-controls {
+        display: flex;
+        gap: 0.25rem;
+      }
+
+      .spell-slot-btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 4px;
+        border: 1px solid var(--border-subtle);
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+      }
+
+      .spell-slot-btn:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      .spell-slot-btn:active {
+        transform: scale(0.95);
+      }
+
+      .spell-slot-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      .spell-slot-btn:disabled:hover {
+        background: var(--bg-secondary);
+        border-color: var(--border-subtle);
+        color: var(--text-secondary);
+        transform: none;
+      }
+
+      .spell-slot-reset {
+        margin-top: 0.5rem;
+        padding: 0.375rem 0.75rem;
+        border-radius: 4px;
+        border: 1px solid var(--border-subtle);
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        font-size: 0.6875rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        width: 100%;
+        font-weight: 500;
+      }
+
+      .spell-slot-reset:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
       }
 
       .spell-list {
@@ -2225,24 +2298,92 @@
       }
 
       // Add scroll detection for mobile nav gradient effect
-      let scrollTimeout
+      let ticking = false
       window.addEventListener("scroll", () => {
-        const mobileNav = document.querySelector(".mobile-nav")
-        if (mobileNav && window.getComputedStyle(mobileNav).display !== "none") {
-          clearTimeout(scrollTimeout)
-
-          // Add scrolled class if we've scrolled past the header
-          if (window.scrollY > 100) {
-            mobileNav.classList.add("scrolled")
-          } else {
-            mobileNav.classList.remove("scrolled")
-          }
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const mobileNav = document.querySelector(".mobile-nav")
+            if (mobileNav && window.getComputedStyle(mobileNav).display !== "none") {
+              // Add scrolled class if we've scrolled past the header
+              if (window.scrollY > 100) {
+                mobileNav.classList.add("scrolled")
+              } else {
+                mobileNav.classList.remove("scrolled")
+              }
+            }
+            ticking = false
+          })
+          ticking = true
         }
       })
 
       function toggleSpellDescription(event) {
         const spellCard = event.currentTarget
         spellCard.classList.toggle("expanded")
+      }
+
+      // Spell Slot Tracking with localStorage
+      function getSpellSlotKey(charId, level) {
+        return `spellSlots_${charId}_level${level}`
+      }
+
+      function getUsedSlots(charId, level) {
+        const key = getSpellSlotKey(charId, level)
+        return parseInt(localStorage.getItem(key) || "0")
+      }
+
+      function setUsedSlots(charId, level, used) {
+        const key = getSpellSlotKey(charId, level)
+        localStorage.setItem(key, used.toString())
+        updateSpellSlotDisplay(charId, level)
+      }
+
+      function adjustSpellSlot(charId, level, delta) {
+        const char = characters[charId]
+        const totalSlots = char.spellSlots[`level${level}`].total
+        const currentUsed = getUsedSlots(charId, level)
+        const newUsed = Math.max(0, Math.min(totalSlots, currentUsed + delta))
+
+        setUsedSlots(charId, level, newUsed)
+      }
+
+      function resetSpellSlot(charId, level) {
+        setUsedSlots(charId, level, 0)
+      }
+
+      function updateSpellSlotDisplay(charId, level) {
+        const slotElement = document.querySelector(`[data-char="${charId}"][data-level="${level}"]`)
+        if (!slotElement) return
+
+        const char = characters[charId]
+        const totalSlots = char.spellSlots[`level${level}`].total
+        const usedSlots = getUsedSlots(charId, level)
+
+        const usedDisplay = slotElement.querySelector(".used-slots")
+        if (usedDisplay) {
+          usedDisplay.textContent = usedSlots
+        }
+
+        // Disable/enable buttons based on current state
+        const plusBtn = slotElement.querySelector('button[title="Use slot"]')
+        const minusBtn = slotElement.querySelector('button[title="Restore slot"]')
+
+        if (plusBtn) {
+          plusBtn.disabled = usedSlots >= totalSlots
+        }
+        if (minusBtn) {
+          minusBtn.disabled = usedSlots <= 0
+        }
+      }
+
+      function initializeSpellSlots(charId) {
+        const char = characters[charId]
+        if (!char.spellSlots) return
+
+        for (const level in char.spellSlots) {
+          const levelNum = level.replace("level", "")
+          updateSpellSlotDisplay(charId, levelNum)
+        }
       }
 
       function generateCharacterSheet(charId, container) {
@@ -2465,9 +2606,20 @@
             for (const [level, slots] of Object.entries(char.spellSlots)) {
               const levelNum = level.replace("level", "")
               html += `
-                            <div class="spell-slot">
+                            <div class="spell-slot" data-char="${charId}" data-level="${levelNum}">
                                 <div class="spell-slot-label">Level ${levelNum}</div>
-                                <div class="spell-slot-value">${slots.available}/${slots.total}</div>
+                                <div class="spell-slot-tracker">
+                                    <div class="spell-slot-value">
+                                        <span class="used-slots">0</span>/<span class="total-slots">${slots.total}</span>
+                                    </div>
+                                    <div class="spell-slot-controls">
+                                        <button class="spell-slot-btn" onclick="adjustSpellSlot('${charId}', ${levelNum}, 1)" title="Use slot">+</button>
+                                        <button class="spell-slot-btn" onclick="adjustSpellSlot('${charId}', ${levelNum}, -1)" title="Restore slot">−</button>
+                                    </div>
+                                </div>
+                                <button class="spell-slot-reset" onclick="resetSpellSlot('${charId}', ${levelNum})">
+                                    <i class="fa-solid fa-rotate-right"></i> Reset
+                                </button>
                             </div>
                         `
             }
@@ -2552,6 +2704,9 @@
         container.querySelectorAll(".spell-card").forEach((card) => {
           card.addEventListener("click", toggleSpellDescription)
         })
+
+        // Initialize spell slot tracking
+        initializeSpellSlots(charId)
       }
 
       function generateSpellCard(spell) {
