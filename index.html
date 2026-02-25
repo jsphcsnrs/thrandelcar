@@ -834,7 +834,6 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0.375rem;
-        margin-bottom: 0;
       }
 
       .spell-meta-item {
@@ -864,17 +863,17 @@
       .spell-description {
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition:
+          max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+          padding-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         color: var(--text-secondary);
         line-height: 1.6;
         font-size: 0.875rem;
       }
 
       .spell-card.expanded .spell-description {
-        max-height: 1000px;
-        margin-top: 0.75rem;
+        max-height: 300px;
         padding-top: 0.75rem;
-        border-top: 1px solid var(--border-subtle);
       }
 
       /* Theme-specific accent colors */
@@ -2240,6 +2239,8 @@
 
         if (sheet.innerHTML === "") {
           generateCharacterSheet(charId, sheet)
+        } else {
+          initializeSpellSlots(charId)
         }
 
         window.scrollTo(0, 0)
@@ -2393,40 +2394,44 @@
                 
                 <nav class="mobile-nav">
                     <div class="mobile-nav-tabs">
-                        <button class="mobile-nav-tab active" onclick="scrollToSection('combat-section', this)">
+                        <button class="mobile-nav-tab" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+                            <i class="fa-solid fa-arrow-up mobile-nav-icon"></i>
+                            <span>Top</span>
+                        </button>
+                        <button class="mobile-nav-tab active" onclick="scrollToSection('${charId}-combat-section', this)">
                             <i class="fa-solid fa-shield-halved mobile-nav-icon"></i>
                             <span>Combat</span>
                         </button>
-                        <button class="mobile-nav-tab" onclick="scrollToSection('skills-section', this)">
+                        <button class="mobile-nav-tab" onclick="scrollToSection('${charId}-skills-section', this)">
                             <i class="fa-solid fa-bullseye mobile-nav-icon"></i>
                             <span>Skills</span>
                         </button>
-                        <button class="mobile-nav-tab" onclick="scrollToSection('attacks-section', this)">
+                        <button class="mobile-nav-tab" onclick="scrollToSection('${charId}-attacks-section', this)">
                             <i class="fa-solid fa-hand-fist mobile-nav-icon"></i>
                             <span>Attacks</span>
                         </button>
                         ${
                           char.spells
                             ? `
-                            <button class="mobile-nav-tab" onclick="scrollToSection('spells-section', this)">
+                            <button class="mobile-nav-tab" onclick="scrollToSection('${charId}-spells-section', this)">
                                 <i class="fa-solid fa-wand-sparkles mobile-nav-icon"></i>
                                 <span>Spells</span>
                             </button>
                         `
                             : ""
                         }
-                        <button class="mobile-nav-tab" onclick="scrollToSection('features-section', this)">
+                        <button class="mobile-nav-tab" onclick="scrollToSection('${charId}-features-section', this)">
                             <i class="fa-solid fa-star mobile-nav-icon"></i>
                             <span>Features</span>
                         </button>
-                        <button class="mobile-nav-tab" onclick="scrollToSection('equipment-section', this)">
+                        <button class="mobile-nav-tab" onclick="scrollToSection('${charId}-equipment-section', this)">
                             <i class="fa-solid fa-bag-shopping mobile-nav-icon"></i>
                             <span>Equipment</span>
                         </button>
                     </div>
                 </nav>
                 
-                <div id="combat-section" class="stats-grid">
+                <div id="${charId}-combat-section" class="stats-grid">
                     <div class="stat-block">
                         <h2>Combat Stats</h2>
                         <div class="combat-stats-grid">
@@ -2483,7 +2488,7 @@
                         </div>
                     </div>
                     
-                    <div id="skills-section" class="stat-block skills-block">
+                    <div id="${charId}-skills-section" class="stat-block skills-block">
                         <h2>Skills</h2>
                         <div class="skills-grid">
                             ${char.skills
@@ -2503,7 +2508,7 @@
 
         // Add Attacks, Senses & Languages, Proficiencies sections
         html += `
-                <div id="attacks-section" class="stats-grid">
+                <div id="${charId}-attacks-section" class="stats-grid">
                     <div class="stat-block">
                         <h2>Attacks</h2>
                         <ul class="attacks-list">
@@ -2567,7 +2572,7 @@
 
         // Add spells section if character has spells
         if (char.spells) {
-          html += `<div class="spells-section" id="spells-section">
+          html += `<div class="spells-section" id="${charId}-spells-section">
                     <h2>Spellcasting</h2>`
 
           if (char.spellSaveDC) {
@@ -2658,7 +2663,7 @@
 
         // Add features and equipment section
         html += `
-                <div id="features-section" class="stats-grid">
+                <div id="${charId}-features-section" class="stats-grid">
                     <div class="stat-block">
                         <h2>Key Features</h2>
                         <ul class="features-list">
@@ -2681,7 +2686,7 @@
 
         // Add equipment section
         html += `
-                    <div id="equipment-section" class="stat-block">
+                    <div id="${charId}-equipment-section" class="stat-block">
                         <h2>Equipment</h2>
                         <ul class="equipment-list">
                             ${char.equipment.map((item) => `<li>${item}</li>`).join("")}
