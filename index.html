@@ -465,6 +465,213 @@
         font-weight: 500;
       }
 
+      /* HP Tracker */
+      .hp-display {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 0.25rem;
+        margin-bottom: 0.375rem;
+      }
+
+      .hp-current {
+        font-size: 1.75rem;
+        color: var(--accent-color);
+        font-weight: 700;
+        line-height: 1;
+        transition: color 0.3s;
+      }
+
+      .hp-current.hp-hurt { color: #f59e0b; }
+      .hp-current.hp-critical { color: #ef4444; }
+      .hp-current.hp-temp { color: #67e8f9; }
+
+      .hp-sep {
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+        font-weight: 400;
+      }
+
+      .hp-max {
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+        font-weight: 500;
+      }
+
+      .hp-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+      }
+
+      .hp-btn {
+        width: 22px;
+        height: 22px;
+        border-radius: 4px;
+        border: 1px solid var(--border-subtle);
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        font-size: 1.0625rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+        line-height: 1;
+        padding: 0;
+        flex-shrink: 0;
+      }
+
+      .hp-btn:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      .hp-btn:active { transform: scale(0.9); }
+
+      .hp-input {
+        width: 42px;
+        text-align: center;
+        background: var(--bg-primary);
+        border: 1px solid var(--border-subtle);
+        border-radius: 4px;
+        color: var(--text-primary);
+        font-size: 0.8125rem;
+        font-weight: 600;
+        padding: 2px 4px;
+        font-family: inherit;
+      }
+
+      .hp-input:focus {
+        outline: none;
+        border-color: var(--accent-color);
+      }
+
+      .hp-input::-webkit-outer-spin-button,
+      .hp-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+      .hp-input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+
+      /* Death Saves */
+      .death-saves {
+        margin-top: 0.875rem;
+        padding-top: 0.875rem;
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      .death-saves-label {
+        font-size: 0.6875rem;
+        color: #ef4444;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-align: center;
+        margin-bottom: 0.625rem;
+      }
+
+      .death-saves-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.375rem;
+      }
+
+      .death-saves-row:last-child { margin-bottom: 0; }
+
+      .death-save-name {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+        font-weight: 500;
+      }
+
+      .death-save-boxes { display: flex; gap: 0.375rem; }
+
+      .death-save-box {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid var(--border-subtle);
+        background: var(--bg-secondary);
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .death-save-box:hover { border-color: var(--text-tertiary); }
+      .death-save-box.success { background: #34d399; border-color: #34d399; }
+      .death-save-box.failure { background: #ef4444; border-color: #ef4444; }
+
+      /* Resource Tracker */
+      .stat-block-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border-subtle);
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.25rem;
+        gap: 0.5rem;
+      }
+
+      .stat-block-header h2 {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+
+      .rest-buttons {
+        display: flex;
+        gap: 0.375rem;
+        flex-shrink: 0;
+      }
+
+      .resource-tracker { display: flex; flex-direction: column; gap: 0.5rem; }
+
+      .resource-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        background: var(--bg-primary);
+        border-radius: 0.5rem;
+        border: 1px solid var(--border-subtle);
+        font-size: 0.8125rem;
+        gap: 0.5rem;
+      }
+
+      .resource-name {
+        color: var(--text-secondary);
+        font-weight: 500;
+        flex: 1;
+      }
+
+      .resource-controls { display: flex; align-items: center; gap: 0.375rem; }
+
+      .resource-boxes { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+
+      .resource-box {
+        width: 18px;
+        height: 18px;
+        border-radius: 3px;
+        border: 2px solid var(--border-subtle);
+        background: var(--bg-secondary);
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .resource-box:hover { border-color: var(--text-tertiary); }
+
+      .resource-box.used {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+      }
+
+      .resource-type {
+        font-size: 0.6875rem;
+        color: var(--text-tertiary);
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
       /* Skills Section */
       .skills-grid {
         display: grid;
@@ -1404,6 +1611,11 @@
           },
           spellSaveDC: 15,
           spellAttackBonus: 7,
+          hitDie: 6,
+          shortRestResources: [
+            { name: "Portent Dice", uses: 2, restType: "long" },
+            { name: "Arcane Recovery", uses: 1, restType: "long" },
+          ],
         },
         barak: {
           name: "Barak",
@@ -1638,6 +1850,10 @@
           },
           spellSaveDC: 14,
           spellAttackBonus: 6,
+          hitDie: 8,
+          shortRestResources: [
+            { name: "Channel Divinity", uses: 2, restType: "short" },
+          ],
         },
         tenoch: {
           name: "Tenoch",
@@ -1801,6 +2017,11 @@
           },
           spellSaveDC: 13,
           spellAttackBonus: 5,
+          hitDie: 10,
+          shortRestResources: [
+            { name: "Stone's Endurance", uses: 1, restType: "short" },
+            { name: "Lay on Hands", uses: 30, restType: "long", pool: true },
+          ],
         },
         glorg: {
           name: "Glorg",
@@ -1989,6 +2210,10 @@
           },
           spellSaveDC: 13,
           spellAttackBonus: 5,
+          hitDie: 8,
+          shortRestResources: [
+            { name: "Fury of the Small", uses: 1, restType: "short" },
+          ],
         },
         barenhal: {
           name: "Barenhal Everwatch",
@@ -2159,6 +2384,7 @@
           },
           spellSaveDC: 13,
           spellAttackBonus: 5,
+          hitDie: 10,
         },
         karyl: {
           name: "Karyl",
@@ -2267,6 +2493,12 @@
             "Lucky coin",
             "Backpack with rations",
           ],
+          hitDie: 10,
+          shortRestResources: [
+            { name: "Second Wind", uses: 1, restType: "short" },
+            { name: "Action Surge", uses: 1, restType: "short" },
+            { name: "Superiority Dice", uses: 4, restType: "short", die: "d8" },
+          ],
         },
       }
 
@@ -2293,6 +2525,7 @@
           generateCharacterSheet(charId, sheet)
         } else {
           initializeSpellSlots(charId)
+          initializeTrackers(charId)
         }
 
         window.scrollTo(0, 0)
@@ -2489,6 +2722,239 @@
         }
       }
 
+      // ── HP Tracking ──────────────────────────────────────────────────
+
+      function getCurrentHP(charId) {
+        const stored = localStorage.getItem(`hp_${charId}`)
+        return stored !== null ? parseInt(stored) : characters[charId].hp
+      }
+
+      function setCurrentHP(charId, value) {
+        // Allow above max for temp HP; only clamp at 0
+        const clamped = Math.max(0, value)
+        localStorage.setItem(`hp_${charId}`, clamped)
+        updateHPDisplay(charId)
+      }
+
+      function adjustHP(charId, delta) {
+        setCurrentHP(charId, getCurrentHP(charId) + delta)
+      }
+
+      function updateHPDisplay(charId) {
+        const currentHp = getCurrentHP(charId)
+        const maxHp = characters[charId].hp
+        const currentEl = document.getElementById(`${charId}-hp-current`)
+        const deathSavesEl = document.getElementById(`${charId}-death-saves`)
+
+        if (currentEl) {
+          currentEl.textContent = currentHp
+          currentEl.classList.remove('hp-hurt', 'hp-critical', 'hp-temp')
+          if (currentHp > maxHp) {
+            currentEl.classList.add('hp-temp')
+          } else {
+            const ratio = currentHp / maxHp
+            if (ratio <= 0.25) currentEl.classList.add('hp-critical')
+            else if (ratio <= 0.5) currentEl.classList.add('hp-hurt')
+          }
+        }
+        if (deathSavesEl) deathSavesEl.style.display = currentHp === 0 ? 'block' : 'none'
+      }
+
+      // ── Death Saves ──────────────────────────────────────────────────
+
+      function getDeathSaves(charId) {
+        try {
+          const stored = localStorage.getItem(`deathSaves_${charId}`)
+          return stored ? JSON.parse(stored) : { successes: 0, failures: 0 }
+        } catch(e) { return { successes: 0, failures: 0 } }
+      }
+
+      function saveDeathSaves(charId, saves) {
+        localStorage.setItem(`deathSaves_${charId}`, JSON.stringify(saves))
+        updateDeathSavesDisplay(charId)
+      }
+
+      function toggleDeathSave(charId, type, index) {
+        const saves = getDeathSaves(charId)
+        saves[type] = saves[type] > index ? index : index + 1
+        saves[type] = Math.min(3, Math.max(0, saves[type]))
+        saveDeathSaves(charId, saves)
+      }
+
+      function resetDeathSaves(charId) {
+        saveDeathSaves(charId, { successes: 0, failures: 0 })
+      }
+
+      function updateDeathSavesDisplay(charId) {
+        const saves = getDeathSaves(charId)
+        for (let i = 0; i < 3; i++) {
+          const s = document.getElementById(`${charId}-ds-success-${i}`)
+          const f = document.getElementById(`${charId}-ds-failure-${i}`)
+          if (s) s.classList.toggle('success', i < saves.successes)
+          if (f) f.classList.toggle('failure', i < saves.failures)
+        }
+      }
+
+      // ── Short-rest Resources ─────────────────────────────────────────
+
+      function resKey(charId, name) {
+        return `res_${charId}_${name.replace(/[^a-zA-Z0-9]/g, '_')}`
+      }
+
+      function resSafeId(charId, name) {
+        return `${charId}-res-${name.replace(/[^a-zA-Z0-9]/g, '_')}`
+      }
+
+      function getResourceUsed(charId, name) {
+        const stored = localStorage.getItem(resKey(charId, name))
+        return stored !== null ? parseInt(stored) : 0
+      }
+
+      function setResourceUsed(charId, name, used) {
+        localStorage.setItem(resKey(charId, name), used)
+        updateResourceDisplay(charId, name)
+      }
+
+      function toggleResource(charId, name, total, index) {
+        const used = getResourceUsed(charId, name)
+        setResourceUsed(charId, name, used > index ? index : index + 1)
+      }
+
+      function updateResourceDisplay(charId, name) {
+        const used = getResourceUsed(charId, name)
+        const prefix = resSafeId(charId, name)
+        for (let i = 0; i < 20; i++) {
+          const box = document.getElementById(`${prefix}-${i}`)
+          if (!box) break
+          box.classList.toggle('used', i < used)
+        }
+      }
+
+      // ── Pool Resources (Lay on Hands) ────────────────────────────────
+
+      function getPoolValue(charId, name, maxVal) {
+        const stored = localStorage.getItem(`pool_${resKey(charId, name)}`)
+        return stored !== null ? parseInt(stored) : maxVal
+      }
+
+      function setPoolValue(charId, name, value, maxVal) {
+        const clamped = Math.max(0, Math.min(maxVal, value))
+        localStorage.setItem(`pool_${resKey(charId, name)}`, clamped)
+        updatePoolDisplay(charId, name, maxVal)
+      }
+
+      function adjustPool(charId, name, delta, maxVal) {
+        setPoolValue(charId, name, getPoolValue(charId, name, maxVal) + delta, maxVal)
+      }
+
+      function setPool(charId, name, value, maxVal) {
+        setPoolValue(charId, name, parseInt(value) || 0, maxVal)
+      }
+
+      function updatePoolDisplay(charId, name, maxVal) {
+        const input = document.getElementById(`${resSafeId(charId, name)}-pool`)
+        if (input) input.value = getPoolValue(charId, name, maxVal)
+      }
+
+      // ── Rest Buttons ─────────────────────────────────────────────────
+
+      function longRest(charId) {
+        setCurrentHP(charId, characters[charId].hp)
+        resetDeathSaves(charId)
+        resetAllSpellSlots(charId)
+        const char = characters[charId]
+        if (char.shortRestResources) {
+          char.shortRestResources.forEach(res => {
+            if (res.pool) setPoolValue(charId, res.name, res.uses, res.uses)
+            else setResourceUsed(charId, res.name, 0)
+          })
+        }
+      }
+
+      function shortRest(charId) {
+        const char = characters[charId]
+        if (char.shortRestResources) {
+          char.shortRestResources.forEach(res => {
+            if (res.restType === 'short') {
+              if (res.pool) setPoolValue(charId, res.name, res.uses, res.uses)
+              else setResourceUsed(charId, res.name, 0)
+            }
+          })
+        }
+      }
+
+      // ── Resources Block Builder ──────────────────────────────────────
+
+      function generateResourcesBlock(charId) {
+        const char = characters[charId]
+        const resources = char.shortRestResources || []
+
+        // Skip block entirely if no resources to track
+        if (resources.length === 0) return ''
+
+        let inner = ''
+        resources.forEach(res => {
+          const safeId = resSafeId(charId, res.name)
+          // Escape single quotes in name so onclick handlers aren't broken (e.g. Stone's Endurance)
+          const escapedName = res.name.replace(/'/g, "\\'")
+          if (res.pool) {
+            inner += `
+              <div class="resource-item">
+                <span class="resource-name">${res.name}</span>
+                <div class="resource-controls">
+                  <button class="hp-btn" onclick="adjustPool('${charId}','${escapedName}',-1,${res.uses})">−</button>
+                  <input type="number" class="hp-input" id="${safeId}-pool" value="${res.uses}" min="0" max="${res.uses}" onchange="setPool('${charId}','${escapedName}',this.value,${res.uses})">
+                  <span class="resource-type">/ ${res.uses}</span>
+                  <button class="hp-btn" onclick="adjustPool('${charId}','${escapedName}',1,${res.uses})">+</button>
+                  <span class="resource-type">${res.restType}</span>
+                </div>
+              </div>`
+          } else {
+            const boxes = Array.from({ length: res.uses }, (_, i) =>
+              `<div class="resource-box" id="${safeId}-${i}" onclick="toggleResource('${charId}','${escapedName}',${res.uses},${i})"></div>`
+            ).join('')
+            inner += `
+              <div class="resource-item">
+                <span class="resource-name">${res.name}${res.die ? ` <span style="font-size:0.6875rem;color:var(--text-tertiary)">${res.die}</span>` : ''}</span>
+                <div class="resource-controls">
+                  <div class="resource-boxes">${boxes}</div>
+                  <span class="resource-type">${res.restType}</span>
+                </div>
+              </div>`
+          }
+        })
+
+        return `
+          <div class="stat-block">
+            <div class="stat-block-header">
+              <h2>Resources</h2>
+              <div class="rest-buttons">
+                <button class="spell-slots-reset-all" onclick="shortRest('${charId}')">
+                  <i class="fa-solid fa-moon"></i> Short Rest
+                </button>
+                <button class="spell-slots-reset-all" onclick="longRest('${charId}')">
+                  <i class="fa-solid fa-sun"></i> Long Rest
+                </button>
+              </div>
+            </div>
+            <div class="resource-tracker">${inner}</div>
+          </div>`
+      }
+
+      // ── Initialize All Trackers ──────────────────────────────────────
+
+      function initializeTrackers(charId) {
+        updateHPDisplay(charId)
+        updateDeathSavesDisplay(charId)
+        const char = characters[charId]
+        if (char.shortRestResources) {
+          char.shortRestResources.forEach(res => {
+            if (res.pool) updatePoolDisplay(charId, res.name, res.uses)
+            else updateResourceDisplay(charId, res.name)
+          })
+        }
+      }
+
       function generateCharacterSheet(charId, container) {
         const char = characters[charId]
 
@@ -2549,9 +3015,36 @@
                     <div class="stat-block">
                         <h2>Combat Stats</h2>
                         <div class="combat-stats-grid">
-                            <div class="combat-stat-tile">
+                            <div class="combat-stat-tile" id="${charId}-hp-tile">
                                 <div class="combat-stat-label">HP</div>
-                                <div class="combat-stat-value">${char.hp}</div>
+                                <div class="hp-display">
+                                    <span class="hp-current" id="${charId}-hp-current">${char.hp}</span>
+                                    <span class="hp-sep">/</span>
+                                    <span class="hp-max">${char.hp}</span>
+                                </div>
+                                <div class="hp-controls">
+                                    <button class="hp-btn" onclick="adjustHP('${charId}', -1)">−</button>
+                                    <button class="hp-btn" onclick="adjustHP('${charId}', 1)">+</button>
+                                </div>
+                                <div class="death-saves" id="${charId}-death-saves" style="display:none">
+                                    <div class="death-saves-label">Death Saves</div>
+                                    <div class="death-saves-row">
+                                        <span class="death-save-name">Successes</span>
+                                        <div class="death-save-boxes">
+                                            <div class="death-save-box" id="${charId}-ds-success-0" onclick="toggleDeathSave('${charId}','successes',0)"></div>
+                                            <div class="death-save-box" id="${charId}-ds-success-1" onclick="toggleDeathSave('${charId}','successes',1)"></div>
+                                            <div class="death-save-box" id="${charId}-ds-success-2" onclick="toggleDeathSave('${charId}','successes',2)"></div>
+                                        </div>
+                                    </div>
+                                    <div class="death-saves-row">
+                                        <span class="death-save-name">Failures</span>
+                                        <div class="death-save-boxes">
+                                            <div class="death-save-box" id="${charId}-ds-failure-0" onclick="toggleDeathSave('${charId}','failures',0)"></div>
+                                            <div class="death-save-box" id="${charId}-ds-failure-1" onclick="toggleDeathSave('${charId}','failures',1)"></div>
+                                            <div class="death-save-box" id="${charId}-ds-failure-2" onclick="toggleDeathSave('${charId}','failures',2)"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="combat-stat-tile">
                                 <div class="combat-stat-label">AC</div>
@@ -2602,6 +3095,8 @@
                         </div>
                     </div>
                     
+                    ${generateResourcesBlock(charId)}
+
                     <div id="${charId}-skills-section" class="stat-block skills-block">
                         <h2>Skills</h2>
                         <div class="skills-grid">
@@ -2815,8 +3310,9 @@
           card.addEventListener("click", toggleSpellDescription)
         })
 
-        // Initialize spell slot tracking
+        // Initialize spell slot tracking and HP/resource trackers
         initializeSpellSlots(charId)
+        initializeTrackers(charId)
       }
 
       function generateSpellCard(spell) {
