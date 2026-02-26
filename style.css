@@ -1,0 +1,1247 @@
+      :root {
+        --bg-primary: #0a0e17;
+        --bg-secondary: #13171f;
+        --bg-tertiary: #1a1f2e;
+        --border-subtle: #242936;
+        --border-medium: #2d3444;
+        --text-primary: #f8f9fa;
+        --text-secondary: #adb5bd;
+        --text-tertiary: #6c757d;
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        touch-action: manipulation;
+      }
+
+      body {
+        font-family:
+          "DM Sans",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          system-ui,
+          sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        min-height: 100vh;
+        padding: clamp(1rem, 3vw, 2.5rem);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Character Selection Screen */
+      #character-selection {
+        max-width: 1280px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      #character-selection h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.75rem, 4vw, 3rem);
+        font-weight: 700;
+        background: linear-gradient(135deg, #f8f9fa 0%, #adb5bd 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.75rem;
+        letter-spacing: -0.01em;
+        line-height: 1.1;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+
+      #character-selection h1::after {
+        content: "";
+        position: absolute;
+        bottom: -0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #d4af37, transparent);
+      }
+
+      #character-selection > .subtitle {
+        font-size: clamp(0.875rem, 2vw, 1rem);
+        color: var(--text-tertiary);
+        margin-bottom: clamp(2rem, 5vw, 4rem);
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+      }
+
+      .character-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+        max-width: 900px;
+        margin: 0 auto;
+        gap: 1.25rem;
+        margin-top: 2rem;
+      }
+
+      .character-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-subtle);
+        border-radius: 1rem;
+        padding: 1.75rem;
+        cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        text-align: left;
+      }
+
+      .character-card:hover {
+        transform: translateY(-2px);
+        background: var(--bg-tertiary);
+        border-color: var(--accent-color);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .character-card:active {
+        transform: translateY(0);
+      }
+
+      .character-card h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.375rem;
+        letter-spacing: -0.01em;
+      }
+
+      .character-card .subtitle {
+        font-size: 1.0625rem;
+        color: var(--accent-color);
+        margin-bottom: 0.625rem;
+        font-weight: 600;
+        text-align: left;
+        font-style: italic;
+        letter-spacing: 0.01em;
+      }
+
+      .character-card .class-info {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .info-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.375rem 0.875rem;
+        background: var(--bg-primary);
+        border-radius: 100px;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+
+      .info-chip.class {
+        color: var(--text-primary);
+        background: var(--accent-color);
+      }
+
+      .character-card .player-name {
+        display: none;
+      }
+
+      /* Character Sheet */
+      .character-sheet {
+        display: none;
+        max-width: 1400px;
+        margin: 0 auto;
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .character-sheet.active {
+        display: block;
+      }
+
+      .back-button {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-secondary);
+        padding: 0.625rem 1.125rem;
+        border-radius: 0.625rem;
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 500;
+        font-family: inherit;
+        margin-bottom: 1.75rem;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .back-button:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--border-medium);
+        color: var(--text-primary);
+      }
+
+      .character-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2rem);
+        background: var(--bg-secondary);
+        border: 1px solid var(--accent-color);
+        border-radius: 1rem;
+      }
+
+      .character-header h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.02em;
+      }
+
+      .character-header .title {
+        font-size: clamp(1.125rem, 2vw, 1.375rem);
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+        font-weight: 600;
+        font-style: italic;
+        letter-spacing: 0.01em;
+      }
+
+      .character-header .details {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Mobile Navigation Tabs */
+      .mobile-nav {
+        display: none;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--bg-card);
+        padding: 0.75rem 0;
+        margin: 0 0 1.5rem 0;
+        transition:
+          background 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .mobile-nav.scrolled {
+        background: var(--bg-primary);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      }
+
+      .mobile-nav-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0 1rem;
+      }
+
+      .mobile-nav-tab {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.5rem 0.875rem;
+        background: var(--bg-primary);
+        border: 1px solid var(--border-subtle);
+        border-radius: 100px;
+        color: var(--text-secondary);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .mobile-nav-tab:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--border-medium);
+        color: var(--text-primary);
+      }
+
+      .mobile-nav-tab:active {
+        background: rgba(var(--accent-color-rgb), 0.25);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+        transform: scale(0.96);
+      }
+
+      .mobile-nav-tab.active {
+        background: rgba(var(--accent-color-rgb), 0.15);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      .mobile-nav-icon {
+        font-size: 1rem;
+      }
+
+      @media (max-width: 768px) {
+        .mobile-nav {
+          display: block;
+        }
+      }
+
+      /* Stats Grid */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+        gap: 1.25rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-block.skills-block {
+        grid-column: span 2;
+      }
+
+      @media (max-width: 900px) {
+        .stat-block.skills-block {
+          grid-column: span 1;
+        }
+      }
+
+      .stat-block {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-subtle);
+        border-radius: 1rem;
+        padding: 1.5rem;
+      }
+
+      .stat-block h2 {
+        color: var(--text-primary);
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+        border-bottom: 1px solid var(--border-subtle);
+        padding-bottom: 0.75rem;
+        letter-spacing: -0.01em;
+      }
+
+      .ability-scores {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+      }
+
+      .ability {
+        text-align: center;
+        background: var(--bg-primary);
+        padding: 1rem 0.5rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--border-subtle);
+      }
+
+      .ability-name {
+        font-size: 0.6875rem;
+        color: var(--text-tertiary);
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .ability-score {
+        font-size: 1.75rem;
+        color: var(--accent-color);
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .ability-modifier {
+        font-size: 0.9375rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+        margin-top: 0.25rem;
+      }
+
+      .stat-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .stat-row:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      .stat-row:first-child {
+        padding-top: 0;
+      }
+
+      .stat-label {
+        color: var(--text-secondary);
+        font-weight: 500;
+        font-size: 0.875rem;
+      }
+
+      .stat-value {
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 0.9375rem;
+      }
+
+      /* Combat Stats Special Styling */
+      .combat-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        gap: 0.75rem;
+      }
+
+      .combat-stat-tile {
+        text-align: center;
+        background: var(--bg-primary);
+        padding: 1rem 0.75rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--border-subtle);
+      }
+
+      .combat-stat-label {
+        font-size: 0.6875rem;
+        color: var(--text-tertiary);
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .combat-stat-value {
+        font-size: 1.75rem;
+        color: var(--accent-color);
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .combat-stat-subtext {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        margin-top: 0.25rem;
+        font-weight: 500;
+      }
+
+      /* HP Tracker */
+      .hp-display {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 0.25rem;
+        margin-bottom: 0.375rem;
+      }
+
+      .hp-current {
+        font-size: 1.75rem;
+        color: var(--accent-color);
+        font-weight: 700;
+        line-height: 1;
+        transition: color 0.3s;
+      }
+
+      .hp-current.hp-hurt {
+        color: #f59e0b;
+      }
+      .hp-current.hp-critical {
+        color: #ef4444;
+      }
+      .hp-current.hp-temp {
+        color: #67e8f9;
+      }
+
+      .hp-sep {
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+        font-weight: 400;
+      }
+
+      .hp-max {
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+        font-weight: 500;
+      }
+
+      .hp-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+      }
+
+      .hp-btn {
+        width: 22px;
+        height: 22px;
+        border-radius: 4px;
+        border: 1px solid var(--border-subtle);
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        font-size: 1.0625rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+        line-height: 1;
+        padding: 0;
+        flex-shrink: 0;
+      }
+
+      .hp-btn:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      .hp-btn:active {
+        transform: scale(0.9);
+      }
+
+      .hp-input {
+        width: 42px;
+        text-align: center;
+        background: var(--bg-primary);
+        border: 1px solid var(--border-subtle);
+        border-radius: 4px;
+        color: var(--text-primary);
+        font-size: 0.8125rem;
+        font-weight: 600;
+        padding: 2px 4px;
+        font-family: inherit;
+      }
+
+      .hp-input:focus {
+        outline: none;
+        border-color: var(--accent-color);
+      }
+
+      .hp-input::-webkit-outer-spin-button,
+      .hp-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      .hp-input[type="number"] {
+        -moz-appearance: textfield;
+        appearance: textfield;
+      }
+
+      /* Death Saves */
+      .death-saves {
+        margin-top: 0.875rem;
+        padding-top: 0.875rem;
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      .death-saves-label {
+        font-size: 0.6875rem;
+        color: #ef4444;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-align: center;
+        margin-bottom: 0.625rem;
+      }
+
+      .death-saves-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.375rem;
+      }
+
+      .death-saves-row:last-child {
+        margin-bottom: 0;
+      }
+
+      .death-save-name {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+        font-weight: 500;
+      }
+
+      .death-save-boxes {
+        display: flex;
+        gap: 0.375rem;
+      }
+
+      .death-save-box {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid var(--border-subtle);
+        background: var(--bg-secondary);
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .death-save-box:hover {
+        border-color: var(--text-tertiary);
+      }
+      .death-save-box.success {
+        background: #34d399;
+        border-color: #34d399;
+      }
+      .death-save-box.failure {
+        background: #ef4444;
+        border-color: #ef4444;
+      }
+
+      /* Resource Tracker */
+      .stat-block-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border-subtle);
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.25rem;
+        gap: 0.5rem;
+      }
+
+      .stat-block-header h2 {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+
+      .rest-buttons {
+        display: flex;
+        gap: 0.375rem;
+        flex-shrink: 0;
+      }
+
+      .resource-tracker {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .resource-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        background: var(--bg-primary);
+        border-radius: 0.5rem;
+        border: 1px solid var(--border-subtle);
+        font-size: 0.8125rem;
+        gap: 0.5rem;
+      }
+
+      .resource-name {
+        color: var(--text-secondary);
+        font-weight: 500;
+        flex: 1;
+      }
+
+      .resource-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+      }
+
+      .resource-boxes {
+        display: flex;
+        gap: 0.3rem;
+        flex-wrap: wrap;
+      }
+
+      .resource-box {
+        width: 18px;
+        height: 18px;
+        border-radius: 3px;
+        border: 2px solid var(--border-subtle);
+        background: var(--bg-secondary);
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .resource-box:hover {
+        border-color: var(--text-tertiary);
+      }
+
+      .resource-box.used {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+      }
+
+      .resource-type {
+        font-size: 0.6875rem;
+        color: var(--text-tertiary);
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      /* Skills Section */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 0.5rem;
+      }
+
+      @media (min-width: 901px) {
+        .skills-block .skills-grid {
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        }
+      }
+
+      .skill-item {
+        padding: 0.625rem 0.875rem;
+        background: var(--bg-primary);
+        border-radius: 0.5rem;
+        border: 1px solid var(--border-subtle);
+        font-size: 0.8125rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .skill-item.proficient {
+        background: rgba(var(--accent-color-rgb), 0.1);
+        border-color: var(--accent-color);
+      }
+
+      .skill-name {
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+
+      .skill-item.proficient .skill-name {
+        color: var(--accent-color);
+        font-weight: 600;
+      }
+
+      .skill-bonus {
+        color: var(--text-secondary);
+        font-weight: 600;
+        margin-left: auto;
+        font-size: 0.875rem;
+      }
+
+      .skill-item.proficient .skill-bonus {
+        color: var(--accent-color);
+      }
+
+      /* Saving Throws */
+      .saves-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+      }
+
+      .save-item {
+        padding: 0.75rem;
+        background: var(--bg-primary);
+        border-radius: 0.5rem;
+        border: 1px solid var(--border-subtle);
+        font-size: 0.8125rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        text-align: center;
+      }
+
+      .save-item.proficient {
+        background: rgba(var(--accent-color-rgb), 0.1);
+        border-color: var(--accent-color);
+      }
+
+      .save-name {
+        color: var(--text-tertiary);
+        font-weight: 600;
+        font-size: 0.6875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .save-item.proficient .save-name {
+        color: var(--accent-color);
+      }
+
+      .save-bonus {
+        color: var(--text-primary);
+        font-weight: 700;
+        font-size: 1.25rem;
+      }
+
+      .save-item.proficient .save-bonus {
+        color: var(--accent-color);
+      }
+
+      /* Attacks */
+      .attacks-list {
+        list-style: none;
+      }
+
+      .attack-item {
+        padding: 0.875rem 1rem;
+        margin-bottom: 0.75rem;
+        background: var(--bg-primary);
+        border-radius: 0.625rem;
+        border: 1px solid var(--border-subtle);
+        font-size: 0.875rem;
+      }
+
+      .attack-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .attack-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.375rem;
+      }
+
+      .attack-name {
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 0.9375rem;
+      }
+
+      .attack-bonus {
+        color: var(--accent-color);
+        font-weight: 600;
+        font-size: 0.875rem;
+      }
+
+      .attack-damage {
+        color: var(--text-secondary);
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+      }
+
+      .attack-notes {
+        color: var(--text-tertiary);
+        font-size: 0.8125rem;
+        font-style: italic;
+      }
+
+      /* Info Sections (Senses, Languages, Proficiencies) */
+      .info-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.875rem;
+      }
+
+      .info-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+      }
+
+      .info-label {
+        color: var(--text-tertiary);
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .info-content {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        line-height: 1.5;
+      }
+
+      /* Equipment and Features */
+      .equipment-list,
+      .features-list {
+        list-style: none;
+      }
+
+      .equipment-list li,
+      .features-list li {
+        padding: 0.875rem 1rem;
+        margin-bottom: 0.5rem;
+        background: var(--bg-primary);
+        border-radius: 0.625rem;
+        border: 1px solid var(--border-subtle);
+        font-size: 0.875rem;
+        line-height: 1.5;
+      }
+
+      .equipment-list li:last-child,
+      .features-list li:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Spells */
+      .spells-section {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-subtle);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .spells-section h2 {
+        color: var(--text-primary);
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+        border-bottom: 1px solid var(--border-subtle);
+        padding-bottom: 0.75rem;
+      }
+
+      .spells-section h3 {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--accent-color);
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .spell-slots {
+        display: flex;
+        gap: 0.875rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .spell-slot {
+        background: var(--bg-primary);
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--border-subtle);
+        min-width: 80px;
+        transition: all 0.2s;
+      }
+
+      .spell-slot:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--accent-color);
+      }
+
+      .spell-slot-label {
+        font-size: 0.6875rem;
+        color: var(--text-tertiary);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        pointer-events: none;
+      }
+
+      .spell-slot-boxes {
+        display: flex;
+        gap: 0.375rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        pointer-events: none;
+      }
+
+      .spell-slot-box {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--border-subtle);
+        border-radius: 4px;
+        transition: all 0.2s;
+        background: var(--bg-secondary);
+      }
+
+      .spell-slot-box.used {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+      }
+
+      .spell-slots-header {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .spell-slots-reset-all {
+        padding: 0.5rem 0.625rem;
+        border-radius: 6px;
+        border: 1px solid var(--border-subtle);
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        white-space: nowrap;
+      }
+
+      .spell-slots-reset-all:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      .spell-list {
+        display: grid;
+        gap: 0.625rem;
+      }
+
+      .spell-card {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-subtle);
+        border-radius: 0.75rem;
+        padding: 0.875rem 1rem;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .spell-card:hover {
+        background: var(--bg-tertiary);
+        border-color: var(--border-medium);
+      }
+
+      .spell-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 0.5rem;
+        gap: 0.75rem;
+      }
+
+      .spell-title-group {
+        flex: 1 1 auto;
+        min-width: 0;
+        display: flex;
+        align-items: baseline;
+        gap: 0.625rem;
+        flex-wrap: wrap;
+      }
+
+      .spell-name {
+        font-size: 0.9375rem;
+        color: var(--text-primary);
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        line-height: 1.3;
+        flex-shrink: 1;
+      }
+
+      .spell-level {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+        font-weight: 500;
+        flex-shrink: 0;
+      }
+
+      .expand-icon {
+        color: var(--text-tertiary);
+        font-size: 1rem;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        flex-shrink: 0;
+        align-self: flex-start;
+      }
+
+      .spell-card.expanded .expand-icon {
+        transform: rotate(180deg);
+      }
+
+      .spell-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.375rem;
+      }
+
+      .spell-meta-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.25rem 0.5rem;
+        background: var(--bg-secondary);
+        border-radius: 4px;
+        font-size: 0.6875rem;
+        color: var(--text-secondary);
+        white-space: nowrap;
+        flex-shrink: 0;
+        width: auto;
+      }
+
+      .spell-meta-icon {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+      }
+
+      .spell-meta-label {
+        color: var(--text-tertiary);
+        font-weight: 500;
+      }
+
+      .spell-description {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+          padding-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        color: var(--text-secondary);
+        line-height: 1.6;
+        font-size: 0.875rem;
+      }
+
+      .spell-card.expanded .spell-description {
+        max-height: 300px;
+        padding-top: 0.75rem;
+      }
+
+      /* Theme-specific accent colors */
+      .theme-wizard {
+        --accent-color: #8b7dd8;
+        --accent-color-rgb: 139, 125, 216;
+      }
+
+      .theme-cleric {
+        --accent-color: #f59e0b;
+        --accent-color-rgb: 245, 158, 11;
+      }
+
+      .theme-paladin {
+        --accent-color: #60a5fa;
+        --accent-color-rgb: 96, 165, 250;
+      }
+
+      .theme-rogue {
+        --accent-color: #f87171;
+        --accent-color-rgb: 248, 113, 113;
+      }
+
+      .theme-ranger {
+        --accent-color: #34d399;
+        --accent-color-rgb: 52, 211, 153;
+      }
+
+      .theme-fighter {
+        --accent-color: #fb923c;
+        --accent-color-rgb: 251, 146, 60;
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .character-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .ability-scores {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 1rem;
+        }
+
+        .character-card {
+          padding: 1.25rem;
+        }
+
+        .stat-block {
+          padding: 1.25rem;
+        }
+
+        .ability-scores {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.5rem;
+        }
+
+        .ability {
+          padding: 0.75rem 0.375rem;
+        }
+
+        .ability-score {
+          font-size: 1.5rem;
+        }
+
+        .spell-card {
+          padding: 0.875rem;
+        }
+
+        .spell-slots {
+          gap: 0.5rem;
+        }
+
+        .spell-slot {
+          padding: 0.75rem 1rem;
+          min-width: auto;
+        }
+      }
+
+      /* ── Character Name Typography ──────────────────────────────────── */
+
+      /* Amox Velthune — Wizard: arcane Roman inscriptions, scholarly */
+      .character-card.theme-wizard h2,
+      .character-sheet.theme-wizard .character-header h1 {
+        font-family: "Cinzel", serif;
+        letter-spacing: 0.04em;
+      }
+
+      /* Barak — Dwarf Cleric: ancient holy manuscript */
+      .character-card.theme-cleric h2,
+      .character-sheet.theme-cleric .character-header h1 {
+        font-family: "Uncial Antiqua", cursive;
+        letter-spacing: 0.02em;
+      }
+
+      /* Tenoch — Goliath Paladin: stone-carved and monumental */
+      .character-card.theme-paladin h2,
+      .character-sheet.theme-paladin .character-header h1 {
+        font-family: "Oswald", sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      /* Glorg — Goblin Rogue: chaotic hand-scrawled energy */
+      .character-card.theme-rogue h2,
+      .character-sheet.theme-rogue .character-header h1 {
+        font-family: "Permanent Marker", cursive;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+      }
+
+      /* Barenhal Everwatch — Elf Ranger: elegant and nature-rooted */
+      .character-card.theme-ranger h2,
+      .character-sheet.theme-ranger .character-header h1 {
+        font-family: "Almendra", serif;
+        font-style: italic;
+        letter-spacing: 0.02em;
+      }
+
+      /* Karyl — Human Fighter: bold all-caps martial */
+      .character-card.theme-fighter h2,
+      .character-sheet.theme-fighter .character-header h1 {
+        font-family: "Bebas Neue", sans-serif;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+      }
