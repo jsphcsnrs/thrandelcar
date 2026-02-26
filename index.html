@@ -16,19 +16,21 @@
     />
     <link rel="stylesheet" href="style.css" />
     <script>
-      (function () {
-        var stored = localStorage.getItem("theme");
+      ;(function () {
+        var stored = localStorage.getItem("theme")
         var theme =
-          stored ||
-          (window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light");
-        document.documentElement.setAttribute("data-theme", theme);
-      })();
+          stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+        document.documentElement.setAttribute("data-theme", theme)
+      })()
     </script>
   </head>
   <body>
-    <button id="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">
+    <button
+      id="theme-toggle"
+      onclick="toggleTheme()"
+      title="Toggle theme"
+      aria-label="Toggle theme"
+    >
       <i class="fa-solid fa-moon icon-moon"></i>
       <i class="fa-solid fa-sun icon-sun"></i>
     </button>
@@ -48,6 +50,7 @@
     <div id="barenhal-sheet" class="character-sheet theme-ranger"></div>
     <div id="karyl-sheet" class="character-sheet theme-fighter"></div>
 
+    <script src="spells.js"></script>
     <script src="characters.js"></script>
     <script src="app.js"></script>
   </body>

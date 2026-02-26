@@ -1,409 +1,407 @@
-      function toggleTheme() {
-        const current = document.documentElement.getAttribute("data-theme");
-        const next = current === "dark" ? "light" : "dark";
-        document.documentElement.setAttribute("data-theme", next);
-        localStorage.setItem("theme", next);
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme")
+  const next = current === "dark" ? "light" : "dark"
+  document.documentElement.setAttribute("data-theme", next)
+  localStorage.setItem("theme", next)
+}
+
+function getModifier(score) {
+  return Math.floor((score - 10) / 2)
+}
+
+function formatModifier(mod) {
+  return mod >= 0 ? `+${mod}` : `${mod}`
+}
+
+function showCharacter(charId) {
+  document.getElementById("character-selection").style.display = "none"
+
+  document.querySelectorAll(".character-sheet").forEach((sheet) => {
+    sheet.classList.remove("active")
+  })
+
+  const sheetId = `${charId}-sheet`
+  const sheet = document.getElementById(sheetId)
+  sheet.classList.add("active")
+
+  if (sheet.innerHTML === "") {
+    generateCharacterSheet(charId, sheet)
+  } else {
+    initializeSpellSlots(charId)
+    initializeTrackers(charId)
+  }
+
+  window.scrollTo(0, 0)
+  // Initialise scroll-spy state after render
+  requestAnimationFrame(updateActiveNavTab)
+}
+
+function backToSelection() {
+  document.querySelectorAll(".character-sheet").forEach((sheet) => {
+    sheet.classList.remove("active")
+  })
+  document.getElementById("character-selection").style.display = "block"
+  window.scrollTo(0, 0)
+}
+
+function scrollToSection(sectionId) {
+  const section = document.getElementById(sectionId)
+  if (section) {
+    const navHeight =
+      document.querySelector(".character-sheet.active .mobile-nav")?.offsetHeight || 0
+    const targetPosition = section.offsetTop - navHeight - 20
+    window.scrollTo({
+      top: targetPosition,
+      behavior: "smooth",
+    })
+  }
+}
+
+function updateActiveNavTab() {
+  const mobileNav = document.querySelector(".character-sheet.active .mobile-nav")
+  if (!mobileNav || window.getComputedStyle(mobileNav).display === "none") return
+
+  const tabs = mobileNav.querySelectorAll(".mobile-nav-tab[data-section]")
+  if (!tabs.length) return
+
+  const navHeight = mobileNav.offsetHeight
+  const scrollY = window.scrollY
+
+  // "Top" tab active when near the top of the page
+  if (scrollY < 80) {
+    tabs.forEach((t) => t.classList.remove("active"))
+    const topTab = mobileNav.querySelector('[data-section="top"]')
+    if (topTab) topTab.classList.add("active")
+    return
+  }
+
+  // At the bottom of the page: pick the last section that's at least partially visible
+  const atBottom = scrollY + window.innerHeight >= document.documentElement.scrollHeight - 5
+  if (atBottom) {
+    let lastVisible = null
+    tabs.forEach((tab) => {
+      if (tab.dataset.section === "top") return
+      const el = document.getElementById(tab.dataset.section)
+      if (el && el.getBoundingClientRect().bottom > navHeight) {
+        lastVisible = tab.dataset.section
       }
+    })
+    if (lastVisible) {
+      tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.section === lastVisible))
+      return
+    }
+  }
 
-      function getModifier(score) {
-        return Math.floor((score - 10) / 2)
+  // Find which section's top edge is closest to (and at or above) the nav bottom
+  const threshold = navHeight + 40
+  let activeSection = null
+  let closestDistance = Infinity
+
+  tabs.forEach((tab) => {
+    const sectionId = tab.dataset.section
+    if (sectionId === "top") return
+    const el = document.getElementById(sectionId)
+    if (!el) return
+    const top = el.getBoundingClientRect().top
+    const dist = Math.abs(top - threshold)
+    if (top <= threshold && dist < closestDistance) {
+      closestDistance = dist
+      activeSection = sectionId
+    }
+  })
+
+  // Fall back to first real section if nothing is past threshold yet
+  if (!activeSection) {
+    for (const tab of tabs) {
+      if (tab.dataset.section !== "top") {
+        activeSection = tab.dataset.section
+        break
       }
+    }
+  }
 
-      function formatModifier(mod) {
-        return mod >= 0 ? `+${mod}` : `${mod}`
-      }
+  tabs.forEach((tab) => {
+    tab.classList.toggle("active", tab.dataset.section === activeSection)
+  })
+}
 
-      function showCharacter(charId) {
-        document.getElementById("character-selection").style.display = "none"
-
-        document.querySelectorAll(".character-sheet").forEach((sheet) => {
-          sheet.classList.remove("active")
-        })
-
-        const sheetId = `${charId}-sheet`
-        const sheet = document.getElementById(sheetId)
-        sheet.classList.add("active")
-
-        if (sheet.innerHTML === "") {
-          generateCharacterSheet(charId, sheet)
+// Scroll handler: sticky nav shadow + active tab scroll-spy
+let ticking = false
+window.addEventListener("scroll", () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      const mobileNav = document.querySelector(".character-sheet.active .mobile-nav")
+      if (mobileNav && window.getComputedStyle(mobileNav).display !== "none") {
+        if (window.scrollY > 100) {
+          mobileNav.classList.add("scrolled")
         } else {
-          initializeSpellSlots(charId)
-          initializeTrackers(charId)
-        }
-
-        window.scrollTo(0, 0)
-        // Initialise scroll-spy state after render
-        requestAnimationFrame(updateActiveNavTab)
-      }
-
-      function backToSelection() {
-        document.querySelectorAll(".character-sheet").forEach((sheet) => {
-          sheet.classList.remove("active")
-        })
-        document.getElementById("character-selection").style.display = "block"
-        window.scrollTo(0, 0)
-      }
-
-      function scrollToSection(sectionId) {
-        const section = document.getElementById(sectionId)
-        if (section) {
-          const navHeight =
-            document.querySelector(".character-sheet.active .mobile-nav")?.offsetHeight || 0
-          const targetPosition = section.offsetTop - navHeight - 20
-          window.scrollTo({
-            top: targetPosition,
-            behavior: "smooth",
-          })
+          mobileNav.classList.remove("scrolled")
         }
       }
+      updateActiveNavTab()
+      ticking = false
+    })
+    ticking = true
+  }
+})
 
-      function updateActiveNavTab() {
-        const mobileNav = document.querySelector(".character-sheet.active .mobile-nav")
-        if (!mobileNav || window.getComputedStyle(mobileNav).display === "none") return
+function toggleSpellDescription(event) {
+  const spellCard = event.currentTarget
+  spellCard.classList.toggle("expanded")
+}
 
-        const tabs = mobileNav.querySelectorAll(".mobile-nav-tab[data-section]")
-        if (!tabs.length) return
+// Spell Slot Tracking with localStorage
+function getSpellSlotKey(charId, level) {
+  return `spellSlots_${charId}_level${level}`
+}
 
-        const navHeight = mobileNav.offsetHeight
-        const scrollY = window.scrollY
+function getUsedSlots(charId, level) {
+  const key = getSpellSlotKey(charId, level)
+  const stored = localStorage.getItem(key)
+  try {
+    return stored ? JSON.parse(stored) : []
+  } catch (e) {
+    // Handle old format or corrupted data
+    return []
+  }
+}
 
-        // "Top" tab active when near the top of the page
-        if (scrollY < 80) {
-          tabs.forEach((t) => t.classList.remove("active"))
-          const topTab = mobileNav.querySelector('[data-section="top"]')
-          if (topTab) topTab.classList.add("active")
-          return
-        }
+function setUsedSlots(charId, level, usedArray) {
+  const key = getSpellSlotKey(charId, level)
+  localStorage.setItem(key, JSON.stringify(usedArray))
+  updateSpellSlotDisplay(charId, level)
+}
 
-        // At the bottom of the page: pick the last section that's at least partially visible
-        const atBottom = scrollY + window.innerHeight >= document.documentElement.scrollHeight - 5
-        if (atBottom) {
-          let lastVisible = null
-          tabs.forEach((tab) => {
-            if (tab.dataset.section === "top") return
-            const el = document.getElementById(tab.dataset.section)
-            if (el && el.getBoundingClientRect().bottom > navHeight) {
-              lastVisible = tab.dataset.section
-            }
-          })
-          if (lastVisible) {
-            tabs.forEach((tab) =>
-              tab.classList.toggle("active", tab.dataset.section === lastVisible),
-            )
-            return
-          }
-        }
+function useSpellSlot(charId, level) {
+  const char = characters[charId]
+  const totalSlots = char.spellSlots[`level${level}`].total
+  const usedSlots = getUsedSlots(charId, level)
 
-        // Find which section's top edge is closest to (and at or above) the nav bottom
-        const threshold = navHeight + 40
-        let activeSection = null
-        let closestDistance = Infinity
+  // Find the first available slot and mark it as used
+  for (let i = 0; i < totalSlots; i++) {
+    if (!usedSlots.includes(i)) {
+      usedSlots.push(i)
+      setUsedSlots(charId, level, usedSlots)
+      return
+    }
+  }
+}
 
-        tabs.forEach((tab) => {
-          const sectionId = tab.dataset.section
-          if (sectionId === "top") return
-          const el = document.getElementById(sectionId)
-          if (!el) return
-          const top = el.getBoundingClientRect().top
-          const dist = Math.abs(top - threshold)
-          if (top <= threshold && dist < closestDistance) {
-            closestDistance = dist
-            activeSection = sectionId
-          }
-        })
+function resetAllSpellSlots(charId) {
+  const char = characters[charId]
+  if (!char.spellSlots) return
 
-        // Fall back to first real section if nothing is past threshold yet
-        if (!activeSection) {
-          for (const tab of tabs) {
-            if (tab.dataset.section !== "top") {
-              activeSection = tab.dataset.section
-              break
-            }
-          }
-        }
+  for (const level in char.spellSlots) {
+    const levelNum = level.replace("level", "")
+    setUsedSlots(charId, levelNum, [])
+  }
+}
 
-        tabs.forEach((tab) => {
-          tab.classList.toggle("active", tab.dataset.section === activeSection)
-        })
+function updateSpellSlotDisplay(charId, level) {
+  const slotElement = document.querySelector(`[data-char="${charId}"][data-level="${level}"]`)
+  if (!slotElement) return
+
+  const usedSlots = getUsedSlots(charId, level)
+  const boxes = slotElement.querySelectorAll(".spell-slot-box")
+
+  boxes.forEach((box, index) => {
+    if (usedSlots.includes(index)) {
+      box.classList.add("used")
+    } else {
+      box.classList.remove("used")
+    }
+  })
+}
+
+function initializeSpellSlots(charId) {
+  const char = characters[charId]
+  if (!char.spellSlots) return
+
+  for (const level in char.spellSlots) {
+    const levelNum = level.replace("level", "")
+    updateSpellSlotDisplay(charId, levelNum)
+  }
+}
+
+// ── HP Tracking ──────────────────────────────────────────────────
+
+function getCurrentHP(charId) {
+  const stored = localStorage.getItem(`hp_${charId}`)
+  return stored !== null ? parseInt(stored) : characters[charId].hp
+}
+
+function setCurrentHP(charId, value) {
+  // Allow above max for temp HP; only clamp at 0
+  const clamped = Math.max(0, value)
+  localStorage.setItem(`hp_${charId}`, clamped)
+  updateHPDisplay(charId)
+}
+
+function adjustHP(charId, delta) {
+  setCurrentHP(charId, getCurrentHP(charId) + delta)
+}
+
+function updateHPDisplay(charId) {
+  const currentHp = getCurrentHP(charId)
+  const maxHp = characters[charId].hp
+  const currentEl = document.getElementById(`${charId}-hp-current`)
+  const deathSavesEl = document.getElementById(`${charId}-death-saves`)
+
+  if (currentEl) {
+    currentEl.textContent = currentHp
+    currentEl.classList.remove("hp-hurt", "hp-critical", "hp-temp")
+    if (currentHp > maxHp) {
+      currentEl.classList.add("hp-temp")
+    } else {
+      const ratio = currentHp / maxHp
+      if (ratio <= 0.25) currentEl.classList.add("hp-critical")
+      else if (ratio <= 0.5) currentEl.classList.add("hp-hurt")
+    }
+  }
+  if (deathSavesEl) deathSavesEl.style.display = currentHp === 0 ? "block" : "none"
+}
+
+// ── Death Saves ──────────────────────────────────────────────────
+
+function getDeathSaves(charId) {
+  try {
+    const stored = localStorage.getItem(`deathSaves_${charId}`)
+    return stored ? JSON.parse(stored) : { successes: 0, failures: 0 }
+  } catch (e) {
+    return { successes: 0, failures: 0 }
+  }
+}
+
+function saveDeathSaves(charId, saves) {
+  localStorage.setItem(`deathSaves_${charId}`, JSON.stringify(saves))
+  updateDeathSavesDisplay(charId)
+}
+
+function toggleDeathSave(charId, type, index) {
+  const saves = getDeathSaves(charId)
+  saves[type] = saves[type] > index ? index : index + 1
+  saves[type] = Math.min(3, Math.max(0, saves[type]))
+  saveDeathSaves(charId, saves)
+}
+
+function resetDeathSaves(charId) {
+  saveDeathSaves(charId, { successes: 0, failures: 0 })
+}
+
+function updateDeathSavesDisplay(charId) {
+  const saves = getDeathSaves(charId)
+  for (let i = 0; i < 3; i++) {
+    const s = document.getElementById(`${charId}-ds-success-${i}`)
+    const f = document.getElementById(`${charId}-ds-failure-${i}`)
+    if (s) s.classList.toggle("success", i < saves.successes)
+    if (f) f.classList.toggle("failure", i < saves.failures)
+  }
+}
+
+// ── Short-rest Resources ─────────────────────────────────────────
+
+function resKey(charId, name) {
+  return `res_${charId}_${name.replace(/[^a-zA-Z0-9]/g, "_")}`
+}
+
+function resSafeId(charId, name) {
+  return `${charId}-res-${name.replace(/[^a-zA-Z0-9]/g, "_")}`
+}
+
+function getResourceUsed(charId, name) {
+  const stored = localStorage.getItem(resKey(charId, name))
+  return stored !== null ? parseInt(stored) : 0
+}
+
+function setResourceUsed(charId, name, used) {
+  localStorage.setItem(resKey(charId, name), used)
+  updateResourceDisplay(charId, name)
+}
+
+function toggleResource(charId, name, total, index) {
+  const used = getResourceUsed(charId, name)
+  setResourceUsed(charId, name, used > index ? index : index + 1)
+}
+
+function updateResourceDisplay(charId, name) {
+  const used = getResourceUsed(charId, name)
+  const prefix = resSafeId(charId, name)
+  for (let i = 0; i < 20; i++) {
+    const box = document.getElementById(`${prefix}-${i}`)
+    if (!box) break
+    box.classList.toggle("used", i < used)
+  }
+}
+
+// ── Pool Resources (Lay on Hands) ────────────────────────────────
+
+function getPoolValue(charId, name, maxVal) {
+  const stored = localStorage.getItem(`pool_${resKey(charId, name)}`)
+  return stored !== null ? parseInt(stored) : maxVal
+}
+
+function setPoolValue(charId, name, value, maxVal) {
+  const clamped = Math.max(0, Math.min(maxVal, value))
+  localStorage.setItem(`pool_${resKey(charId, name)}`, clamped)
+  updatePoolDisplay(charId, name, maxVal)
+}
+
+function adjustPool(charId, name, delta, maxVal) {
+  setPoolValue(charId, name, getPoolValue(charId, name, maxVal) + delta, maxVal)
+}
+
+function setPool(charId, name, value, maxVal) {
+  setPoolValue(charId, name, parseInt(value) || 0, maxVal)
+}
+
+function updatePoolDisplay(charId, name, maxVal) {
+  const input = document.getElementById(`${resSafeId(charId, name)}-pool`)
+  if (input) input.value = getPoolValue(charId, name, maxVal)
+}
+
+// ── Rest Buttons ─────────────────────────────────────────────────
+
+function longRest(charId) {
+  setCurrentHP(charId, characters[charId].hp)
+  resetDeathSaves(charId)
+  resetAllSpellSlots(charId)
+  const char = characters[charId]
+  if (char.shortRestResources) {
+    char.shortRestResources.forEach((res) => {
+      if (res.pool) setPoolValue(charId, res.name, res.uses, res.uses)
+      else setResourceUsed(charId, res.name, 0)
+    })
+  }
+}
+
+function shortRest(charId) {
+  const char = characters[charId]
+  if (char.shortRestResources) {
+    char.shortRestResources.forEach((res) => {
+      if (res.restType === "short") {
+        if (res.pool) setPoolValue(charId, res.name, res.uses, res.uses)
+        else setResourceUsed(charId, res.name, 0)
       }
+    })
+  }
+}
 
-      // Scroll handler: sticky nav shadow + active tab scroll-spy
-      let ticking = false
-      window.addEventListener("scroll", () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            const mobileNav = document.querySelector(".character-sheet.active .mobile-nav")
-            if (mobileNav && window.getComputedStyle(mobileNav).display !== "none") {
-              if (window.scrollY > 100) {
-                mobileNav.classList.add("scrolled")
-              } else {
-                mobileNav.classList.remove("scrolled")
-              }
-            }
-            updateActiveNavTab()
-            ticking = false
-          })
-          ticking = true
-        }
-      })
+// ── Resources Block Builder ──────────────────────────────────────
 
-      function toggleSpellDescription(event) {
-        const spellCard = event.currentTarget
-        spellCard.classList.toggle("expanded")
-      }
+function generateResourcesBlock(charId, showRestButtons = true) {
+  const char = characters[charId]
+  const resources = char.shortRestResources || []
 
-      // Spell Slot Tracking with localStorage
-      function getSpellSlotKey(charId, level) {
-        return `spellSlots_${charId}_level${level}`
-      }
+  // Skip block entirely if no resources to track
+  if (resources.length === 0) return ""
 
-      function getUsedSlots(charId, level) {
-        const key = getSpellSlotKey(charId, level)
-        const stored = localStorage.getItem(key)
-        try {
-          return stored ? JSON.parse(stored) : []
-        } catch (e) {
-          // Handle old format or corrupted data
-          return []
-        }
-      }
-
-      function setUsedSlots(charId, level, usedArray) {
-        const key = getSpellSlotKey(charId, level)
-        localStorage.setItem(key, JSON.stringify(usedArray))
-        updateSpellSlotDisplay(charId, level)
-      }
-
-      function useSpellSlot(charId, level) {
-        const char = characters[charId]
-        const totalSlots = char.spellSlots[`level${level}`].total
-        const usedSlots = getUsedSlots(charId, level)
-
-        // Find the first available slot and mark it as used
-        for (let i = 0; i < totalSlots; i++) {
-          if (!usedSlots.includes(i)) {
-            usedSlots.push(i)
-            setUsedSlots(charId, level, usedSlots)
-            return
-          }
-        }
-      }
-
-      function resetAllSpellSlots(charId) {
-        const char = characters[charId]
-        if (!char.spellSlots) return
-
-        for (const level in char.spellSlots) {
-          const levelNum = level.replace("level", "")
-          setUsedSlots(charId, levelNum, [])
-        }
-      }
-
-      function updateSpellSlotDisplay(charId, level) {
-        const slotElement = document.querySelector(`[data-char="${charId}"][data-level="${level}"]`)
-        if (!slotElement) return
-
-        const usedSlots = getUsedSlots(charId, level)
-        const boxes = slotElement.querySelectorAll(".spell-slot-box")
-
-        boxes.forEach((box, index) => {
-          if (usedSlots.includes(index)) {
-            box.classList.add("used")
-          } else {
-            box.classList.remove("used")
-          }
-        })
-      }
-
-      function initializeSpellSlots(charId) {
-        const char = characters[charId]
-        if (!char.spellSlots) return
-
-        for (const level in char.spellSlots) {
-          const levelNum = level.replace("level", "")
-          updateSpellSlotDisplay(charId, levelNum)
-        }
-      }
-
-      // ── HP Tracking ──────────────────────────────────────────────────
-
-      function getCurrentHP(charId) {
-        const stored = localStorage.getItem(`hp_${charId}`)
-        return stored !== null ? parseInt(stored) : characters[charId].hp
-      }
-
-      function setCurrentHP(charId, value) {
-        // Allow above max for temp HP; only clamp at 0
-        const clamped = Math.max(0, value)
-        localStorage.setItem(`hp_${charId}`, clamped)
-        updateHPDisplay(charId)
-      }
-
-      function adjustHP(charId, delta) {
-        setCurrentHP(charId, getCurrentHP(charId) + delta)
-      }
-
-      function updateHPDisplay(charId) {
-        const currentHp = getCurrentHP(charId)
-        const maxHp = characters[charId].hp
-        const currentEl = document.getElementById(`${charId}-hp-current`)
-        const deathSavesEl = document.getElementById(`${charId}-death-saves`)
-
-        if (currentEl) {
-          currentEl.textContent = currentHp
-          currentEl.classList.remove("hp-hurt", "hp-critical", "hp-temp")
-          if (currentHp > maxHp) {
-            currentEl.classList.add("hp-temp")
-          } else {
-            const ratio = currentHp / maxHp
-            if (ratio <= 0.25) currentEl.classList.add("hp-critical")
-            else if (ratio <= 0.5) currentEl.classList.add("hp-hurt")
-          }
-        }
-        if (deathSavesEl) deathSavesEl.style.display = currentHp === 0 ? "block" : "none"
-      }
-
-      // ── Death Saves ──────────────────────────────────────────────────
-
-      function getDeathSaves(charId) {
-        try {
-          const stored = localStorage.getItem(`deathSaves_${charId}`)
-          return stored ? JSON.parse(stored) : { successes: 0, failures: 0 }
-        } catch (e) {
-          return { successes: 0, failures: 0 }
-        }
-      }
-
-      function saveDeathSaves(charId, saves) {
-        localStorage.setItem(`deathSaves_${charId}`, JSON.stringify(saves))
-        updateDeathSavesDisplay(charId)
-      }
-
-      function toggleDeathSave(charId, type, index) {
-        const saves = getDeathSaves(charId)
-        saves[type] = saves[type] > index ? index : index + 1
-        saves[type] = Math.min(3, Math.max(0, saves[type]))
-        saveDeathSaves(charId, saves)
-      }
-
-      function resetDeathSaves(charId) {
-        saveDeathSaves(charId, { successes: 0, failures: 0 })
-      }
-
-      function updateDeathSavesDisplay(charId) {
-        const saves = getDeathSaves(charId)
-        for (let i = 0; i < 3; i++) {
-          const s = document.getElementById(`${charId}-ds-success-${i}`)
-          const f = document.getElementById(`${charId}-ds-failure-${i}`)
-          if (s) s.classList.toggle("success", i < saves.successes)
-          if (f) f.classList.toggle("failure", i < saves.failures)
-        }
-      }
-
-      // ── Short-rest Resources ─────────────────────────────────────────
-
-      function resKey(charId, name) {
-        return `res_${charId}_${name.replace(/[^a-zA-Z0-9]/g, "_")}`
-      }
-
-      function resSafeId(charId, name) {
-        return `${charId}-res-${name.replace(/[^a-zA-Z0-9]/g, "_")}`
-      }
-
-      function getResourceUsed(charId, name) {
-        const stored = localStorage.getItem(resKey(charId, name))
-        return stored !== null ? parseInt(stored) : 0
-      }
-
-      function setResourceUsed(charId, name, used) {
-        localStorage.setItem(resKey(charId, name), used)
-        updateResourceDisplay(charId, name)
-      }
-
-      function toggleResource(charId, name, total, index) {
-        const used = getResourceUsed(charId, name)
-        setResourceUsed(charId, name, used > index ? index : index + 1)
-      }
-
-      function updateResourceDisplay(charId, name) {
-        const used = getResourceUsed(charId, name)
-        const prefix = resSafeId(charId, name)
-        for (let i = 0; i < 20; i++) {
-          const box = document.getElementById(`${prefix}-${i}`)
-          if (!box) break
-          box.classList.toggle("used", i < used)
-        }
-      }
-
-      // ── Pool Resources (Lay on Hands) ────────────────────────────────
-
-      function getPoolValue(charId, name, maxVal) {
-        const stored = localStorage.getItem(`pool_${resKey(charId, name)}`)
-        return stored !== null ? parseInt(stored) : maxVal
-      }
-
-      function setPoolValue(charId, name, value, maxVal) {
-        const clamped = Math.max(0, Math.min(maxVal, value))
-        localStorage.setItem(`pool_${resKey(charId, name)}`, clamped)
-        updatePoolDisplay(charId, name, maxVal)
-      }
-
-      function adjustPool(charId, name, delta, maxVal) {
-        setPoolValue(charId, name, getPoolValue(charId, name, maxVal) + delta, maxVal)
-      }
-
-      function setPool(charId, name, value, maxVal) {
-        setPoolValue(charId, name, parseInt(value) || 0, maxVal)
-      }
-
-      function updatePoolDisplay(charId, name, maxVal) {
-        const input = document.getElementById(`${resSafeId(charId, name)}-pool`)
-        if (input) input.value = getPoolValue(charId, name, maxVal)
-      }
-
-      // ── Rest Buttons ─────────────────────────────────────────────────
-
-      function longRest(charId) {
-        setCurrentHP(charId, characters[charId].hp)
-        resetDeathSaves(charId)
-        resetAllSpellSlots(charId)
-        const char = characters[charId]
-        if (char.shortRestResources) {
-          char.shortRestResources.forEach((res) => {
-            if (res.pool) setPoolValue(charId, res.name, res.uses, res.uses)
-            else setResourceUsed(charId, res.name, 0)
-          })
-        }
-      }
-
-      function shortRest(charId) {
-        const char = characters[charId]
-        if (char.shortRestResources) {
-          char.shortRestResources.forEach((res) => {
-            if (res.restType === "short") {
-              if (res.pool) setPoolValue(charId, res.name, res.uses, res.uses)
-              else setResourceUsed(charId, res.name, 0)
-            }
-          })
-        }
-      }
-
-      // ── Resources Block Builder ──────────────────────────────────────
-
-      function generateResourcesBlock(charId, showRestButtons = true) {
-        const char = characters[charId]
-        const resources = char.shortRestResources || []
-
-        // Skip block entirely if no resources to track
-        if (resources.length === 0) return ""
-
-        let inner = ""
-        resources.forEach((res) => {
-          const safeId = resSafeId(charId, res.name)
-          // Escape single quotes in name so onclick handlers aren't broken (e.g. Stone's Endurance)
-          const escapedName = res.name.replace(/'/g, "\\'")
-          if (res.pool) {
-            inner += `
+  let inner = ""
+  resources.forEach((res) => {
+    const safeId = resSafeId(charId, res.name)
+    // Escape single quotes in name so onclick handlers aren't broken (e.g. Stone's Endurance)
+    const escapedName = res.name.replace(/'/g, "\\'")
+    if (res.pool) {
+      inner += `
               <div class="resource-item">
                 <span class="resource-name">${res.name}</span>
                 <div class="resource-controls">
@@ -414,13 +412,13 @@
                   <span class="resource-type">${res.restType}</span>
                 </div>
               </div>`
-          } else {
-            const boxes = Array.from(
-              { length: res.uses },
-              (_, i) =>
-                `<div class="resource-box" id="${safeId}-${i}" onclick="toggleResource('${charId}','${escapedName}',${res.uses},${i})"></div>`,
-            ).join("")
-            inner += `
+    } else {
+      const boxes = Array.from(
+        { length: res.uses },
+        (_, i) =>
+          `<div class="resource-box" id="${safeId}-${i}" onclick="toggleResource('${charId}','${escapedName}',${res.uses},${i})"></div>`,
+      ).join("")
+      inner += `
               <div class="resource-item">
                 <span class="resource-name">${res.name}${res.die ? ` <span style="font-size:0.6875rem;color:var(--text-tertiary)">${res.die}</span>` : ""}</span>
                 <div class="resource-controls">
@@ -428,16 +426,16 @@
                   <span class="resource-type">${res.restType}</span>
                 </div>
               </div>`
-          }
-        })
+    }
+  })
 
-        if (!showRestButtons) {
-          return `
+  if (!showRestButtons) {
+    return `
             <h3>Resources</h3>
             <div class="resource-tracker">${inner}</div>`
-        }
+  }
 
-        return `
+  return `
           <div class="stat-block" id="${charId}-resources-section">
             <div class="stat-block-header">
               <h2>Resources</h2>
@@ -452,26 +450,26 @@
             </div>
             <div class="resource-tracker">${inner}</div>
           </div>`
-      }
+}
 
-      // ── Initialize All Trackers ──────────────────────────────────────
+// ── Initialize All Trackers ──────────────────────────────────────
 
-      function initializeTrackers(charId) {
-        updateHPDisplay(charId)
-        updateDeathSavesDisplay(charId)
-        const char = characters[charId]
-        if (char.shortRestResources) {
-          char.shortRestResources.forEach((res) => {
-            if (res.pool) updatePoolDisplay(charId, res.name, res.uses)
-            else updateResourceDisplay(charId, res.name)
-          })
-        }
-      }
+function initializeTrackers(charId) {
+  updateHPDisplay(charId)
+  updateDeathSavesDisplay(charId)
+  const char = characters[charId]
+  if (char.shortRestResources) {
+    char.shortRestResources.forEach((res) => {
+      if (res.pool) updatePoolDisplay(charId, res.name, res.uses)
+      else updateResourceDisplay(charId, res.name)
+    })
+  }
+}
 
-      function generateCharacterSheet(charId, container) {
-        const char = characters[charId]
+function generateCharacterSheet(charId, container) {
+  const char = characters[charId]
 
-        let html = `
+  let html = `
                 <button class="back-button" onclick="backToSelection()">← Back</button>
                 
                 <div class="character-header">
@@ -512,13 +510,13 @@
                             </button>
                         `
                             : char.shortRestResources?.length
-                            ? `
+                              ? `
                             <button class="mobile-nav-tab" data-section="${charId}-resources-section" onclick="scrollToSection('${charId}-resources-section')">
                                 <i class="fa-solid fa-bolt mobile-nav-icon"></i>
                                 <span>Resources</span>
                             </button>
                         `
-                            : ""
+                              : ""
                         }
                         <button class="mobile-nav-tab" data-section="${charId}-features-section" onclick="scrollToSection('${charId}-features-section')">
                             <i class="fa-solid fa-star mobile-nav-icon"></i>
@@ -635,8 +633,8 @@
                 </div>
             `
 
-        // Add Attacks, Senses & Languages, Proficiencies sections
-        html += `
+  // Add Attacks, Senses & Languages, Proficiencies sections
+  html += `
                 <div id="${charId}-attacks-section" class="stats-grid">
                     <div class="stat-block">
                         <h2>Attacks</h2>
@@ -699,13 +697,13 @@
                 </div>
             `
 
-        // Add spells section if character has spells
-        if (char.spells) {
-          html += `<div class="spells-section" id="${charId}-spells-section">
+  // Add spells section if character has spells
+  if (char.spells) {
+    html += `<div class="spells-section" id="${charId}-spells-section">
                     <h2>Spellcasting</h2>`
 
-          if (char.spellSaveDC) {
-            html += `
+    if (char.spellSaveDC) {
+      html += `
                         <div class="spell-slots">
                             <div class="spell-slot">
                                 <div class="spell-slot-label">Spell Save DC</div>
@@ -717,10 +715,10 @@
                             </div>
                         </div>
                     `
-          }
+    }
 
-          if (char.spellSlots) {
-            html += `
+    if (char.spellSlots) {
+      html += `
                         <div class="spell-slots-header">
                             <div></div>
                             <div class="rest-buttons">
@@ -733,9 +731,9 @@
                             </div>
                         </div>
                         <div class="spell-slots">`
-            for (const [level, slots] of Object.entries(char.spellSlots)) {
-              const levelNum = level.replace("level", "")
-              html += `
+      for (const [level, slots] of Object.entries(char.spellSlots)) {
+        const levelNum = level.replace("level", "")
+        html += `
                             <div class="spell-slot" 
                                  data-char="${charId}" 
                                  data-level="${levelNum}"
@@ -752,52 +750,52 @@
                                 </div>
                             </div>
                         `
-            }
-            html += `</div>`
-            html += generateResourcesBlock(charId, false)
-          }
+      }
+      html += `</div>`
+      html += generateResourcesBlock(charId, false)
+    }
 
-          if (char.spells.cantrips) {
-            html += `
+    if (char.spells.cantrips) {
+      html += `
                         <h3>Cantrips</h3>
                         <div class="spell-list">
-                            ${char.spells.cantrips.map((spell) => generateSpellCard(spell)).join("")}
+                            ${char.spells.cantrips.map((ref) => generateSpellCard(resolveSpell(ref))).join("")}
                         </div>
                     `
-          }
+    }
 
-          if (char.spells.level1) {
-            html += `
+    if (char.spells.level1) {
+      html += `
                         <h3>1st Level Spells</h3>
                         <div class="spell-list">
-                            ${char.spells.level1.map((spell) => generateSpellCard(spell)).join("")}
+                            ${char.spells.level1.map((ref) => generateSpellCard(resolveSpell(ref))).join("")}
                         </div>
                     `
-          }
+    }
 
-          if (char.spells.level2) {
-            html += `
+    if (char.spells.level2) {
+      html += `
                         <h3>2nd Level Spells</h3>
                         <div class="spell-list">
-                            ${char.spells.level2.map((spell) => generateSpellCard(spell)).join("")}
+                            ${char.spells.level2.map((ref) => generateSpellCard(resolveSpell(ref))).join("")}
                         </div>
                     `
-          }
+    }
 
-          if (char.spells.level3) {
-            html += `
+    if (char.spells.level3) {
+      html += `
                         <h3>3rd Level Spells</h3>
                         <div class="spell-list">
-                            ${char.spells.level3.map((spell) => generateSpellCard(spell)).join("")}
+                            ${char.spells.level3.map((ref) => generateSpellCard(resolveSpell(ref))).join("")}
                         </div>
                     `
-          }
+    }
 
-          html += `</div>`
-        }
+    html += `</div>`
+  }
 
-        // Add features and equipment section
-        html += `
+  // Add features and equipment section
+  html += `
                 <div id="${charId}-features-section" class="stats-grid">
                     <div class="stat-block">
                         <h2>Key Features</h2>
@@ -807,9 +805,9 @@
                     </div>
             `
 
-        // Add maneuvers for Battle Master
-        if (char.maneuvers) {
-          html += `
+  // Add maneuvers for Battle Master
+  if (char.maneuvers) {
+    html += `
                     <div class="stat-block">
                         <h2>Battle Maneuvers</h2>
                         <ul class="features-list">
@@ -817,10 +815,10 @@
                         </ul>
                     </div>
                 `
-        }
+  }
 
-        // Add equipment section
-        html += `
+  // Add equipment section
+  html += `
                     <div id="${charId}-equipment-section" class="stat-block">
                         <h2>Equipment</h2>
                         <ul class="equipment-list">
@@ -830,19 +828,26 @@
                 </div>
             `
 
-        container.innerHTML = html
+  container.innerHTML = html
 
-        container.querySelectorAll(".spell-card").forEach((card) => {
-          card.addEventListener("click", toggleSpellDescription)
-        })
+  container.querySelectorAll(".spell-card").forEach((card) => {
+    card.addEventListener("click", toggleSpellDescription)
+  })
 
-        // Initialize spell slot tracking and HP/resource trackers
-        initializeSpellSlots(charId)
-        initializeTrackers(charId)
-      }
+  // Initialize spell slot tracking and HP/resource trackers
+  initializeSpellSlots(charId)
+  initializeTrackers(charId)
+}
 
-      function generateSpellCard(spell) {
-        return `
+function resolveSpell(ref) {
+  const { id, ...overrides } = ref
+  const base = spells[id]
+  if (!Object.keys(overrides).length) return base
+  return { ...base, ...overrides }
+}
+
+function generateSpellCard(spell) {
+  return `
                 <div class="spell-card">
                     <div class="spell-header">
                         <div class="spell-title-group">
@@ -872,11 +877,13 @@
                     <div class="spell-description">${spell.description}</div>
                 </div>
             `
-      }
+}
 
-      function generateCharacterGrid() {
-        const grid = document.getElementById("character-grid")
-        grid.innerHTML = Object.entries(characters).map(([id, char]) => `
+function generateCharacterGrid() {
+  const grid = document.getElementById("character-grid")
+  grid.innerHTML = Object.entries(characters)
+    .map(
+      ([id, char]) => `
           <div
             class="character-card ${char.theme}"
             style="--accent-color: ${char.accentColor}; --accent-color-rgb: ${char.accentColorRgb}"
@@ -890,10 +897,12 @@
               <span class="info-chip">Level ${char.level}</span>
             </div>
           </div>
-        `).join("")
-      }
+        `,
+    )
+    .join("")
+}
 
-      document.addEventListener("DOMContentLoaded", function () {
-        generateCharacterGrid()
-        document.getElementById("character-selection").style.display = "block"
-      })
+document.addEventListener("DOMContentLoaded", function () {
+  generateCharacterGrid()
+  document.getElementById("character-selection").style.display = "block"
+})

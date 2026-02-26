@@ -89,197 +89,30 @@ const characters = {
     ],
     spells: {
       cantrips: [
-        {
-          name: "Fire Bolt",
-          level: "Cantrip",
-          castingTime: "1 action",
-          range: "120 feet",
-          components: "V, S",
-          duration: "Instantaneous",
-          description:
-            "You hurl a mote of fire at a creature or object within range. Make a ranged spell attack. On a hit, the target takes 2d10 fire damage. A flammable object hit by this spell ignites if it isn't being worn or carried.",
-        },
-        {
-          name: "Mage Hand",
-          level: "Cantrip",
-          castingTime: "1 action",
-          range: "30 feet",
-          components: "V, S",
-          duration: "1 minute",
-          description:
-            "A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration. You can use your action to control the hand, using it to manipulate objects, open unlocked doors or containers, stow or retrieve items, or pour contents out of a vial. The hand can't attack, activate magic items, or carry more than 10 pounds.",
-        },
-        {
-          name: "Prestidigitation",
-          level: "Cantrip",
-          castingTime: "1 action",
-          range: "10 feet",
-          components: "V, S",
-          duration: "Up to 1 hour",
-          description:
-            "This spell is a minor magical trick. You create an instantaneous, harmless sensory effect, light or snuff out a candle/torch/small campfire, clean or soil an object, chill/warm/flavor nonliving material, make a color/small mark/symbol appear, or create a nonmagical trinket or illusory image that fits in your hand.",
-        },
-        {
-          name: "Message",
-          level: "Cantrip",
-          castingTime: "1 action",
-          range: "120 feet",
-          components: "V, S, M (a short piece of copper wire)",
-          duration: "1 round",
-          description:
-            "You point your finger toward a creature within range and whisper a message. The target (and only the target) hears the message and can reply in a whisper that only you can hear. You can cast this spell through solid objects if you are familiar with the target and know it is beyond the barrier.",
-        },
+        { id: "fire-bolt" },
+        { id: "mage-hand" },
+        { id: "prestidigitation" },
+        { id: "message" },
       ],
       level1: [
-        {
-          name: "Detect Magic",
-          level: "1st-level",
-          castingTime: "1 action (Ritual)",
-          range: "Self",
-          components: "V, S",
-          duration: "Concentration, up to 10 minutes",
-          ritual: true,
-          description:
-            "For the duration, you sense the presence of magic within 30 feet. If you sense magic, you can use your action to see a faint aura around any visible creature or object that bears magic, and you learn its school of magic, if any. The spell penetrates most barriers but is blocked by 1 foot of stone, 1 inch of common metal, thin sheet of lead, or 3 feet of wood or dirt.",
-        },
-        {
-          name: "Identify",
-          level: "1st-level",
-          castingTime: "1 minute (Ritual)",
-          range: "Touch",
-          components: "V, S, M (pearl worth 100gp)",
-          duration: "Instantaneous",
-          ritual: true,
-          description:
-            "You choose one object that you must touch throughout the casting. If it's a magic item or magical object, you learn its properties, how to use them, whether it requires attunement, how many charges it has, and what spells are affecting it. If the item was created by a spell, you learn which spell. If you touch a creature, you learn what spells are currently affecting it.",
-        },
-        {
-          name: "Comprehend Languages",
-          level: "1st-level",
-          castingTime: "1 action (Ritual)",
-          range: "Self",
-          components: "V, S, M (soot and salt)",
-          duration: "1 hour",
-          ritual: true,
-          description:
-            "For the duration, you understand the literal meaning of any spoken language that you hear. You also understand any written language that you see, but you must be touching the surface on which the words are written. It takes about 1 minute to read one page of text. This spell doesn't decode secret messages or glyphs that aren't part of a written language.",
-        },
-        {
-          name: "Mage Armor",
-          level: "1st-level",
-          castingTime: "1 action",
-          range: "Touch",
-          components: "V, S, M (piece of cured leather)",
-          duration: "8 hours",
-          description:
-            "You touch a willing creature who isn't wearing armor, and a protective magical force surrounds it until the spell ends. The target's base AC becomes 13 + its Dexterity modifier. The spell ends if the target dons armor or if you dismiss the spell as an action.",
-        },
-        {
-          name: "Shield",
-          level: "1st-level",
-          castingTime: "1 reaction",
-          range: "Self",
-          components: "V, S",
-          duration: "1 round",
-          description:
-            "An invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack, and you take no damage from magic missile.",
-        },
-        {
-          name: "Find Familiar",
-          level: "1st-level",
-          castingTime: "1 hour (Ritual)",
-          range: "10 feet",
-          components: "V, S, M (10gp worth of charcoal, incense, and herbs)",
-          duration: "Instantaneous",
-          ritual: true,
-          description:
-            "You gain the service of a familiar, a spirit that takes an animal form you choose: bat, cat, crab, frog, hawk, lizard, octopus, owl, poisonous snake, fish, rat, raven, sea horse, spider, or weasel. Your familiar acts independently of you, but it always obeys your commands. In combat, it rolls its own initiative and acts on its own turn.",
-        },
+        { id: "detect-magic" },
+        { id: "identify" },
+        { id: "comprehend-languages" },
+        { id: "mage-armor" },
+        { id: "shield" },
+        { id: "find-familiar" },
       ],
       level2: [
-        {
-          name: "Detect Thoughts",
-          level: "2nd-level",
-          castingTime: "1 action",
-          range: "Self",
-          components: "V, S, M (copper piece)",
-          duration: "Concentration, up to 1 minute",
-          description:
-            "For the duration, you can read the thoughts of certain creatures. When you cast the spell, choose one creature that you can see within 30 feet. You learn the surface thoughts of the creature—what is most on its mind in that moment. As an action, you can shift your attention to another creature's thoughts.",
-        },
-        {
-          name: "Locate Object",
-          level: "2nd-level",
-          castingTime: "1 action",
-          range: "Self",
-          components: "V, S, M (forked twig)",
-          duration: "Concentration, up to 10 minutes",
-          description:
-            "Describe or name an object that is familiar to you. You sense the direction to the object's location, as long as that object is within 1,000 feet of you. If the object is in motion, you know the direction of its movement.",
-        },
-        {
-          name: "Misty Step",
-          level: "2nd-level",
-          castingTime: "1 bonus action",
-          range: "Self",
-          components: "V",
-          duration: "Instantaneous",
-          description:
-            "Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space that you can see.",
-        },
-        {
-          name: "Suggestion",
-          level: "2nd-level",
-          castingTime: "1 action",
-          range: "30 feet",
-          components: "V, M (snake's tongue, honeycomb)",
-          duration: "Concentration, up to 8 hours",
-          description:
-            "You suggest a course of activity (limited to a sentence or two) and magically influence a creature you can see within range that can hear and understand you. The suggestion must be worded in such a manner as to make the course of action sound reasonable. The target must make a Wisdom saving throw. On a failed save, it pursues the course of action you described to the best of its ability.",
-        },
+        { id: "detect-thoughts" },
+        { id: "locate-object" },
+        { id: "misty-step" },
+        { id: "suggestion" },
       ],
       level3: [
-        {
-          name: "Counterspell",
-          level: "3rd-level",
-          castingTime: "1 reaction",
-          range: "60 feet",
-          components: "S",
-          duration: "Instantaneous",
-          description:
-            "You attempt to interrupt a creature in the process of casting a spell. If the creature is casting a spell of 3rd level or lower, its spell fails. If it's casting a spell of 4th level or higher, make an ability check using your spellcasting ability (DC 10 + spell's level). On a success, the creature's spell fails and has no effect.",
-        },
-        {
-          name: "Fireball",
-          level: "3rd-level",
-          castingTime: "1 action",
-          range: "150 feet",
-          components: "V, S, M (tiny ball of bat guano and sulfur)",
-          duration: "Instantaneous",
-          description:
-            "A bright streak flashes from your pointing finger to a point you choose within range and blossoms with a roar into an explosion of flame. Each creature in a 20-foot-radius sphere must make a Dexterity saving throw. A target takes 8d6 fire damage on a failed save, or half as much on a successful one. The fire spreads around corners and ignites flammable objects that aren't being worn or carried.",
-        },
-        {
-          name: "Dispel Magic",
-          level: "3rd-level",
-          castingTime: "1 action",
-          range: "120 feet",
-          components: "V, S",
-          duration: "Instantaneous",
-          description:
-            "Choose one creature, object, or magical effect within range. Any spell of 3rd level or lower on the target ends. For each spell of 4th level or higher on the target, make an ability check using your spellcasting ability. The DC equals 10 + the spell's level. On a successful check, the spell ends.",
-        },
-        {
-          name: "Clairvoyance",
-          level: "3rd-level",
-          castingTime: "10 minutes (Ritual)",
-          range: "1 mile",
-          components: "V, S, M (focus worth 100gp)",
-          duration: "Concentration, up to 10 minutes",
-          ritual: true,
-          description:
-            "You create an invisible sensor within range in a location familiar to you or in an obvious location unfamiliar to you. The sensor remains for the duration. When you cast the spell, choose seeing or hearing. You can use the chosen sense through the sensor as if you were in its space. As an action, you can switch between seeing and hearing.",
-        },
+        { id: "counterspell" },
+        { id: "fireball" },
+        { id: "dispel-magic" },
+        { id: "clairvoyance" },
       ],
     },
     spellSlots: {
@@ -386,143 +219,22 @@ const characters = {
       "Healer's kit",
     ],
     spells: {
-      cantrips: [
-        {
-          name: "Sacred Flame",
-          level: "Cantrip",
-          castingTime: "1 action",
-          range: "60 feet",
-          components: "V, S",
-          duration: "Instantaneous",
-          description:
-            "Flame-like radiance descends on a creature you can see within range. The target must succeed on a Dexterity saving throw or take 2d8 radiant damage. The target gains no benefit from cover for this saving throw.",
-        },
-        {
-          name: "Spare the Dying",
-          level: "Cantrip",
-          castingTime: "1 action",
-          range: "Touch",
-          components: "V, S",
-          duration: "Instantaneous",
-          description:
-            "You touch a living creature that has 0 hit points. The creature becomes stable. This spell has no effect on undead or constructs.",
-        },
-        {
-          name: "Guidance",
-          level: "Cantrip",
-          castingTime: "1 action",
-          range: "Touch",
-          components: "V, S",
-          duration: "Concentration, up to 1 minute",
-          description:
-            "You touch one willing creature. Once before the spell ends, the target can roll a d4 and add the number rolled to one ability check of its choice. It can roll the die before or after making the check.",
-        },
-      ],
+      cantrips: [{ id: "sacred-flame" }, { id: "spare-the-dying" }, { id: "guidance" }],
       level1: [
-        {
-          name: "Cure Wounds",
-          level: "1st-level",
-          castingTime: "1 action",
-          range: "Touch",
-          components: "V, S",
-          duration: "Instantaneous",
-          description:
-            "A creature you touch regains hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs. With Disciple of Life, this heals 1d8 + WIS modifier + 3.",
-        },
-        {
-          name: "Healing Word",
-          level: "1st-level",
-          castingTime: "1 bonus action",
-          range: "60 feet",
-          components: "V",
-          duration: "Instantaneous",
-          description:
-            "A creature of your choice that you can see within range regains hit points equal to 1d4 + your spellcasting ability modifier. This spell has no effect on undead or constructs. With Disciple of Life, this heals 1d4 + WIS modifier + 3.",
-        },
-        {
-          name: "Bless",
-          level: "1st-level (Domain)",
-          castingTime: "1 action",
-          range: "30 feet",
-          components: "V, S, M (holy water)",
-          duration: "Concentration, up to 1 minute",
-          description:
-            "You bless up to three creatures within range. Whenever a target makes an attack roll or saving throw before the spell ends, the target can roll a d4 and add the number rolled to the attack roll or saving throw.",
-        },
-        {
-          name: "Shield of Faith",
-          level: "1st-level",
-          castingTime: "1 bonus action",
-          range: "60 feet",
-          components: "V, S, M (parchment with holy text)",
-          duration: "Concentration, up to 10 minutes",
-          description:
-            "A shimmering field appears and surrounds a creature of your choice within range, granting it a +2 bonus to AC for the duration.",
-        },
+        { id: "cure-wounds" },
+        { id: "healing-word" },
+        { id: "bless", level: "1st-level (Domain)" },
+        { id: "shield-of-faith" },
       ],
       level2: [
-        {
-          name: "Spiritual Weapon",
-          level: "2nd-level",
-          castingTime: "1 bonus action",
-          range: "60 feet",
-          components: "V, S",
-          duration: "1 minute",
-          description:
-            "You create a floating, spectral weapon within range that lasts for the duration. When you cast the spell, you can make a melee spell attack against a creature within 5 feet of the weapon. On a hit, the target takes 1d8 + spellcasting ability modifier force damage. As a bonus action on your turn, you can move the weapon up to 20 feet and repeat the attack.",
-        },
-        {
-          name: "Lesser Restoration",
-          level: "2nd-level (Domain)",
-          castingTime: "1 action",
-          range: "Touch",
-          components: "V, S",
-          duration: "Instantaneous",
-          description:
-            "You touch a creature and can end either one disease or one condition afflicting it. The condition can be blinded, deafened, paralyzed, or poisoned.",
-        },
-        {
-          name: "Aid",
-          level: "2nd-level",
-          castingTime: "1 action",
-          range: "30 feet",
-          components: "V, S, M (tiny strip of white cloth)",
-          duration: "8 hours",
-          description:
-            "Your spell bolsters your allies with toughness and resolve. Choose up to three creatures within range. Each target's hit point maximum and current hit points increase by 5 for the duration.",
-        },
+        { id: "spiritual-weapon" },
+        { id: "lesser-restoration", level: "2nd-level (Domain)" },
+        { id: "aid" },
       ],
       level3: [
-        {
-          name: "Revivify",
-          level: "3rd-level (Domain)",
-          castingTime: "1 action",
-          range: "Touch",
-          components: "V, S, M (diamonds worth 300gp, consumed)",
-          duration: "Instantaneous",
-          description:
-            "You touch a creature that has died within the last minute. That creature returns to life with 1 hit point. This spell can't return to life a creature that has died of old age, nor can it restore missing body parts.",
-        },
-        {
-          name: "Beacon of Hope",
-          level: "3rd-level (Domain)",
-          castingTime: "1 action",
-          range: "30 feet",
-          components: "V, S",
-          duration: "Concentration, up to 1 minute",
-          description:
-            "You bestow hope on creatures within range. For the duration, each target has advantage on Wisdom saving throws and death saving throws, and regains the maximum number of hit points possible from any healing.",
-        },
-        {
-          name: "Spirit Guardians",
-          level: "3rd-level",
-          castingTime: "1 action",
-          range: "Self (15-foot radius)",
-          components: "V, S, M (holy symbol)",
-          duration: "Concentration, up to 10 minutes",
-          description:
-            "You call spirits to protect you. They flit around you to a distance of 15 feet. When a creature enters the area for the first time on a turn or starts its turn there, it must make a Wisdom saving throw. On a failed save, the creature takes 3d8 radiant damage. On a successful save, half damage. The area is difficult terrain for hostile creatures.",
-        },
+        { id: "revivify", level: "3rd-level (Domain)" },
+        { id: "beacon-of-hope", level: "3rd-level (Domain)" },
+        { id: "spirit-guardians" },
       ],
     },
     spellSlots: {
@@ -621,78 +333,15 @@ const characters = {
     ],
     spells: {
       level1: [
-        {
-          name: "Sanctuary",
-          level: "1st-level (Oath)",
-          castingTime: "1 bonus action",
-          range: "30 feet",
-          components: "V, S, M (small silver mirror)",
-          duration: "1 minute",
-          description:
-            "You ward a creature within range against attack. Until the spell ends, any creature who targets the warded creature with an attack or harmful spell must first make a Wisdom saving throw. On a failed save, the creature must choose a new target or lose the attack or spell. This spell doesn't protect the warded creature from area effects. If the warded creature makes an attack or casts a spell, this spell ends.",
-        },
-        {
-          name: "Sleep",
-          level: "1st-level (Oath)",
-          castingTime: "1 action",
-          range: "90 feet",
-          components: "V, S, M (sand, rose petals, or cricket)",
-          duration: "1 minute",
-          description:
-            "This spell sends creatures into a magical slumber. Roll 5d8; the total is how many hit points of creatures this spell can affect. Creatures within 20 feet of a point you choose are affected in ascending order of their current hit points, ignoring unconscious creatures. Each affected creature falls unconscious until the spell ends, the sleeper takes damage, or someone uses an action to shake or slap the sleeper awake.",
-        },
-        {
-          name: "Bless",
-          level: "1st-level",
-          castingTime: "1 action",
-          range: "30 feet",
-          components: "V, S, M (holy water)",
-          duration: "Concentration, up to 1 minute",
-          description:
-            "You bless up to three creatures within range. Whenever a target makes an attack roll or saving throw before the spell ends, the target can roll a d4 and add the number rolled to the attack roll or saving throw.",
-        },
-        {
-          name: "Shield of Faith",
-          level: "1st-level",
-          castingTime: "1 bonus action",
-          range: "60 feet",
-          components: "V, S, M (parchment with holy text)",
-          duration: "Concentration, up to 10 minutes",
-          description:
-            "A shimmering field appears and surrounds a creature of your choice within range, granting it a +2 bonus to AC for the duration.",
-        },
+        { id: "sanctuary", level: "1st-level (Oath)" },
+        { id: "sleep", level: "1st-level (Oath)" },
+        { id: "bless" },
+        { id: "shield-of-faith" },
       ],
       level2: [
-        {
-          name: "Hold Person",
-          level: "2nd-level (Oath)",
-          castingTime: "1 action",
-          range: "60 feet",
-          components: "V, S, M (small, straight piece of iron)",
-          duration: "Concentration, up to 1 minute",
-          description:
-            "Choose a humanoid you can see within range. The target must succeed on a Wisdom saving throw or be paralyzed for the duration. At the end of each of its turns, the target can make another Wisdom saving throw. On a success, the spell ends. At Higher Levels: You can target one additional humanoid for each slot level above 2nd.",
-        },
-        {
-          name: "Calm Emotions",
-          level: "2nd-level (Oath)",
-          castingTime: "1 action",
-          range: "60 feet",
-          components: "V, S",
-          duration: "Concentration, up to 1 minute",
-          description:
-            "You attempt to suppress strong emotions in a group of people. Each humanoid in a 20-foot-radius sphere must make a Charisma saving throw. On a failed save, choose one: suppress charmed or frightened effects, or make targets indifferent about creatures they're hostile toward. The spell ends on an affected target if they're attacked or harmed by a spell or if they witness allies being harmed.",
-        },
-        {
-          name: "Aid",
-          level: "2nd-level",
-          castingTime: "1 action",
-          range: "30 feet",
-          components: "V, S, M (tiny strip of white cloth)",
-          duration: "8 hours",
-          description:
-            "Your spell bolsters your allies with toughness and resolve. Choose up to three creatures within range. Each target's hit point maximum and current hit points increase by 5 for the duration.",
-        },
+        { id: "hold-person", level: "2nd-level (Oath)" },
+        { id: "calm-emotions", level: "2nd-level (Oath)" },
+        { id: "aid" },
       ],
     },
     spellSlots: {
@@ -806,91 +455,16 @@ const characters = {
     ],
     spells: {
       cantrips: [
+        { id: "fire-bolt" },
         {
-          name: "Fire Bolt",
-          level: "Cantrip",
-          castingTime: "1 action",
-          range: "120 feet",
-          components: "V, S",
-          duration: "Instantaneous",
+          id: "mage-hand",
           description:
-            "You hurl a mote of fire at a creature or object within range. Make a ranged spell attack. On a hit, the target takes 2d10 fire damage. A flammable object hit by this spell ignites if it isn't being worn or carried.",
+            "A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.\n\nYou can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it.\n\nThe hand can't attack, activate magic items, or carry more than 10 pounds. As an Arcane Trickster, your mage hand is invisible and can also stow or retrieve items from another creature's pockets, pick locks, and disarm traps.",
         },
-        {
-          name: "Mage Hand",
-          level: "Cantrip",
-          castingTime: "1 action",
-          range: "30 feet",
-          components: "V, S",
-          duration: "1 minute",
-          description:
-            "A spectral, floating hand appears at a point you choose within range. The hand is invisible for Arcane Tricksters. You can use your action to control the hand, using it to manipulate objects, open unlocked doors, stow/retrieve items, or pick locks and disarm traps at range.",
-        },
-        {
-          name: "Minor Illusion",
-          level: "Cantrip",
-          castingTime: "1 action",
-          range: "30 feet",
-          components: "S, M (bit of fleece)",
-          duration: "1 minute",
-          description:
-            "You create a sound or an image of an object within range that lasts for the duration. The illusion ends if you dismiss it or cast the spell again. If you create a sound, its volume can range from a whisper to a scream. If you create an image of an object, it must be no larger than a 5-foot cube. The image can't create sound, light, smell, or other sensory effects. Physical interaction reveals it to be an illusion.",
-        },
+        { id: "minor-illusion" },
       ],
-      level1: [
-        {
-          name: "Disguise Self",
-          level: "1st-level",
-          castingTime: "1 action",
-          range: "Self",
-          components: "V, S",
-          duration: "1 hour",
-          description:
-            "You make yourself—including clothing, armor, weapons, and possessions—look different until the spell ends. You can seem 1 foot shorter or taller and appear thin, fat, or in between. You can't change your body type, so you must adopt a form that has the same basic arrangement of limbs. Physical inspection reveals the disguise.",
-        },
-        {
-          name: "Grease",
-          level: "1st-level",
-          castingTime: "1 action",
-          range: "60 feet",
-          components: "V, S, M (butter or pork rind)",
-          duration: "1 minute",
-          description:
-            "Slick grease covers the ground in a 10-foot square centered on a point within range. For the duration, it is difficult terrain. When the grease appears, each creature in the area must succeed on a Dexterity saving throw or fall prone. A creature that enters the area or ends its turn there must also make the save.",
-        },
-        {
-          name: "Charm Person",
-          level: "1st-level",
-          castingTime: "1 action",
-          range: "30 feet",
-          components: "V, S",
-          duration: "1 hour",
-          description:
-            "You attempt to charm a humanoid you can see within range. It must make a Wisdom saving throw, and does so with advantage if you or your companions are fighting it. If it fails the saving throw, it is charmed by you until the spell ends or until you or your companions do anything harmful to it. The charmed creature regards you as a friendly acquaintance.",
-        },
-      ],
-      level2: [
-        {
-          name: "Invisibility",
-          level: "2nd-level",
-          castingTime: "1 action",
-          range: "Touch",
-          components: "V, S, M (eyelash in gum arabic)",
-          duration: "Concentration, up to 1 hour",
-          description:
-            "A creature you touch becomes invisible until the spell ends. Anything the target is wearing or carrying is invisible as long as it's on the target's person. The spell ends for a target that attacks or casts a spell.",
-        },
-        {
-          name: "Pyrotechnics",
-          level: "2nd-level",
-          castingTime: "1 action",
-          range: "60 feet",
-          components: "V, S",
-          duration: "Instantaneous",
-          description:
-            "Choose an area of nonmagical flame within range that fits within a 5-foot cube. You can extinguish it, or create fireworks or smoke. Fireworks: Creatures within 10 feet must succeed on a Constitution save or be blinded until the end of your next turn. Smoke: Creates a 20-foot-radius sphere of smoke, heavily obscuring the area for 1 minute or until dispersed by wind.",
-        },
-      ],
+      level1: [{ id: "disguise-self" }, { id: "grease" }, { id: "charm-person" }],
+      level2: [{ id: "invisibility" }, { id: "pyrotechnics" }],
     },
     spellSlots: {
       level1: { total: 4, available: 4 },
@@ -1003,70 +577,12 @@ const characters = {
     ],
     spells: {
       level1: [
-        {
-          name: "Hunter's Mark",
-          level: "1st-level",
-          castingTime: "1 bonus action",
-          range: "90 feet",
-          components: "V",
-          duration: "Concentration, up to 1 hour",
-          description:
-            "You choose a creature you can see within range and mystically mark it as your quarry. Until the spell ends, you deal an extra 1d6 damage to the target whenever you hit it with a weapon attack. Also, you have advantage on Wisdom (Perception) or Wisdom (Survival) checks to find it. If the target drops to 0 hit points, you can use a bonus action to mark a new creature.",
-        },
-        {
-          name: "Cure Wounds",
-          level: "1st-level",
-          castingTime: "1 action",
-          range: "Touch",
-          components: "V, S",
-          duration: "Instantaneous",
-          description:
-            "A creature you touch regains hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs.",
-        },
-        {
-          name: "Longstrider",
-          level: "1st-level",
-          castingTime: "1 action",
-          range: "Touch",
-          components: "V, S, M (pinch of dirt)",
-          duration: "1 hour",
-          description:
-            "You touch a creature. The target's speed increases by 10 feet until the spell ends.",
-        },
-        {
-          name: "Fog Cloud",
-          level: "1st-level",
-          castingTime: "1 action",
-          range: "120 feet",
-          components: "V, S",
-          duration: "Concentration, up to 1 hour",
-          description:
-            "You create a 20-foot-radius sphere of fog centered on a point within range. The sphere spreads around corners, and its area is heavily obscured. It lasts for the duration or until a wind of moderate or greater speed disperses it.",
-        },
+        { id: "hunters-mark" },
+        { id: "cure-wounds" },
+        { id: "longstrider" },
+        { id: "fog-cloud" },
       ],
-      level2: [
-        {
-          name: "Pass Without Trace",
-          level: "2nd-level",
-          castingTime: "1 action",
-          range: "Self",
-          components: "V, S, M (ashes from burned mistletoe)",
-          duration: "Concentration, up to 1 hour",
-          description:
-            "A veil of shadows and silence radiates from you, masking you and your companions from detection. For the duration, each creature you choose within 30 feet (including you) has a +10 bonus to Dexterity (Stealth) checks and can't be tracked except by magical means. A creature that receives this bonus leaves behind no tracks or other traces of its passage.",
-        },
-        {
-          name: "Silence",
-          level: "2nd-level",
-          castingTime: "1 action (Ritual)",
-          range: "120 feet",
-          components: "V, S",
-          duration: "Concentration, up to 10 minutes",
-          ritual: true,
-          description:
-            "For the duration, no sound can be created within or pass through a 20-foot-radius sphere centered on a point you choose within range. Any creature or object entirely inside the sphere is immune to thunder damage, and creatures are deafened while entirely inside it. Casting a spell that includes a verbal component is impossible there.",
-        },
-      ],
+      level2: [{ id: "pass-without-trace" }, { id: "silence" }],
     },
     spellSlots: {
       level1: { total: 4, available: 4 },

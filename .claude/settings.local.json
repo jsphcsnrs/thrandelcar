@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(node -e \":*)"
+      "Bash(node -e \":*)",
+      "WebFetch(domain:www.dndbeyond.com)",
+      "Bash(node -e \"const chars = require\\(''c:/Users/jsphc/Repos/thrandelcar/characters.js''\\); console.log\\(''Parsed OK. Characters:'', Object.keys\\(chars.characters || chars\\).join\\('', ''\\)\\);\")",
+      "Bash(node --input-type=module -e \"import\\(''file:///c:/Users/jsphc/Repos/thrandelcar/characters.js''\\).then\\(m => console.log\\(''OK''\\)\\)\")",
+      "Bash(node -e \"const characters = require\\(''./characters.js''\\); console.log\\(''JS parse OK. Spell count check:''\\); const amox = characters.amox; console.log\\(''Amox cantrips:'', amox.spells.cantrips.length, ''| level1:'', amox.spells.level1.length, ''| level2:'', amox.spells.level2.length, ''| level3:'', amox.spells.level3.length\\);\")"
     ]
   }
 }
