@@ -30,7 +30,7 @@
 
       /* Theme Toggle Button */
       #theme-toggle {
-        position: fixed;
+        position: absolute;
         top: 1rem;
         right: 1rem;
         z-index: 200;
