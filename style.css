@@ -148,7 +148,7 @@
         border-radius: 1rem;
         padding: 1.75rem;
         cursor: pointer;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.25s ease;
         position: relative;
         overflow: hidden;
         text-align: left;
@@ -1066,7 +1066,7 @@
         border-radius: 0.75rem;
         padding: 0.875rem 1rem;
         cursor: pointer;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.2s ease;
       }
 
       .spell-card:hover {
@@ -1110,7 +1110,7 @@
       .expand-icon {
         color: var(--text-tertiary);
         font-size: 1rem;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform 0.3s ease;
         flex-shrink: 0;
         align-self: flex-start;
       }
@@ -1150,18 +1150,26 @@
       }
 
       .spell-description {
-        max-height: 0;
+        height: 0;
         overflow: hidden;
         transition:
-          max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-          padding-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          height 0.4s ease,
+          padding-top 0.1s ease;
         color: var(--text-secondary);
         line-height: 1.6;
         font-size: 0.875rem;
       }
 
+      .spell-description p {
+        margin: 0 0 0.5rem;
+      }
+
+      .spell-description p:last-child {
+        margin-bottom: 0;
+      }
+
       .spell-card.expanded .spell-description {
-        max-height: 300px;
+        height: auto;
         padding-top: 0.75rem;
       }
 
