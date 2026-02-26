@@ -534,15 +534,15 @@ function generateCharacterSheet(charId, container) {
                         <h2>Combat Stats</h2>
                         <div class="combat-stats-grid">
                             <div class="combat-stat-tile" id="${charId}-hp-tile">
+                            <div class="hp-controls">
+                                <button class="hp-btn" onclick="adjustHP('${charId}', -1)">−</button>
                                 <div class="combat-stat-label">HP</div>
+                                    <button class="hp-btn" onclick="adjustHP('${charId}', 1)">+</button>
+                                </div>
                                 <div class="hp-display">
                                     <span class="hp-current" id="${charId}-hp-current">${char.hp}</span>
                                     <span class="hp-sep">/</span>
                                     <span class="hp-max">${char.hp}</span>
-                                </div>
-                                <div class="hp-controls">
-                                    <button class="hp-btn" onclick="adjustHP('${charId}', -1)">−</button>
-                                    <button class="hp-btn" onclick="adjustHP('${charId}', 1)">+</button>
                                 </div>
                                 <div class="death-saves" id="${charId}-death-saves" style="display:none">
                                     <div class="death-saves-label">Death Saves</div>
