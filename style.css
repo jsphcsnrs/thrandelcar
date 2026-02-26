@@ -366,7 +366,7 @@
       /* Stats Grid */
       .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
         gap: 1.25rem;
         margin-bottom: 2rem;
       }
@@ -375,7 +375,7 @@
         grid-column: span 2;
       }
 
-      @media (max-width: 900px) {
+      @media (max-width: 770px) {
         .stat-block.skills-block {
           grid-column: span 1;
         }
@@ -690,7 +690,8 @@
 
       .resource-tracker {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
         gap: 0.5rem;
       }
 

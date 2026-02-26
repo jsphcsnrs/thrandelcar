@@ -846,6 +846,18 @@ function resolveSpell(ref) {
   return { ...base, ...overrides }
 }
 
+function formatSpellDesc(text) {
+  return text
+    .split("\n\n")
+    .map((para) => {
+      const html = para
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\*([^*]+?)\*/g, "<em>$1</em>")
+      return `<p>${html}</p>`
+    })
+    .join("")
+}
+
 function generateSpellCard(spell) {
   return `
                 <div class="spell-card">
@@ -874,7 +886,7 @@ function generateSpellCard(spell) {
                             ${spell.duration}
                         </span>
                     </div>
-                    <div class="spell-description">${spell.description}</div>
+                    <div class="spell-description">${formatSpellDesc(spell.description)}</div>
                 </div>
             `
 }
