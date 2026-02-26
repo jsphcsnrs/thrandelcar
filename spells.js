@@ -39,10 +39,10 @@ const spells = {
     level: "Cantrip",
     castingTime: "1 action",
     range: "120 feet",
-    components: "S, M (a short piece of copper wire)",
+    components: "S, M",
     duration: "1 round",
     description:
-      "You point toward a creature within range and whisper a message. The target (and only the target) hears the message and can reply in a whisper that only you can hear.\n\nYou can cast this spell through solid objects if you are familiar with the target and know it is beyond the barrier. Magical silence; 1 foot of stone, metal, or wood; or a thin sheet of lead blocks the spell.",
+      "You point toward a creature within range and whisper a message. The target (and only the target) hears the message and can reply in a whisper that only you can hear.\n\nYou can cast this spell through solid objects if you are familiar with the target and know it is beyond the barrier. Magical silence; 1 foot of stone, metal, or wood; or a thin sheet of lead blocks the spell.\n\nMaterials: a short piece of copper wire.",
   },
 
   "sacred-flame": {
@@ -83,10 +83,10 @@ const spells = {
     level: "Cantrip",
     castingTime: "1 action",
     range: "30 feet",
-    components: "S, M (a bit of fleece)",
+    components: "S, M",
     duration: "1 minute",
     description:
-      "You create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again.\n\nIf you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a lion's roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.\n\nIf you create an image of an object—such as a chair, muddy footprints, or a small chest—it must be no larger than a 5-foot cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.\n\nIf a creature uses the Study action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.",
+      "You create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again.\n\nIf you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else's voice, a lion's roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.\n\nIf you create an image of an object—such as a chair, muddy footprints, or a small chest—it must be no larger than a 5-foot cube. The image can't create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.\n\nIf a creature uses the Study action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.\n\nMaterials: a bit of fleece.",
   },
 
   // ─── 1st Level ──────────────────────────────────────────────────────────────
@@ -108,11 +108,11 @@ const spells = {
     level: "1st-level",
     castingTime: "1 minute (Ritual)",
     range: "Touch",
-    components: "V, S, M (a pearl worth 100+ GP)",
+    components: "V, S, M",
     duration: "Instantaneous",
     ritual: true,
     description:
-      "You choose one object that you must touch throughout the casting of the spell. If it is a magic item or some other magic-imbued object, you learn its properties and how to use them, whether it requires attunement to use, and how many charges it has, if any. You learn whether any spells are affecting the item and what they are. If the item was created by a spell, you learn which spell created it.\n\nIf you instead touch a creature throughout the casting, you learn what spells, if any, are currently affecting it.",
+      "You choose one object that you must touch throughout the casting of the spell. If it is a magic item or some other magic-imbued object, you learn its properties and how to use them, whether it requires attunement to use, and how many charges it has, if any. You learn whether any spells are affecting the item and what they are. If the item was created by a spell, you learn which spell created it.\n\nIf you instead touch a creature throughout the casting, you learn what spells, if any, are currently affecting it.\n\nMaterials: a pearl worth 100+ GP.",
   },
 
   "comprehend-languages": {
@@ -120,11 +120,11 @@ const spells = {
     level: "1st-level",
     castingTime: "1 action (Ritual)",
     range: "Self",
-    components: "V, S, M (a pinch of soot and salt)",
+    components: "V, S, M",
     duration: "1 hour",
     ritual: true,
     description:
-      "For the duration, you understand the literal meaning of any language that you hear or see signed. You also understand any written language that you see, but you must be touching the surface on which the words are written. It takes about 1 minute to read one page of text.\n\nThis spell doesn't decode symbols or secret messages.",
+      "For the duration, you understand the literal meaning of any language that you hear or see signed. You also understand any written language that you see, but you must be touching the surface on which the words are written. It takes about 1 minute to read one page of text.\n\nThis spell doesn't decode symbols or secret messages.\n\nMaterials: a pinch of soot and salt.",
   },
 
   "mage-armor": {
@@ -132,21 +132,21 @@ const spells = {
     level: "1st-level",
     castingTime: "1 action",
     range: "Touch",
-    components: "V, S, M (a piece of cured leather)",
+    components: "V, S, M",
     duration: "8 hours",
     description:
-      "You touch a willing creature who isn't wearing armor. Until the spell ends, the target's base AC becomes 13 plus its Dexterity modifier. The spell ends early if the target dons armor.",
+      "You touch a willing creature who isn't wearing armor. Until the spell ends, the target's base AC becomes 13 plus its Dexterity modifier. The spell ends early if the target dons armor.\n\nMaterials: a piece of cured leather.",
   },
 
   shield: {
     name: "Shield",
     level: "1st-level",
-    castingTime: "1 reaction, which you take when you are hit by an attack roll or targeted by Magic Missile",
+    castingTime: "1 reaction",
     range: "Self",
     components: "V, S",
     duration: "1 round",
     description:
-      "An invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack, and you take no damage from Magic Missile.",
+      "When an attack roll against you would be successful, or you are targeted by Magic Missile, you may cast this spell as a reaction.\n\nAn invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack, and you take no damage from Magic Missile.",
   },
 
   "find-familiar": {
@@ -154,11 +154,11 @@ const spells = {
     level: "1st-level",
     castingTime: "1 hour (Ritual)",
     range: "10 feet",
-    components: "V, S, M (burning incense worth 10+ GP, consumed by the spell)",
+    components: "V, S, M",
     duration: "Instantaneous",
     ritual: true,
     description:
-      "You gain the service of a familiar, a spirit that takes an animal form you choose: Bat, Cat, Frog, Hawk, Lizard, Octopus, Owl, Rat, Raven, Spider, Weasel, or another Beast that has a Challenge Rating of 0. Appearing in an unoccupied space within range, the familiar has the statistics of the chosen form, though it is a Celestial, Fey, or Fiend (your choice) instead of a Beast.\n\nYour familiar acts independently of you, but it always obeys your commands. In combat, it rolls its own initiative and acts on its own turn. A familiar can't attack, but it can take other actions as normal.\n\nWhen the familiar drops to 0 Hit Points, it disappears, leaving behind no physical form. It reappears after you cast this spell again. As a Bonus Action, you can temporarily dismiss the familiar to a pocket dimension. Alternatively, you can dismiss it forever. As a Bonus Action while it is temporarily dismissed, you can cause it to reappear in any unoccupied space within 30 feet of you.\n\nWhile your familiar is within 100 feet of you, you can communicate with it telepathically. Additionally, as a Bonus Action, you can see through your familiar's eyes and hear what it hears until the start of your next turn, gaining the benefits of any special senses that the familiar has. During this time, you are deaf and blind with regard to your own senses.\n\nYou can't have more than one familiar at a time. If you cast this spell while you already have a familiar, you instead cause it to adopt a new form. When you cast a spell with a range of Touch, your familiar can deliver the spell as if it had cast the spell. Your familiar must be within 100 feet of you, and it must use its Reaction to deliver the spell when you cast it.",
+      "You gain the service of a familiar, a spirit that takes an animal form you choose: Bat, Cat, Frog, Hawk, Lizard, Octopus, Owl, Rat, Raven, Spider, Weasel, or another Beast that has a Challenge Rating of 0. Appearing in an unoccupied space within range, the familiar has the statistics of the chosen form, though it is a Celestial, Fey, or Fiend (your choice) instead of a Beast.\n\nYour familiar acts independently of you, but it always obeys your commands. In combat, it rolls its own initiative and acts on its own turn. A familiar can't attack, but it can take other actions as normal.\n\nWhen the familiar drops to 0 Hit Points, it disappears, leaving behind no physical form. It reappears after you cast this spell again. As a Bonus Action, you can temporarily dismiss the familiar to a pocket dimension. Alternatively, you can dismiss it forever. As a Bonus Action while it is temporarily dismissed, you can cause it to reappear in any unoccupied space within 30 feet of you.\n\nWhile your familiar is within 100 feet of you, you can communicate with it telepathically. Additionally, as a Bonus Action, you can see through your familiar's eyes and hear what it hears until the start of your next turn, gaining the benefits of any special senses that the familiar has. During this time, you are deaf and blind with regard to your own senses.\n\nYou can't have more than one familiar at a time. If you cast this spell while you already have a familiar, you instead cause it to adopt a new form. When you cast a spell with a range of Touch, your familiar can deliver the spell as if it had cast the spell. Your familiar must be within 100 feet of you, and it must use its Reaction to deliver the spell when you cast it.\n\nMaterials: burning incense worth 10+ GP, consumed by the spell.",
   },
 
   "cure-wounds": {
@@ -188,10 +188,10 @@ const spells = {
     level: "1st-level",
     castingTime: "1 action",
     range: "30 feet",
-    components: "V, S, M (a Holy Symbol worth 5+ GP)",
+    components: "V, S, M",
     duration: "Concentration, up to 1 minute",
     description:
-      "You bless up to three creatures of your choice within range. Whenever a target makes an attack roll or a saving throw before the spell ends, the target can roll a d4 and add the number rolled to the attack roll or saving throw.\n\n**Using a Higher-Level Spell Slot.** You can target one additional creature for each spell slot level above 1.",
+      "You bless up to three creatures of your choice within range. Whenever a target makes an attack roll or a saving throw before the spell ends, the target can roll a d4 and add the number rolled to the attack roll or saving throw.\n\n**Using a Higher-Level Spell Slot.** You can target one additional creature for each spell slot level above 1.\n\nMaterials: a Holy Symbol worth 5+ GP.",
   },
 
   "shield-of-faith": {
@@ -199,10 +199,10 @@ const spells = {
     level: "1st-level",
     castingTime: "1 bonus action",
     range: "60 feet",
-    components: "V, S, M (a prayer scroll)",
+    components: "V, S, M",
     duration: "Concentration, up to 10 minutes",
     description:
-      "A shimmering field appears and surrounds a creature of your choice within range, granting it a +2 bonus to AC for the duration.",
+      "A shimmering field appears and surrounds a creature of your choice within range, granting it a +2 bonus to AC for the duration.\n\nMaterials: a prayer scroll.",
   },
 
   sanctuary: {
@@ -210,10 +210,10 @@ const spells = {
     level: "1st-level",
     castingTime: "1 bonus action",
     range: "30 feet",
-    components: "V, S, M (a shard of glass from a mirror)",
+    components: "V, S, M",
     duration: "1 minute",
     description:
-      "You ward a creature within range against attack. Until the spell ends, any creature who targets the warded creature with an attack roll or a damaging spell must first make a Wisdom saving throw. On a failed save, the creature must choose a new target or lose the attack or spell. This spell doesn't protect the warded creature from area effects.\n\nIf the warded creature makes an attack roll, casts a spell, or deals damage, this spell ends.",
+      "You ward a creature within range against attack. Until the spell ends, any creature who targets the warded creature with an attack roll or a damaging spell must first make a Wisdom saving throw. On a failed save, the creature must choose a new target or lose the attack or spell. This spell doesn't protect the warded creature from area effects.\n\nIf the warded creature makes an attack roll, casts a spell, or deals damage, this spell ends.\n\nMaterials: a shard of glass from a mirror.",
   },
 
   sleep: {
@@ -221,10 +221,10 @@ const spells = {
     level: "1st-level",
     castingTime: "1 action",
     range: "60 feet",
-    components: "V, S, M (a pinch of sand or rose petals)",
+    components: "V, S, M",
     duration: "Concentration, up to 1 minute",
     description:
-      "Each creature of your choice in a 5-foot-radius Sphere centered on a point within range must succeed on a Wisdom saving throw or have the Incapacitated condition until the end of its next turn, at which point it must repeat the save. If the target fails the second save, the target has the Unconscious condition for the duration. The spell ends on a target if it takes damage or someone within 5 feet of it takes an action to shake it out of the spell's effect.\n\nCreatures that don't sleep, such as elves, or that have Immunity to the Exhaustion condition automatically succeed on saves against this spell.",
+      "Each creature of your choice in a 5-foot-radius Sphere centered on a point within range must succeed on a Wisdom saving throw or have the Incapacitated condition until the end of its next turn, at which point it must repeat the save. If the target fails the second save, the target has the Unconscious condition for the duration. The spell ends on a target if it takes damage or someone within 5 feet of it takes an action to shake it out of the spell's effect.\n\nCreatures that don't sleep, such as elves, or that have Immunity to the Exhaustion condition automatically succeed on saves against this spell.\n\nMaterials: a pinch of sand or rose petals.",
   },
 
   "disguise-self": {
@@ -243,10 +243,10 @@ const spells = {
     level: "1st-level",
     castingTime: "1 action",
     range: "60 feet",
-    components: "V, S, M (a bit of pork rind or butter)",
+    components: "V, S, M",
     duration: "1 minute",
     description:
-      "Nonflammable grease covers the ground in a 10-foot square centered on a point within range and turns it into Difficult Terrain for the duration. When the grease appears, each creature standing in its area must succeed on a Dexterity saving throw or have the Prone condition. A creature that enters the area or ends its turn there must also succeed on that save or fall Prone.",
+      "Nonflammable grease covers the ground in a 10-foot square centered on a point within range and turns it into Difficult Terrain for the duration. When the grease appears, each creature standing in its area must succeed on a Dexterity saving throw or have the Prone condition. A creature that enters the area or ends its turn there must also succeed on that save or fall Prone.\n\nMaterials: a bit of pork rind or butter.",
   },
 
   "charm-person": {
@@ -276,10 +276,10 @@ const spells = {
     level: "1st-level",
     castingTime: "1 action",
     range: "Touch",
-    components: "V, S, M (a pinch of dirt)",
+    components: "V, S, M",
     duration: "1 hour",
     description:
-      "You touch a creature. The target's Speed increases by 10 feet until the spell ends.\n\n**Using a Higher-Level Spell Slot.** You can target one additional creature for each spell slot level above 1.",
+      "You touch a creature. The target's Speed increases by 10 feet until the spell ends.\n\n**Using a Higher-Level Spell Slot.** You can target one additional creature for each spell slot level above 1.\n\nMaterials: a pinch of dirt.",
   },
 
   "fog-cloud": {
@@ -300,10 +300,10 @@ const spells = {
     level: "2nd-level",
     castingTime: "1 action",
     range: "Self",
-    components: "V, S, M (1 copper piece)",
+    components: "V, S, M",
     duration: "Concentration, up to 1 minute",
     description:
-      "You activate one of the following effects. If you cast this spell and already have one of its effects active, the active effect ends.\n\n**Sense Thoughts.** You sense the presence of thoughts within 30 feet of yourself that belong to creatures that know languages or are telepathic. The spell is blocked by 1 foot of stone, dirt, or wood; 1 inch of metal; or a thin sheet of lead.\n\n**Read Thoughts.** You target one creature you can see within 30 feet of yourself or one creature whose thoughts you sense with Sense Thoughts. You learn what is most on the target's mind right now. On subsequent turns, you can use the Magic action to probe deeper into the target's mind. The target must make a Wisdom saving throw. On a failed save, you learn the creature's reasoning, its emotional state, and something that looms large in its mind. On a successful save, the spell ends. Either way, the target knows you are probing its mind, and it can use its action on its turn to make an Intelligence (Arcana) check against your spell save DC to end the spell.",
+      "You activate one of the following effects. If you cast this spell and already have one of its effects active, the active effect ends.\n\n**Sense Thoughts.** You sense the presence of thoughts within 30 feet of yourself that belong to creatures that know languages or are telepathic. The spell is blocked by 1 foot of stone, dirt, or wood; 1 inch of metal; or a thin sheet of lead.\n\n**Read Thoughts.** You target one creature you can see within 30 feet of yourself or one creature whose thoughts you sense with Sense Thoughts. You learn what is most on the target's mind right now. On subsequent turns, you can use the Magic action to probe deeper into the target's mind. The target must make a Wisdom saving throw. On a failed save, you learn the creature's reasoning, its emotional state, and something that looms large in its mind. On a successful save, the spell ends. Either way, the target knows you are probing its mind, and it can use its action on its turn to make an Intelligence (Arcana) check against your spell save DC to end the spell.\n\nMaterials: 1 copper piece.",
   },
 
   "locate-object": {
@@ -311,10 +311,10 @@ const spells = {
     level: "2nd-level",
     castingTime: "1 action",
     range: "Self",
-    components: "V, S, M (a forked twig)",
+    components: "V, S, M",
     duration: "Concentration, up to 10 minutes",
     description:
-      "Describe or name an object that is familiar to you. You sense the direction to the object's location, as long as that object is within 1,000 feet of you. If the object is in motion, you know the direction of its movement.\n\nThe spell can locate a specific object known to you, as long as you have seen it up close—within 30 feet—at least once. Alternatively, the spell can locate the nearest object of a particular kind, such as a certain kind of apparel, jewelry, furniture, tool, or weapon.\n\nThis spell can't locate an object if any thickness of lead blocks a direct path between you and the object.",
+      "Describe or name an object that is familiar to you. You sense the direction to the object's location, as long as that object is within 1,000 feet of you. If the object is in motion, you know the direction of its movement.\n\nThe spell can locate a specific object known to you, as long as you have seen it up close—within 30 feet—at least once. Alternatively, the spell can locate the nearest object of a particular kind, such as a certain kind of apparel, jewelry, furniture, tool, or weapon.\n\nThis spell can't locate an object if any thickness of lead blocks a direct path between you and the object.\n\nMaterials: a forked twig.",
   },
 
   "misty-step": {
@@ -333,10 +333,10 @@ const spells = {
     level: "2nd-level",
     castingTime: "1 action",
     range: "30 feet",
-    components: "V, M (a drop of honey)",
+    components: "V, M",
     duration: "Concentration, up to 8 hours",
     description:
-      "You suggest a course of activity—described in no more than 25 words—to one creature you can see within range that can hear and understand you. The suggestion must sound achievable and not involve anything that would obviously deal damage to the target or its allies.\n\nThe target must make a Wisdom saving throw. On a failed save, the target has the Charmed condition for the duration or until you or your allies damage it. While Charmed, the target pursues the course of action you described to the best of its ability.",
+      "You suggest a course of activity—described in no more than 25 words—to one creature you can see within range that can hear and understand you. The suggestion must sound achievable and not involve anything that would obviously deal damage to the target or its allies.\n\nThe target must make a Wisdom saving throw. On a failed save, the target has the Charmed condition for the duration or until you or your allies damage it. While Charmed, the target pursues the course of action you described to the best of its ability.\n\nMaterials: a drop of honey.",
   },
 
   "spiritual-weapon": {
@@ -366,10 +366,10 @@ const spells = {
     level: "2nd-level",
     castingTime: "1 action",
     range: "30 feet",
-    components: "V, S, M (a strip of white cloth)",
+    components: "V, S, M",
     duration: "8 hours",
     description:
-      "Choose up to three creatures within range. Each target's Hit Point maximum and current Hit Points increase by 5 for the duration.\n\n**Using a Higher-Level Spell Slot.** Each target's Hit Points increase by 5 for each spell slot level above 2.",
+      "Choose up to three creatures within range. Each target's Hit Point maximum and current Hit Points increase by 5 for the duration.\n\n**Using a Higher-Level Spell Slot.** Each target's Hit Points increase by 5 for each spell slot level above 2.\n\nMaterials: a strip of white cloth.",
   },
 
   "hold-person": {
@@ -377,10 +377,10 @@ const spells = {
     level: "2nd-level",
     castingTime: "1 action",
     range: "60 feet",
-    components: "V, S, M (a straight piece of iron)",
+    components: "V, S, M",
     duration: "Concentration, up to 1 minute",
     description:
-      "Choose a Humanoid that you can see within range. The target must succeed on a Wisdom saving throw or have the Paralyzed condition for the duration. At the end of each of its turns, the target can make another Wisdom saving throw. On a success, the spell ends on the target.\n\n**Using a Higher-Level Spell Slot.** You can target one additional Humanoid for each spell slot level above 2.",
+      "Choose a Humanoid that you can see within range. The target must succeed on a Wisdom saving throw or have the Paralyzed condition for the duration. At the end of each of its turns, the target can make another Wisdom saving throw. On a success, the spell ends on the target.\n\n**Using a Higher-Level Spell Slot.** You can target one additional Humanoid for each spell slot level above 2.\n\nMaterials: a straight piece of iron.",
   },
 
   "calm-emotions": {
@@ -399,10 +399,10 @@ const spells = {
     level: "2nd-level",
     castingTime: "1 action",
     range: "Touch",
-    components: "V, S, M (an eyelash in gum arabic)",
+    components: "V, S, M",
     duration: "Concentration, up to 1 hour",
     description:
-      "A creature you touch has the Invisible condition until the spell ends. The spell ends on a target early if it makes an attack roll, deals damage, or casts a spell.\n\n**Using a Higher-Level Spell Slot.** You can target one additional creature for each spell slot level above 2.",
+      "A creature you touch has the Invisible condition until the spell ends. The spell ends on a target early if it makes an attack roll, deals damage, or casts a spell.\n\n**Using a Higher-Level Spell Slot.** You can target one additional creature for each spell slot level above 2.\n\nMaterials: an eyelash in gum arabic.",
   },
 
   pyrotechnics: {
@@ -421,10 +421,10 @@ const spells = {
     level: "2nd-level",
     castingTime: "1 action",
     range: "Self",
-    components: "V, S, M (ashes from burned mistletoe)",
+    components: "V, S, M",
     duration: "Concentration, up to 1 hour",
     description:
-      "A veil of shadows and silence radiates from you, masking you and your companions from detection. For the duration, each creature you choose within 30 feet of yourself (including you) has a +10 bonus to Dexterity (Stealth) checks and leaves no tracks or other traces of its passage.",
+      "A veil of shadows and silence radiates from you, masking you and your companions from detection. For the duration, each creature you choose within 30 feet of yourself (including you) has a +10 bonus to Dexterity (Stealth) checks and leaves no tracks or other traces of its passage.\n\nMaterials: ashes from burned mistletoe.",
   },
 
   silence: {
@@ -444,12 +444,12 @@ const spells = {
   counterspell: {
     name: "Counterspell",
     level: "3rd-level",
-    castingTime: "1 reaction, which you take when you see a creature within 60 feet casting a spell with Verbal, Somatic, or Material components",
+    castingTime: "1 reaction",
     range: "60 feet",
     components: "S",
     duration: "Instantaneous",
     description:
-      "You attempt to interrupt a creature in the process of casting a spell. The creature makes a Constitution saving throw. On a failed save, the spell dissipates with no effect, and the action, Bonus Action, or Reaction used to cast it is wasted. If that spell was cast with a spell slot, the slot isn't expended.",
+      "When you you see a creature within 60 feet in the process of casting a spell with Verbal, Somatic, or Material components, you can use your reaction to attempt to interrupt them.\n\nThe creature makes a Constitution saving throw. On a failed save, the spell dissipates with no effect, and the action, Bonus Action, or Reaction used to cast it is wasted. If that spell was cast with a spell slot, the slot isn't expended.",
   },
 
   fireball: {
@@ -457,10 +457,10 @@ const spells = {
     level: "3rd-level",
     castingTime: "1 action",
     range: "150 feet",
-    components: "V, S, M (a ball of bat guano and sulfur)",
+    components: "V, S, M",
     duration: "Instantaneous",
     description:
-      "A bright streak flashes from you to a point you choose within range and then blossoms with a low roar into a fiery explosion. Each creature in a 20-foot-radius Sphere centered on that point must make a Dexterity saving throw. A target takes 8d6 Fire damage on a failed save, or half as much damage on a successful one.\n\nFlammable objects in the area that aren't being worn or carried start burning.\n\n**Using a Higher-Level Spell Slot.** The damage increases by 1d6 for each spell slot level above 3.",
+      "A bright streak flashes from you to a point you choose within range and then blossoms with a low roar into a fiery explosion. Each creature in a 20-foot-radius Sphere centered on that point must make a Dexterity saving throw. A target takes 8d6 Fire damage on a failed save, or half as much damage on a successful one.\n\nFlammable objects in the area that aren't being worn or carried start burning.\n\n**Using a Higher-Level Spell Slot.** The damage increases by 1d6 for each spell slot level above 3.\n\nMaterials: a ball of bat guano and sulfur.",
   },
 
   "dispel-magic": {
@@ -479,10 +479,10 @@ const spells = {
     level: "3rd-level",
     castingTime: "10 minutes",
     range: "1 mile",
-    components: "V, S, M (a focus worth 100+ GP, either a jeweled horn for hearing or a glass eye for seeing)",
+    components: "V, S, M",
     duration: "Concentration, up to 10 minutes",
     description:
-      "You create an invisible sensor within range in a location familiar to you (a place you have visited or seen before) or in an obvious location that is unfamiliar to you (such as behind a door, around a corner, or in a grove of trees). The sensor remains in place for the duration, and it can't be attacked or otherwise interacted with.\n\nWhen you cast the spell, you choose seeing or hearing. You can use the chosen sense through the sensor as if you were in its space. As a Bonus Action, you can switch between seeing and hearing.\n\nA creature that can see the sensor (such as a creature benefiting from see invisibility or truesight) sees a luminous, intangible orb about the size of your fist.",
+      "You create an invisible sensor within range in a location familiar to you (a place you have visited or seen before) or in an obvious location that is unfamiliar to you (such as behind a door, around a corner, or in a grove of trees). The sensor remains in place for the duration, and it can't be attacked or otherwise interacted with.\n\nWhen you cast the spell, you choose seeing or hearing. You can use the chosen sense through the sensor as if you were in its space. As a Bonus Action, you can switch between seeing and hearing.\n\nA creature that can see the sensor (such as a creature benefiting from see invisibility or truesight) sees a luminous, intangible orb about the size of your fist.\n\nMaterials: a focus worth 100+ GP, either a jeweled horn for hearing or a glass eye for seeing.",
   },
 
   revivify: {
@@ -490,10 +490,10 @@ const spells = {
     level: "3rd-level",
     castingTime: "1 action",
     range: "Touch",
-    components: "V, S, M (a diamond worth 300+ GP, consumed by the spell)",
+    components: "V, S, M",
     duration: "Instantaneous",
     description:
-      "You touch a creature that has died within the last minute. That creature returns to life with 1 Hit Point. This spell can't return to life a creature that has died of old age, nor does it restore any missing body parts.",
+      "You touch a creature that has died within the last minute. That creature returns to life with 1 Hit Point. This spell can't return to life a creature that has died of old age, nor does it restore any missing body parts.\n\nMaterials: a diamond worth 300+ GP, consumed by the spell.",
   },
 
   "beacon-of-hope": {
@@ -512,9 +512,9 @@ const spells = {
     level: "3rd-level",
     castingTime: "1 action",
     range: "Self (15-foot radius)",
-    components: "V, S, M (a Holy Symbol)",
+    components: "V, S, M",
     duration: "Concentration, up to 10 minutes",
     description:
-      "Protective spirits flit around you in a 15-foot Emanation for the duration. If you are good or neutral, their spectral form appears angelic or fey (your choice). If you are evil, they appear fiendish. When you cast this spell, you can designate any number of creatures you can see to be unaffected by it.\n\nAny other creature's Speed is halved in the Emanation, and whenever the Emanation enters a creature's space and whenever a creature enters the Emanation or ends its turn there, the creature must make a Wisdom saving throw. On a failed save, the creature takes 3d8 Radiant damage (if you are good or neutral) or 3d8 Necrotic damage (if you are evil). On a successful save, the creature takes half as much damage. A creature makes this save only once per turn.\n\n**Using a Higher-Level Spell Slot.** The damage increases by 1d8 for each spell slot level above 3.",
+      "Protective spirits flit around you in a 15-foot Emanation for the duration. If you are good or neutral, their spectral form appears angelic or fey (your choice). If you are evil, they appear fiendish. When you cast this spell, you can designate any number of creatures you can see to be unaffected by it.\n\nAny other creature's Speed is halved in the Emanation, and whenever the Emanation enters a creature's space and whenever a creature enters the Emanation or ends its turn there, the creature must make a Wisdom saving throw. On a failed save, the creature takes 3d8 Radiant damage (if you are good or neutral) or 3d8 Necrotic damage (if you are evil). On a successful save, the creature takes half as much damage. A creature makes this save only once per turn.\n\n**Using a Higher-Level Spell Slot.** The damage increases by 1d8 for each spell slot level above 3.\n\nMaterials: a Holy Symbol.",
   },
 }
