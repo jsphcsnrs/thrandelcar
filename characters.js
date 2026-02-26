@@ -2,8 +2,12 @@ const characters = {
   amox: {
     name: "Amox Velthune",
     title: "The Lore Keeper",
+    theme: "theme-wizard",
+    accentColor: "#8b7dd8",
+    accentColorRgb: "139, 125, 216",
     race: "Half-Elf",
-    class: "Wizard (School of Divination)",
+    class: "Wizard",
+    subclass: "School of Divination",
     level: 6,
     alignment: "Lawful Neutral",
     abilities: {
@@ -294,8 +298,12 @@ const characters = {
   barak: {
     name: "Barak",
     title: "The Anchor",
+    theme: "theme-cleric",
+    accentColor: "#f59e0b",
+    accentColorRgb: "245, 158, 11",
     race: "Mountain Dwarf",
-    class: "Cleric (Life Domain)",
+    class: "Cleric",
+    subclass: "Life Domain",
     level: 6,
     alignment: "Lawful Good",
     abilities: {
@@ -530,8 +538,12 @@ const characters = {
   tenoch: {
     name: "Tenoch",
     title: "The Silent Guardian",
+    theme: "theme-paladin",
+    accentColor: "#60a5fa",
+    accentColorRgb: "96, 165, 250",
     race: "Goliath",
-    class: "Paladin (Oath of Redemption)",
+    class: "Paladin",
+    subclass: "Oath of Redemption",
     level: 6,
     alignment: "Neutral Good",
     abilities: {
@@ -698,8 +710,12 @@ const characters = {
   glorg: {
     name: "Glorg",
     title: "The Wildfire",
+    theme: "theme-rogue",
+    accentColor: "#f87171",
+    accentColorRgb: "248, 113, 113",
     race: "Goblin",
-    class: "Rogue (Arcane Trickster)",
+    class: "Rogue",
+    subclass: "Arcane Trickster",
     level: 6,
     alignment: "Chaotic Good",
     abilities: {
@@ -888,8 +904,12 @@ const characters = {
   barenhal: {
     name: "Barenhal Everwatch",
     title: "The Watcher",
+    theme: "theme-ranger",
+    accentColor: "#34d399",
+    accentColorRgb: "52, 211, 153",
     race: "Wood Elf",
-    class: "Ranger (Hunter)",
+    class: "Ranger",
+    subclass: "Hunter",
     level: 6,
     alignment: "Lawful Good",
     abilities: {
@@ -1059,8 +1079,12 @@ const characters = {
   karyl: {
     name: "Karyl",
     title: "The Heart",
+    theme: "theme-fighter",
+    accentColor: "#fb923c",
+    accentColorRgb: "251, 146, 60",
     race: "Human",
-    class: "Fighter (Battle Master)",
+    class: "Fighter",
+    subclass: "Battle Master",
     level: 6,
     alignment: "Chaotic Good",
     abilities: {

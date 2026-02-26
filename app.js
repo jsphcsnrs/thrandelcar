@@ -472,7 +472,7 @@
                     <p class="title">${char.title}</p>
                     <div class="details">
                         <span class="info-chip">${char.race}</span>
-                        <span class="info-chip class">${char.class}</span>
+                        <span class="info-chip class">${char.class} (${char.subclass})</span>
                         <span class="info-chip">Level ${char.level}</span>
                         <span class="info-chip">${char.alignment}</span>
                     </div>
@@ -867,6 +867,26 @@
             `
       }
 
+      function generateCharacterGrid() {
+        const grid = document.getElementById("character-grid")
+        grid.innerHTML = Object.entries(characters).map(([id, char]) => `
+          <div
+            class="character-card ${char.theme}"
+            style="--accent-color: ${char.accentColor}; --accent-color-rgb: ${char.accentColorRgb}"
+            onclick="showCharacter('${id}')"
+          >
+            <h2>${id.charAt(0).toUpperCase() + id.slice(1)}</h2>
+            <p class="subtitle">${char.title}</p>
+            <div class="class-info">
+              <span class="info-chip">${char.race}</span>
+              <span class="info-chip class">${char.class}</span>
+              <span class="info-chip">Level ${char.level}</span>
+            </div>
+          </div>
+        `).join("")
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
+        generateCharacterGrid()
         document.getElementById("character-selection").style.display = "block"
       })
