@@ -2926,7 +2926,7 @@
 
       // ── Resources Block Builder ──────────────────────────────────────
 
-      function generateResourcesBlock(charId) {
+      function generateResourcesBlock(charId, showRestButtons = true) {
         const char = characters[charId]
         const resources = char.shortRestResources || []
 
@@ -2967,8 +2967,14 @@
           }
         })
 
+        if (!showRestButtons) {
+          return `
+            <h3>Resources</h3>
+            <div class="resource-tracker">${inner}</div>`
+        }
+
         return `
-          <div class="stat-block">
+          <div class="stat-block" id="${charId}-resources-section">
             <div class="stat-block-header">
               <h2>Resources</h2>
               <div class="rest-buttons">
@@ -3039,6 +3045,13 @@
                             <button class="mobile-nav-tab" data-section="${charId}-spells-section" onclick="scrollToSection('${charId}-spells-section')">
                                 <i class="fa-solid fa-wand-sparkles mobile-nav-icon"></i>
                                 <span>Spells</span>
+                            </button>
+                        `
+                            : char.shortRestResources?.length
+                            ? `
+                            <button class="mobile-nav-tab" data-section="${charId}-resources-section" onclick="scrollToSection('${charId}-resources-section')">
+                                <i class="fa-solid fa-bolt mobile-nav-icon"></i>
+                                <span>Resources</span>
                             </button>
                         `
                             : ""
@@ -3138,7 +3151,7 @@
                         </div>
                     </div>
                     
-                    ${generateResourcesBlock(charId)}
+                    ${char.spells ? "" : generateResourcesBlock(charId)}
 
                     <div id="${charId}-skills-section" class="stat-block skills-block">
                         <h2>Skills</h2>
@@ -3246,9 +3259,14 @@
             html += `
                         <div class="spell-slots-header">
                             <div></div>
-                            <button class="spell-slots-reset-all" onclick="resetAllSpellSlots('${charId}')">
-                                <i class="fa-solid fa-rotate-right"></i> Reset
-                            </button>
+                            <div class="rest-buttons">
+                                <button class="spell-slots-reset-all" onclick="shortRest('${charId}')">
+                                    <i class="fa-solid fa-moon"></i> Short Rest
+                                </button>
+                                <button class="spell-slots-reset-all" onclick="longRest('${charId}')">
+                                    <i class="fa-solid fa-sun"></i> Long Rest
+                                </button>
+                            </div>
                         </div>
                         <div class="spell-slots">`
             for (const [level, slots] of Object.entries(char.spellSlots)) {
@@ -3272,6 +3290,7 @@
                         `
             }
             html += `</div>`
+            html += generateResourcesBlock(charId, false)
           }
 
           if (char.spells.cantrips) {
