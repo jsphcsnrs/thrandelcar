@@ -125,19 +125,30 @@ function updateActiveNavTab() {
   })
 }
 
-// Scroll handler: sticky nav shadow + active tab scroll-spy
+// IntersectionObserver for sticky nav shadow
+let navSentinelObserver = null
+function initNavSentinel() {
+  if (navSentinelObserver) {
+    navSentinelObserver.disconnect()
+    navSentinelObserver = null
+  }
+  const sentinel = document.querySelector(`.character-sheet.active .mobile-nav-sentinel`)
+  const mobileNav = document.querySelector(`.character-sheet.active .mobile-nav`)
+  if (!sentinel || !mobileNav) return
+  navSentinelObserver = new IntersectionObserver(
+    ([entry]) => {
+      mobileNav.classList.toggle("scrolled", !entry.isIntersecting)
+    },
+    { threshold: 0 }
+  )
+  navSentinelObserver.observe(sentinel)
+}
+
+// Scroll handler: active tab scroll-spy
 let ticking = false
 window.addEventListener("scroll", () => {
   if (!ticking) {
     window.requestAnimationFrame(() => {
-      const mobileNav = document.querySelector(".character-sheet.active .mobile-nav")
-      if (mobileNav && window.getComputedStyle(mobileNav).display !== "none") {
-        if (window.scrollY > 100) {
-          mobileNav.classList.add("scrolled")
-        } else {
-          mobileNav.classList.remove("scrolled")
-        }
-      }
       updateActiveNavTab()
       ticking = false
     })
@@ -460,6 +471,7 @@ function generateResourcesBlock(charId, showRestButtons = true) {
 // ── Initialize All Trackers ──────────────────────────────────────
 
 function initializeTrackers(charId) {
+  initNavSentinel()
   updateHPDisplay(charId)
   updateDeathSavesDisplay(charId)
   const char = characters[charId]
@@ -488,6 +500,7 @@ function generateCharacterSheet(charId, container) {
                     </div>
                 </div>
                 
+                <div class="mobile-nav-sentinel"></div>
                 <nav class="mobile-nav">
                     <div class="mobile-nav-tabs">
                         <button class="mobile-nav-tab" data-section="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
