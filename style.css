@@ -555,6 +555,12 @@
         line-height: 1;
         padding: 0;
         flex-shrink: 0;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari, Chrome, Opera */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Standard property */
       }
 
       @media (hover: hover) {
@@ -717,6 +723,12 @@
         gap: 0.5rem;
         cursor: pointer;
         transition: all 0.2s;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari, Chrome, Opera */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Standard property */
       }
 
       @media (hover: hover) {
@@ -1013,6 +1025,12 @@
         border: 1px solid var(--border-subtle);
         min-width: 80px;
         transition: all 0.2s;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari, Chrome, Opera */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Standard property */
       }
 
       @media (hover: hover) {
