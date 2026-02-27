@@ -726,7 +726,10 @@
       }
 
       .resource-name {
-        color: var(--text-secondary);
+        font-size: 0.6875rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--text-tertiary);
         font-weight: 500;
         flex: 1;
       }
