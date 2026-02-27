@@ -951,18 +951,21 @@
 
       .equipment-list li,
       .features-list li {
-        padding: 0.875rem 1rem;
-        margin-bottom: 0.5rem;
-        background: var(--bg-primary);
-        border-radius: 0.625rem;
-        border: 1px solid var(--border-subtle);
+        padding: 0.625rem 0;
+        border-bottom: 1px solid var(--border-subtle);
         font-size: 0.875rem;
         line-height: 1.5;
       }
 
+      .equipment-list li:first-child,
+      .features-list li:first-child {
+        padding-top: 0;
+      }
+
       .equipment-list li:last-child,
       .features-list li:last-child {
-        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
       }
 
       /* Spells */
