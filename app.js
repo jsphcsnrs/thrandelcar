@@ -177,6 +177,12 @@ function useSpellSlot(charId, level) {
   const totalSlots = char.spellSlots[`level${level}`].total
   const usedSlots = getUsedSlots(charId, level)
 
+  // If all slots are used, reset instead of doing nothing
+  if (usedSlots.length >= totalSlots) {
+    setUsedSlots(charId, level, [])
+    return
+  }
+
   // Find the first available slot and mark it as used
   for (let i = 0; i < totalSlots; i++) {
     if (!usedSlots.includes(i)) {
@@ -318,9 +324,9 @@ function setResourceUsed(charId, name, used) {
   updateResourceDisplay(charId, name)
 }
 
-function toggleResource(charId, name, total, index) {
+function useResource(charId, name, total) {
   const used = getResourceUsed(charId, name)
-  setResourceUsed(charId, name, used > index ? index : index + 1)
+  setResourceUsed(charId, name, used >= total ? 0 : used + 1)
 }
 
 function updateResourceDisplay(charId, name) {
@@ -415,11 +421,10 @@ function generateResourcesBlock(charId, showRestButtons = true) {
     } else {
       const boxes = Array.from(
         { length: res.uses },
-        (_, i) =>
-          `<div class="resource-box" id="${safeId}-${i}" onclick="toggleResource('${charId}','${escapedName}',${res.uses},${i})"></div>`,
+        (_, i) => `<div class="resource-box" id="${safeId}-${i}"></div>`,
       ).join("")
       inner += `
-              <div class="resource-item">
+              <div class="resource-item" style="cursor: pointer;" onclick="useResource('${charId}','${escapedName}',${res.uses})">
                 <span class="resource-name">${res.name}${res.die ? ` <span style="font-size:0.6875rem;color:var(--text-tertiary)">${res.die}</span>` : ""}</span>
                 <div class="resource-controls">
                   <div class="resource-boxes">${boxes}</div>
@@ -705,13 +710,13 @@ function generateCharacterSheet(charId, container) {
     if (char.spellSaveDC) {
       html += `
                         <div class="spell-slots">
-                            <div class="spell-slot">
-                                <div class="spell-slot-label">Spell Save DC</div>
-                                <div class="spell-slot-value">${char.spellSaveDC}</div>
+                            <div class="combat-stat-tile">
+                                <div class="combat-stat-label">Spell Save DC</div>
+                                <div class="combat-stat-value">${char.spellSaveDC}</div>
                             </div>
-                            <div class="spell-slot">
-                                <div class="spell-slot-label">Spell Attack</div>
-                                <div class="spell-slot-value">+${char.spellAttackBonus}</div>
+                            <div class="combat-stat-tile">
+                                <div class="combat-stat-label">Spell Attack</div>
+                                <div class="combat-stat-value">+${char.spellAttackBonus}</div>
                             </div>
                         </div>
                     `
