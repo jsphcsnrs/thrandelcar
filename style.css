@@ -28,6 +28,30 @@
         --hp-temp-color: #3ea743;
       }
 
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        touch-action: manipulation;
+      }
+
+      body {
+        font-family:
+          "DM Sans",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          system-ui,
+          sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        min-height: 100vh;
+        padding: clamp(1rem, 3vw, 2.5rem);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
       /* Theme Toggle Button */
       #theme-toggle {
         position: absolute;
@@ -62,30 +86,6 @@
       #theme-toggle .icon-moon { display: block; }
       [data-theme="light"] #theme-toggle .icon-sun { display: block; }
       [data-theme="light"] #theme-toggle .icon-moon { display: none; }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        touch-action: manipulation;
-      }
-
-      body {
-        font-family:
-          "DM Sans",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          system-ui,
-          sans-serif;
-        background: var(--bg-primary);
-        color: var(--text-primary);
-        min-height: 100vh;
-        padding: clamp(1rem, 3vw, 2.5rem);
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
 
       /* Character Selection Screen */
       #character-selection {
@@ -139,9 +139,8 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
         max-width: 900px;
-        margin: 0 auto;
+        margin: 2rem auto 0;
         gap: 1.25rem;
-        margin-top: 2rem;
       }
 
       .character-card {
@@ -365,12 +364,6 @@
         font-size: 1rem;
       }
 
-      @media (max-width: 768px) {
-        .mobile-nav {
-          display: block;
-        }
-      }
-
       /* Stats Grid */
       .stats-grid {
         display: grid;
@@ -420,7 +413,8 @@
         border: 1px solid var(--border-subtle);
       }
 
-      .ability-name {
+      .ability-name,
+      .combat-stat-label {
         font-size: 0.6875rem;
         color: var(--text-tertiary);
         margin-bottom: 0.5rem;
@@ -429,7 +423,8 @@
         letter-spacing: 0.08em;
       }
 
-      .ability-score {
+      .ability-score,
+      .combat-stat-value {
         font-size: 1.75rem;
         color: var(--accent-color);
         font-weight: 700;
@@ -485,22 +480,6 @@
         padding: 1rem 0.75rem;
         border-radius: 0.75rem;
         border: 1px solid var(--border-subtle);
-      }
-
-      .combat-stat-label {
-        font-size: 0.6875rem;
-        color: var(--text-tertiary);
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-      }
-
-      .combat-stat-value {
-        font-size: 1.75rem;
-        color: var(--accent-color);
-        font-weight: 700;
-        line-height: 1;
       }
 
       .combat-stat-subtext {
@@ -705,7 +684,6 @@
 
       .resource-tracker {
         display: flex;
-        flex-direction: row;
         flex-wrap: wrap;
         gap: 0.5rem;
       }
@@ -1048,7 +1026,7 @@
 
       .spell-slots-header {
         display: flex;
-        justify-content: left;
+        justify-content: flex-start;
         align-items: center;
         margin-bottom: 1rem;
       }
@@ -1160,7 +1138,6 @@
         color: var(--text-secondary);
         white-space: nowrap;
         flex-shrink: 0;
-        width: auto;
       }
 
       .spell-meta-icon {
@@ -1230,6 +1207,10 @@
 
       /* Mobile Responsive */
       @media (max-width: 768px) {
+        .mobile-nav {
+          display: block;
+        }
+
         .character-grid {
           grid-template-columns: 1fr;
         }
