@@ -485,12 +485,9 @@ function initializeTrackers(charId) {
 
 function generateFeatureCard(feature) {
   return `
-                <div class="spell-card">
-                    <div class="spell-header">
-                        <span class="spell-name">${feature.name}</span>
-                        <i class="fa-solid fa-chevron-down expand-icon"></i>
-                    </div>
-                    <div class="spell-description">${formatSpellDesc(feature.description)}</div>
+                <div class="info-card">
+                    <span class="info-card-name">${feature.name}</span>
+                    <div class="info-card-description">${formatSpellDesc(feature.description)}</div>
                 </div>
             `
 }
@@ -829,7 +826,7 @@ function generateCharacterSheet(charId, container) {
                 <div id="${charId}-features-section" class="stats-grid">
                     <div class="stat-block">
                         <h2>Key Features</h2>
-                        <div class="spell-list">
+                        <div class="info-list">
                             ${char.features.map((f) => generateFeatureCard(f)).join("")}
                         </div>
                     </div>
@@ -840,7 +837,7 @@ function generateCharacterSheet(charId, container) {
     html += `
                     <div class="stat-block">
                         <h2>Battle Maneuvers</h2>
-                        <div class="spell-list">
+                        <div class="info-list">
                             ${char.maneuvers.map((m) => generateFeatureCard(m)).join("")}
                         </div>
                     </div>
@@ -851,7 +848,7 @@ function generateCharacterSheet(charId, container) {
   html += `
                     <div id="${charId}-equipment-section" class="stat-block">
                         <h2>Equipment</h2>
-                        <div class="spell-list">
+                        <div class="info-list">
                             ${char.equipment.map((item) => generateFeatureCard(item)).join("")}
                         </div>
                     </div>
