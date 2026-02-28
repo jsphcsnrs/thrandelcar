@@ -73,19 +73,60 @@ const characters = {
       { name: "Survival", bonus: 1, proficient: false },
     ],
     features: [
-      "Portent: Roll 2d20 after long rest, replace any roll during the day",
-      "Arcane Recovery: Recover spell slots during short rest (up to level 3)",
-      "Darkvision: 60 ft",
-      "Fey Ancestry: Advantage vs charm, immune to sleep magic",
-      "Ritual Casting: Cast wizard spells as rituals",
+      {
+        name: "Portent",
+        description: "After a long rest, roll 2d20 and record the results. You can replace any attack roll, saving throw, or ability check made by you or a creature you can see with one of these rolls. You must choose to do so before the roll, and each portent die can only be used once per day.",
+      },
+      {
+        name: "Expert Divination",
+        description: "When you cast a divination spell of 2nd level or higher using a spell slot, you regain one expended spell slot. The slot you regain must be of a level lower than the spell you cast and can be no higher than 5th level.",
+      },
+      {
+        name: "Arcane Recovery",
+        description: "Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level equal to or less than 3, and none of the slots can be 6th level or higher.",
+      },
+      {
+        name: "Darkvision",
+        description: "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
+      },
+      {
+        name: "Fey Ancestry",
+        description: "You have advantage on saving throws against being charmed, and magic can't put you to sleep.",
+      },
+      {
+        name: "Ritual Casting",
+        description: "You can cast a wizard spell as a ritual if that spell has the ritual tag and you have the spell in your spellbook. You don't need to have the spell prepared.",
+      },
+      {
+        name: "Researcher",
+        description: "When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, a sage or other learned person or creature.",
+      },
     ],
     equipment: [
-      "Spellbook",
-      "Arcane focus (crystal orb)",
-      "Lens of Translation (advantage on ancient texts)",
-      "Component pouch",
-      "Dagger",
-      "Scholar's pack",
+      {
+        name: "Spellbook",
+        description: "A leather-bound tome filled with meticulous notes and the formulas for all your known spells. Contains every spell in your repertoire.",
+      },
+      {
+        name: "Arcane Focus (Crystal Orb)",
+        description: "A crystal orb used as your arcane spellcasting focus, replacing the need for material components without a listed cost.",
+      },
+      {
+        name: "Lens of Translation",
+        description: "A magical lens. When you examine ancient text through it for 1 minute, you gain advantage on ability checks to decipher the writing.",
+      },
+      {
+        name: "Component Pouch",
+        description: "A small, watertight leather pouch with compartments to hold all the material components needed to cast your spells, except for those with a specific listed cost.",
+      },
+      {
+        name: "Dagger",
+        description: "A simple melee weapon. 1d4 piercing damage. Properties: Finesse, Light, Thrown (range 20/60 ft.).",
+      },
+      {
+        name: "Scholar's Pack",
+        description: "Includes a backpack, a book of lore, a bottle of ink, an ink pen, 10 sheets of parchment, a little bag of sand, and a small knife.",
+      },
     ],
     spells: {
       cantrips: [
@@ -202,21 +243,60 @@ const characters = {
       { name: "Survival", bonus: 3, proficient: false },
     ],
     features: [
-      "Disciple of Life: Healing spells restore +2 + spell level HP",
-      "Channel Divinity: Preserve Life (30 HP pool to distribute)",
-      "Channel Divinity: Turn Undead",
-      "Destroy Undead (CR 1/2 or lower)",
-      "Darkvision: 60 ft",
-      "Dwarven Resilience: Advantage vs poison, resistance to poison damage",
+      {
+        name: "Disciple of Life",
+        description: "Your healing spells are more effective. Whenever you use a spell of 1st level or higher to restore hit points to a creature, the creature regains additional hit points equal to 2 + the spell's level.",
+      },
+      {
+        name: "Blessed Healer",
+        description: "The healing spells you cast on others heal you as well. When you cast a healing spell of 1st level or higher that restores hit points to a creature other than you, you regain hit points equal to 2 + the spell's level.",
+      },
+      {
+        name: "Channel Divinity: Preserve Life",
+        description: "As an action, you present your holy symbol and evoke healing energy that can restore a number of hit points equal to five times your cleric level (30 HP). Choose any creatures within 30 feet of you and divide those hit points among them. This feature can restore a creature to no more than half of its hit point maximum. You can't use this feature on an undead or a construct.",
+      },
+      {
+        name: "Channel Divinity: Turn Undead",
+        description: "As an action, you present your holy symbol and speak a prayer censuring the undead. Each undead that can see or hear you within 30 feet must make a Wisdom saving throw. If it fails, it is turned for 1 minute or until it takes any damage. Any undead of CR 1/2 or lower that fails this saving throw is instantly destroyed.",
+      },
+      {
+        name: "Darkvision",
+        description: "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
+      },
+      {
+        name: "Dwarven Resilience",
+        description: "You have advantage on saving throws against poison, and you have resistance against poison damage.",
+      },
     ],
     equipment: [
-      "Warhammer",
-      "Shield with holy symbol",
-      "Chain mail",
-      "Amulet of the Steadfast (reduce to 1 HP instead of 0, 1/long rest)",
-      "Holy symbol",
-      "Prayer book",
-      "Healer's kit",
+      {
+        name: "Warhammer",
+        description: "A martial melee weapon. 1d8+3 bludgeoning damage. Versatile: 1d10+3 when wielded with two hands. +6 to hit.",
+      },
+      {
+        name: "Shield with Holy Symbol",
+        description: "A shield bearing Barak's holy symbol. Grants +2 AC. The holy symbol serves as his divine spellcasting focus.",
+      },
+      {
+        name: "Chain Mail",
+        description: "Heavy armor providing AC 16. Disadvantage on Stealth checks. Dwarves are proficient with heavy armor as part of their racial traits.",
+      },
+      {
+        name: "Amulet of the Steadfast",
+        description: "Once per long rest, when you would be reduced to 0 hit points, you are reduced to 1 hit point instead.",
+      },
+      {
+        name: "Holy Symbol",
+        description: "An amulet depicting your deity's symbol, used as a divine spellcasting focus.",
+      },
+      {
+        name: "Prayer Book",
+        description: "A worn book of prayers, devotional passages, and records of miracles attributed to your deity.",
+      },
+      {
+        name: "Healer's Kit",
+        description: "A pouch containing bandages, salves, and splints. Has 10 uses. As an action, you can expend one use to stabilize a creature at 0 hit points without requiring a Medicine check.",
+      },
     ],
     spells: {
       cantrips: [{ id: "sacred-flame" }, { id: "spare-the-dying" }, { id: "guidance" }],
@@ -315,21 +395,72 @@ const characters = {
       { name: "Survival", bonus: 1, proficient: false },
     ],
     features: [
-      "Stone's Endurance: Reduce damage by 1d12+3 (1/short rest)",
-      "Protection Fighting Style: Impose disadvantage on attack against ally",
-      "Lay on Hands: 30 HP healing pool",
-      "Divine Smite: Expend spell slot for extra radiant damage",
-      "Aura of Protection: +2 to saving throws for allies within 10 ft",
-      "Rebuke the Violent: Reflect damage back to attacker",
-      "Powerful Build: Count as one size larger for carrying capacity",
+      {
+        name: "Stone's Endurance",
+        description: "Once per short rest, when you take damage, you can use your reaction to roll a d12 and add your Constitution modifier to the number rolled, reducing the damage by the total (1d12+3).",
+      },
+      {
+        name: "Protection Fighting Style",
+        description: "When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.",
+      },
+      {
+        name: "Lay on Hands",
+        description: "Your blessed touch can heal wounds. You have a pool of 30 hit points that replenishes after a long rest. As an action, you can touch a creature and draw power from the pool to restore any number of hit points, up to the maximum remaining. You can also expend 5 hit points from your pool to cure a disease or neutralize a poison affecting a creature.",
+      },
+      {
+        name: "Divine Smite",
+        description: "When you hit a creature with a melee weapon attack, you can expend one spell slot to deal radiant damage to the target in addition to the weapon's damage. The extra damage is 2d8 for a 1st-level spell slot, plus 1d8 for each spell level higher than 1st, to a maximum of 5d8. The damage increases by 1d8 if the target is an undead or a fiend.",
+      },
+      {
+        name: "Aura of Protection",
+        description: "Whenever you or a friendly creature within 10 feet of you must make a saving throw, the creature gains a +2 bonus to the saving throw (your Charisma modifier). You must be conscious to grant this bonus.",
+      },
+      {
+        name: "Channel Divinity: Rebuke the Violent",
+        description: "Immediately after an attacker within 30 feet of you deals damage with an attack against a creature other than you, you can use your reaction to force the attacker to make a Wisdom saving throw (DC 13). On a failed save, the attacker takes radiant damage equal to the damage it just dealt. On a successful save, it takes half as much.",
+      },
+      {
+        name: "Channel Divinity: Emissary of Peace",
+        description: "As a bonus action, you grant yourself a +5 bonus to Charisma (Persuasion) checks for the next 10 minutes.",
+      },
+      {
+        name: "Divine Sense",
+        description: "As an action, you open your awareness to detect powerful forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You can use this feature 4 times per long rest.",
+      },
+      {
+        name: "Powerful Build",
+        description: "You count as one size larger when determining your carrying capacity and the weight you can push, drag, or lift.",
+      },
+      {
+        name: "Mountain Born",
+        description: "You're acclimated to high altitude, including elevations above 20,000 feet. You're also naturally adapted to cold climates.",
+      },
     ],
     equipment: [
-      "Maul",
-      "Shield with protective runes",
-      "Chain mail",
-      "Bracers of Shielding (teleport to ally and grant resistance, 1/long rest)",
-      "Holy symbol",
-      "Healing potions (2)",
+      {
+        name: "Maul",
+        description: "A heavy, two-handed martial melee weapon. 2d6+3 bludgeoning damage. +6 to hit. Properties: Heavy, Two-handed.",
+      },
+      {
+        name: "Shield with Protective Runes",
+        description: "A shield carved with ancient protective runes. Grants +2 AC. The holy symbol embedded in the face serves as Tenoch's divine spellcasting focus.",
+      },
+      {
+        name: "Chain Mail",
+        description: "Heavy armor providing AC 16. Disadvantage on Stealth checks.",
+      },
+      {
+        name: "Bracers of Shielding",
+        description: "When an ally within 10 feet of you would take damage, you can use your reaction to teleport adjacent to them and grant them resistance to that damage until the start of your next turn.",
+      },
+      {
+        name: "Holy Symbol",
+        description: "A symbol of your divine oath embedded in your shield. Serves as your divine spellcasting focus.",
+      },
+      {
+        name: "Healing Potions (2)",
+        description: "A vial of red liquid. As an action, you or someone else can drink it to regain 2d4+2 hit points.",
+      },
     ],
     spells: {
       level1: [
@@ -436,22 +567,68 @@ const characters = {
       { name: "Survival", bonus: 1, proficient: false },
     ],
     features: [
-      "Sneak Attack: +3d6 damage when you have advantage",
-      "Nimble Escape: Bonus action to Disengage or Hide",
-      "Fury of the Small: Deal extra damage = your level (1/short rest)",
-      "Evasion: Take no damage on successful DEX save (half on fail)",
-      "Cunning Action: Bonus action Dash, Disengage, or Hide",
-      "Uncanny Dodge: Use reaction to halve damage from an attack",
-      "Darkvision: 60 ft",
+      {
+        name: "Sneak Attack",
+        description: "Once per turn, you can deal an extra 3d6 damage to one creature you hit with an attack if you have advantage on the attack roll, or if another enemy of the target is within 5 feet of it (that enemy isn't incapacitated) and you don't have disadvantage on the attack roll.",
+      },
+      {
+        name: "Nimble Escape",
+        description: "You can take the Disengage or Hide action as a bonus action on each of your turns.",
+      },
+      {
+        name: "Fury of the Small",
+        description: "Once per short rest, when you damage a creature with an attack or a spell and the creature's size is larger than yours, you can cause the attack or spell to deal extra damage equal to your level (6).",
+      },
+      {
+        name: "Evasion",
+        description: "When you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage if you succeed on the saving throw, and only half damage if you fail.",
+      },
+      {
+        name: "Cunning Action",
+        description: "Your quick thinking and agility allow you to move and act quickly. You can take a bonus action on each of your turns in combat to take the Dash, Disengage, or Hide action.",
+      },
+      {
+        name: "Uncanny Dodge",
+        description: "When an attacker that you can see hits you with an attack, you can use your reaction to halve the attack's damage against you.",
+      },
+      {
+        name: "Mage Hand Legerdemain",
+        description: "When you cast Mage Hand, you can make the spectral hand invisible. You can use it to stow or retrieve an item from a container worn or carried by another creature, use thieves' tools to pick locks and disarm traps at range, or perform other tasks normally requiring Sleight of Hand.",
+      },
+      {
+        name: "Darkvision",
+        description: "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
+      },
     ],
     equipment: [
-      "Two shortswords",
-      "Shortbow with 20 arrows",
-      "Studded leather armor",
-      "Thieves' tools",
-      "Gloves of Flame-Catching (catch and throw fire attacks)",
-      "Flasks of oil (5)",
-      "Grappling hook and rope",
+      {
+        name: "Two Shortswords",
+        description: "Light, finesse melee weapons. 1d6+4 piercing damage each. +7 to hit. Can be used for two-weapon fighting.",
+      },
+      {
+        name: "Shortbow with 20 Arrows",
+        description: "A ranged weapon. 1d6+4 piercing damage. +7 to hit. Range 80/320 ft. Sneak Attack applies on ranged attacks.",
+      },
+      {
+        name: "Studded Leather Armor",
+        description: "Light armor made from tough leather embedded with close-set rivets. AC 12 + Dex modifier (16 total). No disadvantage on Stealth.",
+      },
+      {
+        name: "Thieves' Tools",
+        description: "Includes a small file, lock picks, a small mirror, narrow-bladed scissors, and pliers. Proficiency grants +10 to Dexterity checks to pick locks or disarm traps.",
+      },
+      {
+        name: "Gloves of Flame-Catching",
+        description: "When a fire-based attack targets you, you can use your reaction to attempt to catch it (Dexterity save DC 15). On a success, you negate the damage and store the fire. On your next turn, you can throw it as a ranged spell attack (+5) dealing the original damage.",
+      },
+      {
+        name: "Flasks of Oil (5)",
+        description: "Can be used to coat a weapon (bonus fire damage on next hit) or thrown to create a slick surface (DC 10 Dexterity save or fall prone).",
+      },
+      {
+        name: "Grappling Hook and Rope",
+        description: "A grappling hook attached to 50 feet of hempen rope. Can be used to climb surfaces, cross gaps, or secure to anchor points.",
+      },
     ],
     spells: {
       cantrips: [
@@ -556,24 +733,76 @@ const characters = {
       { name: "Survival", bonus: 9, proficient: true },
     ],
     features: [
-      "Archery Fighting Style: +2 to ranged attack rolls",
-      "Colossus Slayer: Extra 1d8 damage to damaged creatures (1/turn)",
-      "Extra Attack: Attack twice per Attack action",
-      "Favored Enemy: Advantage on tracking and Intelligence checks",
-      "Natural Explorer: Double proficiency on Int/Wis checks in favored terrain",
-      "Primeval Awareness: Detect aberrations, celestials, dragons, elementals, fey, fiends, undead",
-      "Darkvision: 60 ft",
-      "Mask of the Wild: Hide when lightly obscured",
-      "Fleet of Foot: +5 ft movement speed",
+      {
+        name: "Archery Fighting Style",
+        description: "You gain a +2 bonus to attack rolls you make with ranged weapons.",
+      },
+      {
+        name: "Colossus Slayer",
+        description: "Your tenacity can wear down the most potent foes. When you hit a creature with a weapon attack, the creature takes an extra 1d8 damage if it's below its hit point maximum. You can deal this extra damage only once per turn.",
+      },
+      {
+        name: "Extra Attack",
+        description: "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+      },
+      {
+        name: "Favored Enemy: Monstrosities",
+        description: "You have significant experience studying, tracking, hunting, and even talking to monstrosities. You have advantage on Wisdom (Survival) checks to track them, as well as on Intelligence checks to recall information about them.",
+      },
+      {
+        name: "Natural Explorer: Mountains",
+        description: "Difficult terrain doesn't slow your group's travel. Your group can't become lost except by magical means. You remain alert to danger even when engaged in another activity. You can move stealthily at a normal pace when alone. You find twice as much food when you forage.",
+      },
+      {
+        name: "Primeval Awareness",
+        description: "You can use your action and expend one ranger spell slot to focus your awareness on the region around you. For 1 minute per level of the spell slot you expend, you can sense whether any aberrations, celestials, dragons, elementals, fey, fiends, or undead are present within 1 mile of you.",
+      },
+      {
+        name: "Darkvision",
+        description: "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.",
+      },
+      {
+        name: "Mask of the Wild",
+        description: "You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena.",
+      },
+      {
+        name: "Fey Ancestry",
+        description: "You have advantage on saving throws against being charmed, and magic can't put you to sleep.",
+      },
+      {
+        name: "Fleet of Foot",
+        description: "Your base walking speed increases by 5 feet (to 35 ft.).",
+      },
     ],
     equipment: [
-      "Longbow (+8 to hit, 1d8+6 damage)",
-      "40 arrows",
-      "Two shortswords",
-      "Studded leather armor",
-      "Eagle-Eye Sight (see up to 1 mile, advantage on first attack)",
-      "Climber's kit",
-      "Hunting trap",
+      {
+        name: "Longbow",
+        description: "A martial ranged weapon. 1d8+6 piercing damage. +8 to hit. Range 150/600 ft. Two-handed. With Archery Fighting Style and Extra Attack, the primary offensive tool.",
+      },
+      {
+        name: "40 Arrows",
+        description: "Standard ammunition for the longbow.",
+      },
+      {
+        name: "Two Shortswords",
+        description: "Light, finesse melee weapons. 1d6+4 piercing damage each. +7 to hit. Used when enemies close to melee range.",
+      },
+      {
+        name: "Studded Leather Armor",
+        description: "Light armor made from tough leather embedded with close-set rivets. AC 12 + Dex modifier (16 total). Allows full Dexterity bonus and no disadvantage on Stealth.",
+      },
+      {
+        name: "Eagle-Eye Sight",
+        description: "A magical monocle. Once per short rest, you can focus on a distant target up to 1 mile away for 1 minute, seeing them as if standing 10 feet away. Your first ranged attack against them has advantage and ignores half and three-quarters cover.",
+      },
+      {
+        name: "Climber's Kit",
+        description: "Includes special pitons, boot tips, gloves, and a harness. You can use it as an action to anchor yourself; when anchored, you can't fall more than 25 feet from the anchor point.",
+      },
+      {
+        name: "Hunting Trap",
+        description: "A serrated steel trap. When set, it snaps shut when a creature steps on its pressure plate. The creature must succeed on a DC 13 Dexterity saving throw or take 1d4 piercing damage and stop moving.",
+      },
     ],
     spells: {
       level1: [
@@ -666,12 +895,30 @@ const characters = {
       { name: "Survival", bonus: 0, proficient: false },
     ],
     features: [
-      "Combat Superiority: 4 superiority dice (d8)",
-      "Maneuvers: Riposte, Goading Attack, Rally, Menacing Attack",
-      "Second Wind: Regain 1d10+6 HP as bonus action (1/short rest)",
-      "Action Surge: Take additional action (1/short rest)",
-      "Extra Attack: Attack twice per Attack action",
-      "Fighting Style: Defense (+1 AC while wearing armor)",
+      {
+        name: "Combat Superiority",
+        description: "You have 4 superiority dice (d8s). A superiority die is expended when you use it. You regain all expended superiority dice when you finish a short or long rest.",
+      },
+      {
+        name: "Second Wind",
+        description: "On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level (1d10+6). Once you use this feature, you must finish a short or long rest before you can use it again.",
+      },
+      {
+        name: "Action Surge",
+        description: "On your turn, you can push yourself beyond your normal limits. You can take one additional action. Once you use this feature, you must finish a short or long rest before you can use it again.",
+      },
+      {
+        name: "Extra Attack",
+        description: "You can attack twice, instead of once, whenever you take the Attack action on your turn.",
+      },
+      {
+        name: "Fighting Style: Defense",
+        description: "While you are wearing armor, you gain a +1 bonus to AC.",
+      },
+      {
+        name: "Know Your Enemy",
+        description: "If you spend at least 1 minute observing or interacting with another creature outside combat, you can learn certain information about its capabilities compared to your own. The DM tells you if the creature is your equal, superior, or inferior in two characteristics of your choice: Strength, Dexterity, Constitution, AC, current HP, total class levels, or fighter levels.",
+      },
     ],
     maneuvers: [
       {
@@ -696,12 +943,30 @@ const characters = {
       },
     ],
     equipment: [
-      "Longsword",
-      "Shield with personal emblem",
-      "Plate armor",
-      "Ring of the Inspiring Fool (Rally grants advantage; 1/long rest succeed on failed CHA check)",
-      "Lucky coin",
-      "Backpack with rations",
+      {
+        name: "Longsword",
+        description: "A versatile martial melee weapon. 1d8+3 slashing damage. Versatile: 1d10+3 when wielded with two hands. +6 to hit.",
+      },
+      {
+        name: "Shield with Personal Emblem",
+        description: "A shield bearing Karyl's personal emblem. Grants +2 AC.",
+      },
+      {
+        name: "Plate Armor",
+        description: "The heaviest armor available, made of shaped metal plates. AC 18. Disadvantage on Stealth checks. Requires Strength 15 to wear.",
+      },
+      {
+        name: "Ring of the Inspiring Fool",
+        description: "When you use your Rally maneuver, the target also gains advantage on their next attack roll. Additionally, once per long rest, when you fail a Charisma check, you can choose to succeed instead.",
+      },
+      {
+        name: "Lucky Coin",
+        description: "A well-worn coin that Karyl flips constantly while talking. It's just a coin — but somehow it always feels lucky.",
+      },
+      {
+        name: "Backpack with Rations",
+        description: "A sturdy backpack containing food rations sufficient for travel.",
+      },
     ],
     hitDie: 10,
     shortRestResources: [

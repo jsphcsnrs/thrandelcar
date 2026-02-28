@@ -156,9 +156,9 @@ window.addEventListener("scroll", () => {
   }
 })
 
-function toggleSpellDescription(event) {
-  const spellCard = event.currentTarget
-  spellCard.classList.toggle("expanded")
+function toggleExpandableCard(event) {
+  const card = event.currentTarget
+  card.classList.toggle("expanded")
 }
 
 // Spell Slot Tracking with localStorage
@@ -481,6 +481,18 @@ function initializeTrackers(charId) {
       else updateResourceDisplay(charId, res.name)
     })
   }
+}
+
+function generateFeatureCard(feature) {
+  return `
+                <div class="spell-card">
+                    <div class="spell-header">
+                        <span class="spell-name">${feature.name}</span>
+                        <i class="fa-solid fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="spell-description">${formatSpellDesc(feature.description)}</div>
+                </div>
+            `
 }
 
 function generateCharacterSheet(charId, container) {
@@ -817,9 +829,9 @@ function generateCharacterSheet(charId, container) {
                 <div id="${charId}-features-section" class="stats-grid">
                     <div class="stat-block">
                         <h2>Key Features</h2>
-                        <ul class="features-list">
-                            ${char.features.map((feature) => `<li>${feature}</li>`).join("")}
-                        </ul>
+                        <div class="spell-list">
+                            ${char.features.map((f) => generateFeatureCard(f)).join("")}
+                        </div>
                     </div>
             `
 
@@ -828,9 +840,9 @@ function generateCharacterSheet(charId, container) {
     html += `
                     <div class="stat-block">
                         <h2>Battle Maneuvers</h2>
-                        <ul class="features-list">
-                            ${char.maneuvers.map((m) => `<li><strong>${m.name}:</strong> ${m.description}</li>`).join("")}
-                        </ul>
+                        <div class="spell-list">
+                            ${char.maneuvers.map((m) => generateFeatureCard(m)).join("")}
+                        </div>
                     </div>
                 `
   }
@@ -839,9 +851,9 @@ function generateCharacterSheet(charId, container) {
   html += `
                     <div id="${charId}-equipment-section" class="stat-block">
                         <h2>Equipment</h2>
-                        <ul class="equipment-list">
-                            ${char.equipment.map((item) => `<li>${item}</li>`).join("")}
-                        </ul>
+                        <div class="spell-list">
+                            ${char.equipment.map((item) => generateFeatureCard(item)).join("")}
+                        </div>
                     </div>
                 </div>
             `
@@ -849,7 +861,7 @@ function generateCharacterSheet(charId, container) {
   container.innerHTML = html
 
   container.querySelectorAll(".spell-card").forEach((card) => {
-    card.addEventListener("click", toggleSpellDescription)
+    card.addEventListener("click", toggleExpandableCard)
   })
 
   // Initialize spell slot tracking and HP/resource trackers
